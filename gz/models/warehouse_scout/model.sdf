@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- tools/gen_vehicle.py tarafından üretildi -- elle düzenlemeyin.
+     Kamera ayarları için config/warehouse.yaml -> cameras,
+     navigasyon sensörleri için -> sensors. -->
+<sdf version="1.9">
+  <model name="warehouse_scout">
+    <!-- Gövde, rotorlar, motor eklentileri ve IMU/mag/baro x500'den gelir. -->
+    <include merge="true">
+      <uri>model://x500</uri>
+    </include>
+
+    <!-- ================= front kamera ================= -->
+    <link name="camera_front_link">
+      <pose relative_to="base_link">0.2 0 0.05 0 0 0</pose>
+      <inertial>
+        <mass>0.03</mass>
+        <inertia>
+          <ixx>2.5e-05</ixx><ixy>0</ixy><ixz>0</ixz>
+          <iyy>2.5e-05</iyy><iyz>0</iyz>
+          <izz>2.5e-05</izz>
+        </inertia>
+      </inertial>
+      <visual name="camera_front_link_housing">
+        <geometry><box><size>0.025 0.035 0.030</size></box></geometry>
+        <material>
+          <ambient>0.05 0.05 0.06 1</ambient>
+          <diffuse>0.12 0.12 0.14 1</diffuse>
+          <specular>0.2 0.2 0.2 1</specular>
+        </material>
+      </visual>
+      <visual name="camera_front_link_lens">
+        <pose>0.014 0 0 0 1.5707963 0</pose>
+        <geometry><cylinder><radius>0.009</radius><length>0.008</length></cylinder></geometry>
+        <material>
+          <ambient>0.25 0.25 0.32 1</ambient>
+          <diffuse>0.30 0.30 0.38 1</diffuse>
+          <specular>0.9 0.9 0.9 1</specular>
+        </material>
+      </visual>
+      <sensor name="camera_front" type="camera">
+        <pose>0 0 0 0 0 0</pose>
+        <topic>warehouse_scout/camera_front/image</topic>
+        <camera>
+          <horizontal_fov>1.05</horizontal_fov>
+          <image>
+            <width>1920</width>
+            <height>1080</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.05</near>
+            <far>40</far>
+          </clip>
+          <!-- Gürültü kasıtlı olarak kapalı: barkod okunabilirliğinin
+               taban çizgisi burada kurulur. Sağlamlık testi için sentetik
+               veri aşamasında gürültü/bulanıklık eklenecek. -->
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>20</update_rate>
+        <visualize>false</visualize>
+      </sensor>
+      <gravity>true</gravity>
+      <velocity_decay/>
+    </link>
+    <joint name="camera_front_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>camera_front_link</child>
+    </joint>
+
+    <!-- ================= down kamera ================= -->
+    <link name="camera_down_link">
+      <pose relative_to="base_link">0 0 -0.08 0 1.5708 0</pose>
+      <inertial>
+        <mass>0.03</mass>
+        <inertia>
+          <ixx>2.5e-05</ixx><ixy>0</ixy><ixz>0</ixz>
+          <iyy>2.5e-05</iyy><iyz>0</iyz>
+          <izz>2.5e-05</izz>
+        </inertia>
+      </inertial>
+      <visual name="camera_down_link_housing">
+        <geometry><box><size>0.025 0.035 0.030</size></box></geometry>
+        <material>
+          <ambient>0.05 0.05 0.06 1</ambient>
+          <diffuse>0.12 0.12 0.14 1</diffuse>
+          <specular>0.2 0.2 0.2 1</specular>
+        </material>
+      </visual>
+      <visual name="camera_down_link_lens">
+        <pose>0.014 0 0 0 1.5707963 0</pose>
+        <geometry><cylinder><radius>0.009</radius><length>0.008</length></cylinder></geometry>
+        <material>
+          <ambient>0.25 0.25 0.32 1</ambient>
+          <diffuse>0.30 0.30 0.38 1</diffuse>
+          <specular>0.9 0.9 0.9 1</specular>
+        </material>
+      </visual>
+      <sensor name="camera_down" type="camera">
+        <pose>0 0 0 0 0 0</pose>
+        <topic>warehouse_scout/camera_down/image</topic>
+        <camera>
+          <horizontal_fov>1.4</horizontal_fov>
+          <image>
+            <width>1280</width>
+            <height>720</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.05</near>
+            <far>40</far>
+          </clip>
+          <!-- Gürültü kasıtlı olarak kapalı: barkod okunabilirliğinin
+               taban çizgisi burada kurulur. Sağlamlık testi için sentetik
+               veri aşamasında gürültü/bulanıklık eklenecek. -->
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>20</update_rate>
+        <visualize>false</visualize>
+      </sensor>
+      <gravity>true</gravity>
+      <velocity_decay/>
+    </link>
+    <joint name="camera_down_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>camera_down_link</child>
+    </joint>
+
+    <!-- ================= back kamera ================= -->
+    <link name="camera_back_link">
+      <pose relative_to="base_link">-0.2 0 0.05 0 0 3.14159</pose>
+      <inertial>
+        <mass>0.03</mass>
+        <inertia>
+          <ixx>2.5e-05</ixx><ixy>0</ixy><ixz>0</ixz>
+          <iyy>2.5e-05</iyy><iyz>0</iyz>
+          <izz>2.5e-05</izz>
+        </inertia>
+      </inertial>
+      <visual name="camera_back_link_housing">
+        <geometry><box><size>0.025 0.035 0.030</size></box></geometry>
+        <material>
+          <ambient>0.05 0.05 0.06 1</ambient>
+          <diffuse>0.12 0.12 0.14 1</diffuse>
+          <specular>0.2 0.2 0.2 1</specular>
+        </material>
+      </visual>
+      <visual name="camera_back_link_lens">
+        <pose>0.014 0 0 0 1.5707963 0</pose>
+        <geometry><cylinder><radius>0.009</radius><length>0.008</length></cylinder></geometry>
+        <material>
+          <ambient>0.25 0.25 0.32 1</ambient>
+          <diffuse>0.30 0.30 0.38 1</diffuse>
+          <specular>0.9 0.9 0.9 1</specular>
+        </material>
+      </visual>
+      <sensor name="camera_back" type="camera">
+        <pose>0 0 0 0 0 0</pose>
+        <topic>warehouse_scout/camera_back/image</topic>
+        <camera>
+          <horizontal_fov>1.2</horizontal_fov>
+          <image>
+            <width>1280</width>
+            <height>720</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.05</near>
+            <far>40</far>
+          </clip>
+          <!-- Gürültü kasıtlı olarak kapalı: barkod okunabilirliğinin
+               taban çizgisi burada kurulur. Sağlamlık testi için sentetik
+               veri aşamasında gürültü/bulanıklık eklenecek. -->
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>15</update_rate>
+        <visualize>false</visualize>
+      </sensor>
+      <gravity>true</gravity>
+      <velocity_decay/>
+    </link>
+    <joint name="camera_back_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>camera_back_link</child>
+    </joint>
+
+    <!-- ================= optik akış ================= -->
+    <include merge="true">
+      <uri>model://optical_flow</uri>
+      <pose relative_to="base_link">0.03 0 -0.1 0 0 0</pose>
+    </include>
+    <joint name="optical_flow_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>flow_link</child>
+    </joint>
+
+    <!-- ============= aşağı bakan mesafe ölçer =============
+         Tek ışın (samples=1). pitch=1.57 + sensörün kendi roll=3.14'ü
+         birlikte ışını aşağı çeviriyor; PX4 köprüsü sensörün DÜNYA
+         yönelimine bakıp "aşağı bakan" kararını buradan veriyor, o yüzden
+         bu iki dönüş x500_flow referansıyla birebir aynı tutuldu. -->
+    <link name="lidar_sensor_link">
+      <pose relative_to="base_link">0 0 -0.05 0 1.5707963 0</pose>
+      <inertial>
+        <mass>0.001</mass>
+        <inertia>
+          <ixx>1e-05</ixx><ixy>0</ixy><ixz>0</ixz>
+          <iyy>1e-05</iyy><iyz>0</iyz>
+          <izz>1e-05</izz>
+        </inertia>
+      </inertial>
+      <sensor name="lidar" type="gpu_lidar">
+        <pose>0 0 0 3.14 0 0</pose>
+        <update_rate>50</update_rate>
+        <ray>
+          <scan>
+            <horizontal><samples>1</samples><resolution>1</resolution>
+              <min_angle>0</min_angle><max_angle>0</max_angle></horizontal>
+            <vertical><samples>1</samples><resolution>1</resolution>
+              <min_angle>0</min_angle><max_angle>0</max_angle></vertical>
+          </scan>
+          <range>
+            <min>0.1</min>
+            <max>30</max>
+            <resolution>0.01</resolution>
+          </range>
+        </ray>
+        <always_on>1</always_on>
+        <visualize>false</visualize>
+      </sensor>
+    </link>
+    <joint name="lidar_sensor_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>lidar_sensor_link</child>
+    </joint>
+  </model>
+</sdf>

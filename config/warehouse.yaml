@@ -1,0 +1,191 @@
+# Depo simülasyon ortamı yapılandırması
+# Tüm ölçüler metre, açılar radyan.
+#
+# OKUNABİLİRLİK BÜTÇESİ (tools/gen_labels.py --budget ile doğrulanır)
+#   Bir kodun çözülebilmesi için render edilmiş görüntüde modül (en küçük
+#   kare/çubuk) başına >= 3 piksel gerekir; 4+ piksel rahat bölgedir.
+#   px_per_m(d) = genislik_px / (2 * d * tan(hfov/2))
+#   Koridor merkezinden raf yüzüne mesafe = 3.0 / 2 = 1.5 m
+#
+#   DİKKAT: aşağıdaki `code` ölçüleri sadece kodun kendisidir, quiet zone
+#   (sessiz alan) hariçtir. Etiketin toplam boyutu `label`tır. Kodu etiket
+#   boyutuna eşitlemek quiet zone'u yok eder ve modül boyutunu küçültür;
+#   bu yüzden ikisi ayrı tutuluyor.
+#
+#   Güncel sayılar için: .venv/bin/python tools/gen_labels.py --budget
+#   (kutu QR'ı ön yüzde, kutu barkodu artık kutunun ön yüzünde QR'ın altında,
+#   zemin markörü AprilTag/tag36h11 -- raf kirişinde ayrı bir kod kalmadı)
+
+seed: 20260804
+
+# ---------------------------------------------------------------- bina
+building:
+  length: 100.0          # X ekseni, iç ölçü
+  width: 60.0           # Y ekseni, iç ölçü
+  height: 20.0           # zeminden tavana
+  wall_thickness: 0.2
+
+# ------------------------------------------------------------- raflama
+# Raf sıraları X ekseni boyunca uzanır. Koridorlar Y'de ayrılır.
+racking:
+  bay_width: 2.70       # X'te bir göz genişliği
+  bay_count: 6          # sıra başına göz sayısı
+  depth: 1.10           # Y'de raf derinliği
+  upright_height: 4.50
+  frame_thickness: 0.10 # dikme ve kirişlerin kalınlığı
+  level_heights: [0.15, 1.85, 3.55]   # kiriş üst yüzey yükseklikleri
+  x_origin: -10.0       # ilk gözün sol kenarı
+
+  # Her sıra: y0 = raf bloğunun Y'de başlangıcı, facing = ürün yüzünün baktığı yön
+  rows:
+    - {id: "A", y0: -6.00, facing: +1}   # koridor 1'e bakar
+    - {id: "B", y0: -1.90, facing: -1}   # koridor 1'e bakar
+    - {id: "C", y0: -0.80, facing: +1}   # koridor 2'ye bakar (B ile sırt sırta)
+    - {id: "D", y0:  3.30, facing: -1}   # koridor 2'ye bakar
+
+  aisles:
+    - {id: 1, y_center: -3.40}
+    - {id: 2, y_center:  1.80}
+
+# --------------------------------------------------------------- kutular
+boxes:
+  fill_probability: 0.80      # bir gözün bir seviyesinin dolu olma olasılığı
+  per_slot: [1,3]            # dolu bir gözde kaç kutu (min, max)
+  sizes:                      # [X genişlik, Y derinlik, Z yükseklik]
+    - {name: "S", dims: [0.40, 0.30, 0.30]}
+    - {name: "M", dims: [0.60, 0.40, 0.40]}
+    - {name: "L", dims: [0.80, 0.50, 0.45]}
+  front_gap: 0.02             # kutu ön yüzünün raf ön kenarından içeride kalma payı
+
+# ---------------------------------------------------------------- kodlar
+codes:
+  # Doku çözünürlüğü, etiketin fiziksel boyutundan türetilir. 2400 px/m,
+  # 4 mm'lik bir QR modülüne dokuda ~10 piksel demek: render sırasında
+  # mipmap seviyesi düşse bile kenarlar keskin kalır.
+  texture_px_per_m: 2400
+  max_texture_px: 768         # üst sınır (iGPU'da VRAM'i korumak için)
+
+  # Kutu üstündeki QR etiketi -- ön kameranın ana hedefi.
+  # A5'e yakın gerçekçi bir sevkiyat etiketi.
+  box_label:
+    label: [0.140, 0.170]     # etiketin tamamı (genişlik x yükseklik)
+    code: 0.100               # QR kenarı, quiet zone hariç -> 4.0 mm/modül
+    qr_version: 2             # 25x25 modül
+    qr_error_correction: "M"
+    caption_height: 0.030     # altta okunabilir SKU metni şeridi
+
+  # Konum barkodu (Code128) -- artık raf kirişinde değil, kutunun ön
+  # yüzünde, QR etiketin hemen altında (gerçek sevkiyat etiketlerindeki gibi
+  # QR + barkod aynı yüzeyde). Bu yüzden boyutu en küçük kutunun (S: 0.40 x
+  # 0.30 m ön yüz) QR ile birlikte sığacağı ölçüde küçültüldü.
+  # Yük "A0302" biçiminde (sıra + göz + seviye): Code128 C modu rakam
+  # çiftlerini tek modüle paketlediği için 79 modül.
+  box_placard:
+    label: [0.320, 0.090]
+    bar_width: 0.280          # -> 79 modülde 3.54 mm/modül, 3.92 px/modül @ 1.5m
+    bar_height: 0.040
+    caption_height: 0.026
+
+  # Zemin markörü -- alt kameranın hedefi, GPS'siz uçuşta mutlak konum
+  # düzeltmesi için (bkz. proje notları). QR yerine AprilTag: tag36h11
+  # ailesi hassas köşe/poz kestirimi için tasarlanmış, QR'ın veri kapasitesi
+  # burada gereksiz. 8x8 modül (6x6 veri + 1 modüllük siyah çerçeve, ailenin
+  # sabit standardı) -> QR'ın 25x25'ine göre modül başına çok daha büyük
+  # piksel payı.
+  floor_marker:
+    label: [0.440, 0.440]
+    code: 0.340               # -> 8 modülde 42.5 mm/modül
+    tag_family: "tag36h11"
+    caption_height: 0.048
+    spacing: 4.0              # koridor boyunca X'te markörler arası mesafe
+
+# ------------------------------------------------------------ aydınlatma
+lighting:
+  ambient: [0.45, 0.45, 0.45, 1.0]
+  background: [0.55, 0.58, 0.62, 1.0]
+  # Tavana asılı lamba ızgarası. Barkodun okunabilmesi için bol ve yumuşak
+  # ışık şart; parlama olmasın diye specular düşük tutuluyor.
+  ceiling_lights:
+    height: 5.40
+    x_positions: [-8.0, -4.0, 0.0, 4.0, 8.0]
+    y_positions: [-3.40, 1.80]
+    diffuse: [0.85, 0.85, 0.80, 1.0]
+    specular: [0.10, 0.10, 0.10, 1.0]
+    attenuation_range: 12.0
+
+# --------------------------------------------------------------- kameralar
+# Aracın 3 kamerası. Okunabilirlik bütçesi bu değerlerden hesaplanır.
+# ön kamera: raf tarama işini yapan asıl sensör, bu yüzden Full HD ve dar FOV.
+# alt/arka: navigasyon ve kapsama, daha düşük çözünürlük -> iGPU'da nefes payı.
+cameras:
+  - name: front
+    width: 1920
+    height: 1080
+    # 1.05 rad (~60 derece). Daha geniş bir FOV koridor merkezinden kodları
+    # okunmaz hale getiriyordu; envanter drone'larında tarama kamerasının dar
+    # olması normaldir. 1.5 m'de 1.73 m genişlik görür, bir raf gözünün
+    # üçte ikisi kadar.
+    hfov: 1.05
+    # base_link'e göre. x500'ün kolları 0.174 m'ye uzanıyor, gövde mesh'i
+    # de orada; kameralar bunun dışına taşırılmalı yoksa kendi gövdesini
+    # görür.
+    pose: [0.200, 0.0, 0.050, 0.0, 0.0, 0.0]
+    near: 0.05
+    far: 40.0
+    update_rate: 20
+  - name: down
+    width: 1280
+    height: 720
+    hfov: 1.40              # rad, ~80.2 derece
+    # pitch=+90 optik ekseni (+X) aşağı çevirir. z=-0.08 ile iniş
+    # takımlarının arasından aşağı bakar.
+    pose: [0.0, 0.0, -0.080, 0.0, 1.5707963, 0.0]
+    near: 0.05
+    far: 40.0
+    update_rate: 20
+  - name: back
+    width: 1280
+    height: 720
+    hfov: 1.20
+    pose: [-0.200, 0.0, 0.050, 0.0, 0.0, 3.1415927]
+    near: 0.05
+    far: 40.0
+    update_rate: 15
+
+# -------------------------------------------------- navigasyon sensörleri
+# GPS'siz uçuşun temeli (yol haritası 2. aşama): aşağı bakan optik akış
+# sensörü + tek ışınlı mesafe ölçer. Akış yalnızca açısal hız verir; onu
+# metre/saniyeye çevirmek için yere olan mesafe şart, bu yüzden ikisi bir
+# arada.
+#
+# DİKKAT -- LİNK VE SENSÖR ADLARI DEĞİŞTİRİLEMEZ. PX4'ün gz köprüsü
+# (src/modules/simulation/gz_bridge/GZBridge.cpp) konu yollarını sabit
+# kodlamış:
+#   .../link/flow_link/sensor/optical_flow/optical_flow
+#   .../link/lidar_sensor_link/sensor/lidar/scan
+# Başka bir ad verirsek köprü abone olamaz ve veri sessizce hiç gelmez.
+sensors:
+  optical_flow:
+    # x500_flow referansıyla aynı yerleşim. Aşağı bakan kameranın (-0.08)
+    # biraz altında ve önünde; iniş takımlarının arasından yere bakar.
+    pose: [0.030, 0.0, -0.100]
+    hfov: 0.733038          # rad, ~42 derece (PAW3902 benzeri)
+    resolution: 100         # 100x100 px -- akış hesabı için fazlası gereksiz
+    update_rate: 50
+  rangefinder:
+    pose: [0.0, 0.0, -0.050]
+    update_rate: 50
+    min_range: 0.10
+    # Depo tavanı 20 m; 30 m menzil zemini her irtifada görmeye yeter.
+    max_range: 30.0
+
+# ------------------------------------------------------------ kalkış yeri
+spawn:
+  # Koridor 1'in girişindeki zemin markörünün üstü. Markörün tam üstünde
+  # olması bilinçli: havalanır havalanmaz alt kamera bilinen bir kodu görür,
+  # yani konum doğrulaması uçuşun ilk saniyesinde yapılabiliyor.
+  # z=0.30: araç buradan bırakılıp kendi oturma yüksekliğine (base_link
+  # z = -0.013, stok x500 ile birebir aynı) düşer. PX4_GZ_MODEL_POSE yalnızca
+  # konumu geçersiz kılar; modelin kendi pose'undaki yükseklik uygulanmaz,
+  # bu yüzden z burada açıkça verilmeli.
+  pose: [-10.0, -3.40, 0.30, 0.0, 0.0, 0.0]

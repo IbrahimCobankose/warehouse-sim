@@ -1,0 +1,6996 @@
+{
+  "world": "warehouse",
+  "seed": 20260804,
+  "codes": [
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|01|1|SKU12769",
+      "caption": "SKU12769",
+      "entity": "inventory::box_A_01_1_0",
+      "row": "A",
+      "bay": 1,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -9.45,
+        -4.916,
+        0.425,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0101",
+      "caption": "A-01-1",
+      "entity": "inventory::box_A_01_1_0",
+      "row": "A",
+      "bay": 1,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -9.45,
+        -4.916,
+        0.285,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|01|1|SKU53825",
+      "caption": "SKU53825",
+      "entity": "inventory::box_A_01_1_1",
+      "row": "A",
+      "bay": 1,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -8.55,
+        -4.916,
+        0.425,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0101",
+      "caption": "A-01-1",
+      "entity": "inventory::box_A_01_1_1",
+      "row": "A",
+      "bay": 1,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -8.55,
+        -4.916,
+        0.285,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|01|1|SKU22388",
+      "caption": "SKU22388",
+      "entity": "inventory::box_A_01_1_2",
+      "row": "A",
+      "bay": 1,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -7.75,
+        -4.916,
+        0.4,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0101",
+      "caption": "A-01-1",
+      "entity": "inventory::box_A_01_1_2",
+      "row": "A",
+      "bay": 1,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -7.75,
+        -4.916,
+        0.26,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|01|2|SKU16760",
+      "caption": "SKU16760",
+      "entity": "inventory::box_A_01_2_0",
+      "row": "A",
+      "bay": 1,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -9.35,
+        -4.916,
+        2.125,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0102",
+      "caption": "A-01-2",
+      "entity": "inventory::box_A_01_2_0",
+      "row": "A",
+      "bay": 1,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -9.35,
+        -4.916,
+        1.985,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|01|2|SKU62080",
+      "caption": "SKU62080",
+      "entity": "inventory::box_A_01_2_1",
+      "row": "A",
+      "bay": 1,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -8.45,
+        -4.916,
+        2.1,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0102",
+      "caption": "A-01-2",
+      "entity": "inventory::box_A_01_2_1",
+      "row": "A",
+      "bay": 1,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -8.45,
+        -4.916,
+        1.96,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|01|2|SKU10885",
+      "caption": "SKU10885",
+      "entity": "inventory::box_A_01_2_2",
+      "row": "A",
+      "bay": 1,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -7.75,
+        -4.916,
+        2.05,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0102",
+      "caption": "A-01-2",
+      "entity": "inventory::box_A_01_2_2",
+      "row": "A",
+      "bay": 1,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -7.75,
+        -4.916,
+        1.91,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|01|3|SKU72753",
+      "caption": "SKU72753",
+      "entity": "inventory::box_A_01_3_0",
+      "row": "A",
+      "bay": 1,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -8.65,
+        -4.916,
+        3.8,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0103",
+      "caption": "A-01-3",
+      "entity": "inventory::box_A_01_3_0",
+      "row": "A",
+      "bay": 1,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -8.65,
+        -4.916,
+        3.66,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|02|1|SKU48482",
+      "caption": "SKU48482",
+      "entity": "inventory::box_A_02_1_0",
+      "row": "A",
+      "bay": 2,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -6.9,
+        -4.916,
+        0.35,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0201",
+      "caption": "A-02-1",
+      "entity": "inventory::box_A_02_1_0",
+      "row": "A",
+      "bay": 2,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -6.9,
+        -4.916,
+        0.21,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|02|1|SKU33583",
+      "caption": "SKU33583",
+      "entity": "inventory::box_A_02_1_1",
+      "row": "A",
+      "bay": 2,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -6.15,
+        -4.916,
+        0.425,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0201",
+      "caption": "A-02-1",
+      "entity": "inventory::box_A_02_1_1",
+      "row": "A",
+      "bay": 2,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -6.15,
+        -4.916,
+        0.285,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|02|1|SKU33902",
+      "caption": "SKU33902",
+      "entity": "inventory::box_A_02_1_2",
+      "row": "A",
+      "bay": 2,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -5.2,
+        -4.916,
+        0.425,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0201",
+      "caption": "A-02-1",
+      "entity": "inventory::box_A_02_1_2",
+      "row": "A",
+      "bay": 2,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -5.2,
+        -4.916,
+        0.285,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|02|3|SKU76031",
+      "caption": "SKU76031",
+      "entity": "inventory::box_A_02_3_0",
+      "row": "A",
+      "bay": 2,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -5.95,
+        -4.916,
+        3.75,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0203",
+      "caption": "A-02-3",
+      "entity": "inventory::box_A_02_3_0",
+      "row": "A",
+      "bay": 2,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -5.95,
+        -4.916,
+        3.61,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|03|1|SKU87410",
+      "caption": "SKU87410",
+      "entity": "inventory::box_A_03_1_0",
+      "row": "A",
+      "bay": 3,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -3.25,
+        -4.916,
+        0.35,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0301",
+      "caption": "A-03-1",
+      "entity": "inventory::box_A_03_1_0",
+      "row": "A",
+      "bay": 3,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -3.25,
+        -4.916,
+        0.21,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|03|2|SKU58008",
+      "caption": "SKU58008",
+      "entity": "inventory::box_A_03_2_0",
+      "row": "A",
+      "bay": 3,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -3.6833,
+        -4.916,
+        2.125,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0302",
+      "caption": "A-03-2",
+      "entity": "inventory::box_A_03_2_0",
+      "row": "A",
+      "bay": 3,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -3.6833,
+        -4.916,
+        1.985,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|03|2|SKU56418",
+      "caption": "SKU56418",
+      "entity": "inventory::box_A_03_2_1",
+      "row": "A",
+      "bay": 3,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -2.6167,
+        -4.916,
+        2.05,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0302",
+      "caption": "A-03-2",
+      "entity": "inventory::box_A_03_2_1",
+      "row": "A",
+      "bay": 3,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -2.6167,
+        -4.916,
+        1.91,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|03|3|SKU18818",
+      "caption": "SKU18818",
+      "entity": "inventory::box_A_03_3_0",
+      "row": "A",
+      "bay": 3,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -3.25,
+        -4.916,
+        3.825,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0303",
+      "caption": "A-03-3",
+      "entity": "inventory::box_A_03_3_0",
+      "row": "A",
+      "bay": 3,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -3.25,
+        -4.916,
+        3.685,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|04|1|SKU75869",
+      "caption": "SKU75869",
+      "entity": "inventory::box_A_04_1_0",
+      "row": "A",
+      "bay": 4,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -0.55,
+        -4.916,
+        0.35,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0401",
+      "caption": "A-04-1",
+      "entity": "inventory::box_A_04_1_0",
+      "row": "A",
+      "bay": 4,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -0.55,
+        -4.916,
+        0.21,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|04|2|SKU63708",
+      "caption": "SKU63708",
+      "entity": "inventory::box_A_04_2_0",
+      "row": "A",
+      "bay": 4,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -0.55,
+        -4.916,
+        2.1,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0402",
+      "caption": "A-04-2",
+      "entity": "inventory::box_A_04_2_0",
+      "row": "A",
+      "bay": 4,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -0.55,
+        -4.916,
+        1.96,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|04|3|SKU23419",
+      "caption": "SKU23419",
+      "entity": "inventory::box_A_04_3_0",
+      "row": "A",
+      "bay": 4,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -1.1167,
+        -4.916,
+        3.825,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0403",
+      "caption": "A-04-3",
+      "entity": "inventory::box_A_04_3_0",
+      "row": "A",
+      "bay": 4,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -1.1167,
+        -4.916,
+        3.685,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|04|3|SKU28159",
+      "caption": "SKU28159",
+      "entity": "inventory::box_A_04_3_1",
+      "row": "A",
+      "bay": 4,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        0.0167,
+        -4.916,
+        3.825,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0403",
+      "caption": "A-04-3",
+      "entity": "inventory::box_A_04_3_1",
+      "row": "A",
+      "bay": 4,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        0.0167,
+        -4.916,
+        3.685,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|05|1|SKU78184",
+      "caption": "SKU78184",
+      "entity": "inventory::box_A_05_1_0",
+      "row": "A",
+      "bay": 5,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        2.15,
+        -4.916,
+        0.4,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0501",
+      "caption": "A-05-1",
+      "entity": "inventory::box_A_05_1_0",
+      "row": "A",
+      "bay": 5,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        2.15,
+        -4.916,
+        0.26,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|05|3|SKU90193",
+      "caption": "SKU90193",
+      "entity": "inventory::box_A_05_3_0",
+      "row": "A",
+      "bay": 5,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        1.4,
+        -4.916,
+        3.8,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0503",
+      "caption": "A-05-3",
+      "entity": "inventory::box_A_05_3_0",
+      "row": "A",
+      "bay": 5,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        1.4,
+        -4.916,
+        3.66,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|05|3|SKU53270",
+      "caption": "SKU53270",
+      "entity": "inventory::box_A_05_3_1",
+      "row": "A",
+      "bay": 5,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        2.25,
+        -4.916,
+        3.8,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0503",
+      "caption": "A-05-3",
+      "entity": "inventory::box_A_05_3_1",
+      "row": "A",
+      "bay": 5,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        2.25,
+        -4.916,
+        3.66,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|05|3|SKU70562",
+      "caption": "SKU70562",
+      "entity": "inventory::box_A_05_3_2",
+      "row": "A",
+      "bay": 5,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        3.0,
+        -4.916,
+        3.75,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0503",
+      "caption": "A-05-3",
+      "entity": "inventory::box_A_05_3_2",
+      "row": "A",
+      "bay": 5,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        3.0,
+        -4.916,
+        3.61,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|06|1|SKU57407",
+      "caption": "SKU57407",
+      "entity": "inventory::box_A_06_1_0",
+      "row": "A",
+      "bay": 6,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        4.85,
+        -4.916,
+        0.35,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0601",
+      "caption": "A-06-1",
+      "entity": "inventory::box_A_06_1_0",
+      "row": "A",
+      "bay": 6,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        4.85,
+        -4.916,
+        0.21,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|06|3|SKU97128",
+      "caption": "SKU97128",
+      "entity": "inventory::box_A_06_3_0",
+      "row": "A",
+      "bay": 6,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        4.15,
+        -4.916,
+        3.8,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0603",
+      "caption": "A-06-3",
+      "entity": "inventory::box_A_06_3_0",
+      "row": "A",
+      "bay": 6,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        4.15,
+        -4.916,
+        3.66,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|06|3|SKU29284",
+      "caption": "SKU29284",
+      "entity": "inventory::box_A_06_3_1",
+      "row": "A",
+      "bay": 6,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        4.95,
+        -4.916,
+        3.75,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0603",
+      "caption": "A-06-3",
+      "entity": "inventory::box_A_06_3_1",
+      "row": "A",
+      "bay": 6,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        4.95,
+        -4.916,
+        3.61,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|A|06|3|SKU72604",
+      "caption": "SKU72604",
+      "entity": "inventory::box_A_06_3_2",
+      "row": "A",
+      "bay": 6,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        5.65,
+        -4.916,
+        3.75,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "A0603",
+      "caption": "A-06-3",
+      "entity": "inventory::box_A_06_3_2",
+      "row": "A",
+      "bay": 6,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        5.65,
+        -4.916,
+        3.61,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|01|1|SKU19060",
+      "caption": "SKU19060",
+      "entity": "inventory::box_B_01_1_0",
+      "row": "B",
+      "bay": 1,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -9.2167,
+        -1.884,
+        0.35,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0101",
+      "caption": "B-01-1",
+      "entity": "inventory::box_B_01_1_0",
+      "row": "B",
+      "bay": 1,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -9.2167,
+        -1.884,
+        0.21,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|01|1|SKU52039",
+      "caption": "SKU52039",
+      "entity": "inventory::box_B_01_1_1",
+      "row": "B",
+      "bay": 1,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -8.1833,
+        -1.884,
+        0.4,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0101",
+      "caption": "B-01-1",
+      "entity": "inventory::box_B_01_1_1",
+      "row": "B",
+      "bay": 1,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -8.1833,
+        -1.884,
+        0.26,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|01|2|SKU52895",
+      "caption": "SKU52895",
+      "entity": "inventory::box_B_01_2_0",
+      "row": "B",
+      "bay": 1,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -9.6,
+        -1.884,
+        2.05,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0102",
+      "caption": "B-01-2",
+      "entity": "inventory::box_B_01_2_0",
+      "row": "B",
+      "bay": 1,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -9.6,
+        -1.884,
+        1.91,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|01|2|SKU21156",
+      "caption": "SKU21156",
+      "entity": "inventory::box_B_01_2_1",
+      "row": "B",
+      "bay": 1,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -8.85,
+        -1.884,
+        2.125,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0102",
+      "caption": "B-01-2",
+      "entity": "inventory::box_B_01_2_1",
+      "row": "B",
+      "bay": 1,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -8.85,
+        -1.884,
+        1.985,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|01|2|SKU95103",
+      "caption": "SKU95103",
+      "entity": "inventory::box_B_01_2_2",
+      "row": "B",
+      "bay": 1,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -7.9,
+        -1.884,
+        2.125,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0102",
+      "caption": "B-01-2",
+      "entity": "inventory::box_B_01_2_2",
+      "row": "B",
+      "bay": 1,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -7.9,
+        -1.884,
+        1.985,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|01|3|SKU98348",
+      "caption": "SKU98348",
+      "entity": "inventory::box_B_01_3_0",
+      "row": "B",
+      "bay": 1,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -9.2167,
+        -1.884,
+        3.825,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0103",
+      "caption": "B-01-3",
+      "entity": "inventory::box_B_01_3_0",
+      "row": "B",
+      "bay": 1,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -9.2167,
+        -1.884,
+        3.685,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|01|3|SKU60139",
+      "caption": "SKU60139",
+      "entity": "inventory::box_B_01_3_1",
+      "row": "B",
+      "bay": 1,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -8.0833,
+        -1.884,
+        3.825,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0103",
+      "caption": "B-01-3",
+      "entity": "inventory::box_B_01_3_1",
+      "row": "B",
+      "bay": 1,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -8.0833,
+        -1.884,
+        3.685,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|02|2|SKU83767",
+      "caption": "SKU83767",
+      "entity": "inventory::box_B_02_2_0",
+      "row": "B",
+      "bay": 2,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -5.95,
+        -1.884,
+        2.1,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0202",
+      "caption": "B-02-2",
+      "entity": "inventory::box_B_02_2_0",
+      "row": "B",
+      "bay": 2,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -5.95,
+        -1.884,
+        1.96,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|02|3|SKU46338",
+      "caption": "SKU46338",
+      "entity": "inventory::box_B_02_3_0",
+      "row": "B",
+      "bay": 2,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -6.4167,
+        -1.884,
+        3.8,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0203",
+      "caption": "B-02-3",
+      "entity": "inventory::box_B_02_3_0",
+      "row": "B",
+      "bay": 2,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -6.4167,
+        -1.884,
+        3.66,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|02|3|SKU20129",
+      "caption": "SKU20129",
+      "entity": "inventory::box_B_02_3_1",
+      "row": "B",
+      "bay": 2,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -5.3833,
+        -1.884,
+        3.75,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0203",
+      "caption": "B-02-3",
+      "entity": "inventory::box_B_02_3_1",
+      "row": "B",
+      "bay": 2,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -5.3833,
+        -1.884,
+        3.61,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|03|2|SKU56196",
+      "caption": "SKU56196",
+      "entity": "inventory::box_B_03_2_0",
+      "row": "B",
+      "bay": 3,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -3.7833,
+        -1.884,
+        2.1,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0302",
+      "caption": "B-03-2",
+      "entity": "inventory::box_B_03_2_0",
+      "row": "B",
+      "bay": 3,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -3.7833,
+        -1.884,
+        1.96,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|03|2|SKU42536",
+      "caption": "SKU42536",
+      "entity": "inventory::box_B_03_2_1",
+      "row": "B",
+      "bay": 3,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -2.7167,
+        -1.884,
+        2.1,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0302",
+      "caption": "B-03-2",
+      "entity": "inventory::box_B_03_2_1",
+      "row": "B",
+      "bay": 3,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -2.7167,
+        -1.884,
+        1.96,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|04|1|SKU59936",
+      "caption": "SKU59936",
+      "entity": "inventory::box_B_04_1_0",
+      "row": "B",
+      "bay": 4,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -1.3,
+        -1.884,
+        0.35,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0401",
+      "caption": "B-04-1",
+      "entity": "inventory::box_B_04_1_0",
+      "row": "B",
+      "bay": 4,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -1.3,
+        -1.884,
+        0.21,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|04|1|SKU66763",
+      "caption": "SKU66763",
+      "entity": "inventory::box_B_04_1_1",
+      "row": "B",
+      "bay": 4,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -0.55,
+        -1.884,
+        0.35,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0401",
+      "caption": "B-04-1",
+      "entity": "inventory::box_B_04_1_1",
+      "row": "B",
+      "bay": 4,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -0.55,
+        -1.884,
+        0.21,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|04|1|SKU57215",
+      "caption": "SKU57215",
+      "entity": "inventory::box_B_04_1_2",
+      "row": "B",
+      "bay": 4,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        0.2,
+        -1.884,
+        0.35,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0401",
+      "caption": "B-04-1",
+      "entity": "inventory::box_B_04_1_2",
+      "row": "B",
+      "bay": 4,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        0.2,
+        -1.884,
+        0.21,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|04|2|SKU11997",
+      "caption": "SKU11997",
+      "entity": "inventory::box_B_04_2_0",
+      "row": "B",
+      "bay": 4,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -0.55,
+        -1.884,
+        2.125,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0402",
+      "caption": "B-04-2",
+      "entity": "inventory::box_B_04_2_0",
+      "row": "B",
+      "bay": 4,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -0.55,
+        -1.884,
+        1.985,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|04|3|SKU26998",
+      "caption": "SKU26998",
+      "entity": "inventory::box_B_04_3_0",
+      "row": "B",
+      "bay": 4,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -1.1167,
+        -1.884,
+        3.75,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0403",
+      "caption": "B-04-3",
+      "entity": "inventory::box_B_04_3_0",
+      "row": "B",
+      "bay": 4,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -1.1167,
+        -1.884,
+        3.61,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|04|3|SKU52707",
+      "caption": "SKU52707",
+      "entity": "inventory::box_B_04_3_1",
+      "row": "B",
+      "bay": 4,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -0.0833,
+        -1.884,
+        3.8,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0403",
+      "caption": "B-04-3",
+      "entity": "inventory::box_B_04_3_1",
+      "row": "B",
+      "bay": 4,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -0.0833,
+        -1.884,
+        3.66,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|05|1|SKU72745",
+      "caption": "SKU72745",
+      "entity": "inventory::box_B_05_1_0",
+      "row": "B",
+      "bay": 5,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        1.45,
+        -1.884,
+        0.4,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0501",
+      "caption": "B-05-1",
+      "entity": "inventory::box_B_05_1_0",
+      "row": "B",
+      "bay": 5,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        1.45,
+        -1.884,
+        0.26,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|05|1|SKU87753",
+      "caption": "SKU87753",
+      "entity": "inventory::box_B_05_1_1",
+      "row": "B",
+      "bay": 5,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        2.25,
+        -1.884,
+        0.35,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0501",
+      "caption": "B-05-1",
+      "entity": "inventory::box_B_05_1_1",
+      "row": "B",
+      "bay": 5,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        2.25,
+        -1.884,
+        0.21,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|05|1|SKU66997",
+      "caption": "SKU66997",
+      "entity": "inventory::box_B_05_1_2",
+      "row": "B",
+      "bay": 5,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        2.95,
+        -1.884,
+        0.35,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0501",
+      "caption": "B-05-1",
+      "entity": "inventory::box_B_05_1_2",
+      "row": "B",
+      "bay": 5,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        2.95,
+        -1.884,
+        0.21,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|05|2|SKU34335",
+      "caption": "SKU34335",
+      "entity": "inventory::box_B_05_2_0",
+      "row": "B",
+      "bay": 5,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        1.35,
+        -1.884,
+        2.125,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0502",
+      "caption": "B-05-2",
+      "entity": "inventory::box_B_05_2_0",
+      "row": "B",
+      "bay": 5,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        1.35,
+        -1.884,
+        1.985,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|05|2|SKU79792",
+      "caption": "SKU79792",
+      "entity": "inventory::box_B_05_2_1",
+      "row": "B",
+      "bay": 5,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        2.15,
+        -1.884,
+        2.1,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0502",
+      "caption": "B-05-2",
+      "entity": "inventory::box_B_05_2_1",
+      "row": "B",
+      "bay": 5,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        2.15,
+        -1.884,
+        1.96,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|05|2|SKU67614",
+      "caption": "SKU67614",
+      "entity": "inventory::box_B_05_2_2",
+      "row": "B",
+      "bay": 5,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        2.95,
+        -1.884,
+        2.125,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0502",
+      "caption": "B-05-2",
+      "entity": "inventory::box_B_05_2_2",
+      "row": "B",
+      "bay": 5,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        2.95,
+        -1.884,
+        1.985,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|05|3|SKU19539",
+      "caption": "SKU19539",
+      "entity": "inventory::box_B_05_3_0",
+      "row": "B",
+      "bay": 5,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        2.15,
+        -1.884,
+        3.8,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0503",
+      "caption": "B-05-3",
+      "entity": "inventory::box_B_05_3_0",
+      "row": "B",
+      "bay": 5,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        2.15,
+        -1.884,
+        3.66,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|B|06|3|SKU83683",
+      "caption": "SKU83683",
+      "entity": "inventory::box_B_06_3_0",
+      "row": "B",
+      "bay": 6,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        4.85,
+        -1.884,
+        3.75,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "B0603",
+      "caption": "B-06-3",
+      "entity": "inventory::box_B_06_3_0",
+      "row": "B",
+      "bay": 6,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        4.85,
+        -1.884,
+        3.61,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|01|1|SKU81418",
+      "caption": "SKU81418",
+      "entity": "inventory::box_C_01_1_0",
+      "row": "C",
+      "bay": 1,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -9.2167,
+        0.284,
+        0.425,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0101",
+      "caption": "C-01-1",
+      "entity": "inventory::box_C_01_1_0",
+      "row": "C",
+      "bay": 1,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -9.2167,
+        0.284,
+        0.285,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|01|1|SKU83412",
+      "caption": "SKU83412",
+      "entity": "inventory::box_C_01_1_1",
+      "row": "C",
+      "bay": 1,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -8.0833,
+        0.284,
+        0.425,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0101",
+      "caption": "C-01-1",
+      "entity": "inventory::box_C_01_1_1",
+      "row": "C",
+      "bay": 1,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -8.0833,
+        0.284,
+        0.285,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|01|2|SKU94015",
+      "caption": "SKU94015",
+      "entity": "inventory::box_C_01_2_0",
+      "row": "C",
+      "bay": 1,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -9.15,
+        0.284,
+        2.125,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0102",
+      "caption": "C-01-2",
+      "entity": "inventory::box_C_01_2_0",
+      "row": "C",
+      "bay": 1,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -9.15,
+        0.284,
+        1.985,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|01|2|SKU71683",
+      "caption": "SKU71683",
+      "entity": "inventory::box_C_01_2_1",
+      "row": "C",
+      "bay": 1,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -8.05,
+        0.284,
+        2.1,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0102",
+      "caption": "C-01-2",
+      "entity": "inventory::box_C_01_2_1",
+      "row": "C",
+      "bay": 1,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -8.05,
+        0.284,
+        1.96,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|01|3|SKU24283",
+      "caption": "SKU24283",
+      "entity": "inventory::box_C_01_3_0",
+      "row": "C",
+      "bay": 1,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -8.65,
+        0.284,
+        3.825,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0103",
+      "caption": "C-01-3",
+      "entity": "inventory::box_C_01_3_0",
+      "row": "C",
+      "bay": 1,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -8.65,
+        0.284,
+        3.685,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|02|2|SKU69649",
+      "caption": "SKU69649",
+      "entity": "inventory::box_C_02_2_0",
+      "row": "C",
+      "bay": 2,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -6.7,
+        0.284,
+        2.05,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0202",
+      "caption": "C-02-2",
+      "entity": "inventory::box_C_02_2_0",
+      "row": "C",
+      "bay": 2,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -6.7,
+        0.284,
+        1.91,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|02|2|SKU51461",
+      "caption": "SKU51461",
+      "entity": "inventory::box_C_02_2_1",
+      "row": "C",
+      "bay": 2,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -5.95,
+        0.284,
+        2.05,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0202",
+      "caption": "C-02-2",
+      "entity": "inventory::box_C_02_2_1",
+      "row": "C",
+      "bay": 2,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -5.95,
+        0.284,
+        1.91,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|02|2|SKU67463",
+      "caption": "SKU67463",
+      "entity": "inventory::box_C_02_2_2",
+      "row": "C",
+      "bay": 2,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -5.2,
+        0.284,
+        2.05,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0202",
+      "caption": "C-02-2",
+      "entity": "inventory::box_C_02_2_2",
+      "row": "C",
+      "bay": 2,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -5.2,
+        0.284,
+        1.91,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|02|3|SKU40181",
+      "caption": "SKU40181",
+      "entity": "inventory::box_C_02_3_0",
+      "row": "C",
+      "bay": 2,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -6.3833,
+        0.284,
+        3.825,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0203",
+      "caption": "C-02-3",
+      "entity": "inventory::box_C_02_3_0",
+      "row": "C",
+      "bay": 2,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -6.3833,
+        0.284,
+        3.685,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|02|3|SKU22032",
+      "caption": "SKU22032",
+      "entity": "inventory::box_C_02_3_1",
+      "row": "C",
+      "bay": 2,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -5.3167,
+        0.284,
+        3.75,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0203",
+      "caption": "C-02-3",
+      "entity": "inventory::box_C_02_3_1",
+      "row": "C",
+      "bay": 2,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -5.3167,
+        0.284,
+        3.61,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|03|1|SKU48042",
+      "caption": "SKU48042",
+      "entity": "inventory::box_C_03_1_0",
+      "row": "C",
+      "bay": 3,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -4.05,
+        0.284,
+        0.35,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0301",
+      "caption": "C-03-1",
+      "entity": "inventory::box_C_03_1_0",
+      "row": "C",
+      "bay": 3,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -4.05,
+        0.284,
+        0.21,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|03|1|SKU12301",
+      "caption": "SKU12301",
+      "entity": "inventory::box_C_03_1_1",
+      "row": "C",
+      "bay": 3,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -3.25,
+        0.284,
+        0.4,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0301",
+      "caption": "C-03-1",
+      "entity": "inventory::box_C_03_1_1",
+      "row": "C",
+      "bay": 3,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -3.25,
+        0.284,
+        0.26,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|03|1|SKU14508",
+      "caption": "SKU14508",
+      "entity": "inventory::box_C_03_1_2",
+      "row": "C",
+      "bay": 3,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -2.45,
+        0.284,
+        0.35,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0301",
+      "caption": "C-03-1",
+      "entity": "inventory::box_C_03_1_2",
+      "row": "C",
+      "bay": 3,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -2.45,
+        0.284,
+        0.21,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|03|2|SKU32077",
+      "caption": "SKU32077",
+      "entity": "inventory::box_C_03_2_0",
+      "row": "C",
+      "bay": 3,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -3.85,
+        0.284,
+        2.1,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0302",
+      "caption": "C-03-2",
+      "entity": "inventory::box_C_03_2_0",
+      "row": "C",
+      "bay": 3,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -3.85,
+        0.284,
+        1.96,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|03|2|SKU49439",
+      "caption": "SKU49439",
+      "entity": "inventory::box_C_03_2_1",
+      "row": "C",
+      "bay": 3,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -2.75,
+        0.284,
+        2.125,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0302",
+      "caption": "C-03-2",
+      "entity": "inventory::box_C_03_2_1",
+      "row": "C",
+      "bay": 3,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -2.75,
+        0.284,
+        1.985,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|03|3|SKU86356",
+      "caption": "SKU86356",
+      "entity": "inventory::box_C_03_3_0",
+      "row": "C",
+      "bay": 3,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -3.25,
+        0.284,
+        3.8,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0303",
+      "caption": "C-03-3",
+      "entity": "inventory::box_C_03_3_0",
+      "row": "C",
+      "bay": 3,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -3.25,
+        0.284,
+        3.66,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|04|1|SKU56421",
+      "caption": "SKU56421",
+      "entity": "inventory::box_C_04_1_0",
+      "row": "C",
+      "bay": 4,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -1.3,
+        0.284,
+        0.35,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0401",
+      "caption": "C-04-1",
+      "entity": "inventory::box_C_04_1_0",
+      "row": "C",
+      "bay": 4,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -1.3,
+        0.284,
+        0.21,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|04|1|SKU29460",
+      "caption": "SKU29460",
+      "entity": "inventory::box_C_04_1_1",
+      "row": "C",
+      "bay": 4,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -0.55,
+        0.284,
+        0.35,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0401",
+      "caption": "C-04-1",
+      "entity": "inventory::box_C_04_1_1",
+      "row": "C",
+      "bay": 4,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -0.55,
+        0.284,
+        0.21,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|04|1|SKU57343",
+      "caption": "SKU57343",
+      "entity": "inventory::box_C_04_1_2",
+      "row": "C",
+      "bay": 4,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        0.2,
+        0.284,
+        0.35,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0401",
+      "caption": "C-04-1",
+      "entity": "inventory::box_C_04_1_2",
+      "row": "C",
+      "bay": 4,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        0.2,
+        0.284,
+        0.21,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|04|2|SKU10440",
+      "caption": "SKU10440",
+      "entity": "inventory::box_C_04_2_0",
+      "row": "C",
+      "bay": 4,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -1.45,
+        0.284,
+        2.05,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0402",
+      "caption": "C-04-2",
+      "entity": "inventory::box_C_04_2_0",
+      "row": "C",
+      "bay": 4,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -1.45,
+        0.284,
+        1.91,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|04|2|SKU36486",
+      "caption": "SKU36486",
+      "entity": "inventory::box_C_04_2_1",
+      "row": "C",
+      "bay": 4,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -0.75,
+        0.284,
+        2.1,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0402",
+      "caption": "C-04-2",
+      "entity": "inventory::box_C_04_2_1",
+      "row": "C",
+      "bay": 4,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -0.75,
+        0.284,
+        1.96,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|04|2|SKU86002",
+      "caption": "SKU86002",
+      "entity": "inventory::box_C_04_2_2",
+      "row": "C",
+      "bay": 4,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        0.15,
+        0.284,
+        2.125,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0402",
+      "caption": "C-04-2",
+      "entity": "inventory::box_C_04_2_2",
+      "row": "C",
+      "bay": 4,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        0.15,
+        0.284,
+        1.985,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|04|3|SKU23787",
+      "caption": "SKU23787",
+      "entity": "inventory::box_C_04_3_0",
+      "row": "C",
+      "bay": 4,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -1.35,
+        0.284,
+        3.825,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0403",
+      "caption": "C-04-3",
+      "entity": "inventory::box_C_04_3_0",
+      "row": "C",
+      "bay": 4,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -1.35,
+        0.284,
+        3.685,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|04|3|SKU68009",
+      "caption": "SKU68009",
+      "entity": "inventory::box_C_04_3_1",
+      "row": "C",
+      "bay": 4,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -0.55,
+        0.284,
+        3.8,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0403",
+      "caption": "C-04-3",
+      "entity": "inventory::box_C_04_3_1",
+      "row": "C",
+      "bay": 4,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -0.55,
+        0.284,
+        3.66,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|04|3|SKU90576",
+      "caption": "SKU90576",
+      "entity": "inventory::box_C_04_3_2",
+      "row": "C",
+      "bay": 4,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        0.25,
+        0.284,
+        3.825,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0403",
+      "caption": "C-04-3",
+      "entity": "inventory::box_C_04_3_2",
+      "row": "C",
+      "bay": 4,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        0.25,
+        0.284,
+        3.685,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|05|1|SKU16777",
+      "caption": "SKU16777",
+      "entity": "inventory::box_C_05_1_0",
+      "row": "C",
+      "bay": 5,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        1.4,
+        0.284,
+        0.4,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0501",
+      "caption": "C-05-1",
+      "entity": "inventory::box_C_05_1_0",
+      "row": "C",
+      "bay": 5,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        1.4,
+        0.284,
+        0.26,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|05|1|SKU38181",
+      "caption": "SKU38181",
+      "entity": "inventory::box_C_05_1_1",
+      "row": "C",
+      "bay": 5,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        2.15,
+        0.284,
+        0.35,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0501",
+      "caption": "C-05-1",
+      "entity": "inventory::box_C_05_1_1",
+      "row": "C",
+      "bay": 5,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        2.15,
+        0.284,
+        0.21,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|05|1|SKU94863",
+      "caption": "SKU94863",
+      "entity": "inventory::box_C_05_1_2",
+      "row": "C",
+      "bay": 5,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        2.9,
+        0.284,
+        0.4,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0501",
+      "caption": "C-05-1",
+      "entity": "inventory::box_C_05_1_2",
+      "row": "C",
+      "bay": 5,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        2.9,
+        0.284,
+        0.26,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|05|2|SKU10703",
+      "caption": "SKU10703",
+      "entity": "inventory::box_C_05_2_0",
+      "row": "C",
+      "bay": 5,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        1.4,
+        0.284,
+        2.125,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0502",
+      "caption": "C-05-2",
+      "entity": "inventory::box_C_05_2_0",
+      "row": "C",
+      "bay": 5,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        1.4,
+        0.284,
+        1.985,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|05|2|SKU50325",
+      "caption": "SKU50325",
+      "entity": "inventory::box_C_05_2_1",
+      "row": "C",
+      "bay": 5,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        2.25,
+        0.284,
+        2.1,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0502",
+      "caption": "C-05-2",
+      "entity": "inventory::box_C_05_2_1",
+      "row": "C",
+      "bay": 5,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        2.25,
+        0.284,
+        1.96,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|05|2|SKU57408",
+      "caption": "SKU57408",
+      "entity": "inventory::box_C_05_2_2",
+      "row": "C",
+      "bay": 5,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        3.0,
+        0.284,
+        2.1,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0502",
+      "caption": "C-05-2",
+      "entity": "inventory::box_C_05_2_2",
+      "row": "C",
+      "bay": 5,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        3.0,
+        0.284,
+        1.96,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|05|3|SKU23855",
+      "caption": "SKU23855",
+      "entity": "inventory::box_C_05_3_0",
+      "row": "C",
+      "bay": 5,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        1.4,
+        0.284,
+        3.825,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0503",
+      "caption": "C-05-3",
+      "entity": "inventory::box_C_05_3_0",
+      "row": "C",
+      "bay": 5,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        1.4,
+        0.284,
+        3.685,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|05|3|SKU33708",
+      "caption": "SKU33708",
+      "entity": "inventory::box_C_05_3_1",
+      "row": "C",
+      "bay": 5,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        2.15,
+        0.284,
+        3.75,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0503",
+      "caption": "C-05-3",
+      "entity": "inventory::box_C_05_3_1",
+      "row": "C",
+      "bay": 5,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        2.15,
+        0.284,
+        3.61,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|05|3|SKU28421",
+      "caption": "SKU28421",
+      "entity": "inventory::box_C_05_3_2",
+      "row": "C",
+      "bay": 5,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        2.9,
+        0.284,
+        3.825,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0503",
+      "caption": "C-05-3",
+      "entity": "inventory::box_C_05_3_2",
+      "row": "C",
+      "bay": 5,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        2.9,
+        0.284,
+        3.685,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|06|1|SKU46737",
+      "caption": "SKU46737",
+      "entity": "inventory::box_C_06_1_0",
+      "row": "C",
+      "bay": 6,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        4.85,
+        0.284,
+        0.425,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0601",
+      "caption": "C-06-1",
+      "entity": "inventory::box_C_06_1_0",
+      "row": "C",
+      "bay": 6,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        4.85,
+        0.284,
+        0.285,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|06|2|SKU19195",
+      "caption": "SKU19195",
+      "entity": "inventory::box_C_06_2_0",
+      "row": "C",
+      "bay": 6,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        4.85,
+        0.284,
+        2.125,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0602",
+      "caption": "C-06-2",
+      "entity": "inventory::box_C_06_2_0",
+      "row": "C",
+      "bay": 6,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        4.85,
+        0.284,
+        1.985,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|06|3|SKU57493",
+      "caption": "SKU57493",
+      "entity": "inventory::box_C_06_3_0",
+      "row": "C",
+      "bay": 6,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        4.35,
+        0.284,
+        3.825,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0603",
+      "caption": "C-06-3",
+      "entity": "inventory::box_C_06_3_0",
+      "row": "C",
+      "bay": 6,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        4.35,
+        0.284,
+        3.685,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|C|06|3|SKU42750",
+      "caption": "SKU42750",
+      "entity": "inventory::box_C_06_3_1",
+      "row": "C",
+      "bay": 6,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        5.45,
+        0.284,
+        3.8,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "C0603",
+      "caption": "C-06-3",
+      "entity": "inventory::box_C_06_3_1",
+      "row": "C",
+      "bay": 6,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        5.45,
+        0.284,
+        3.66,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|01|1|SKU12850",
+      "caption": "SKU12850",
+      "entity": "inventory::box_D_01_1_0",
+      "row": "D",
+      "bay": 1,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -8.65,
+        3.316,
+        0.35,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0101",
+      "caption": "D-01-1",
+      "entity": "inventory::box_D_01_1_0",
+      "row": "D",
+      "bay": 1,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -8.65,
+        3.316,
+        0.21,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|01|2|SKU12891",
+      "caption": "SKU12891",
+      "entity": "inventory::box_D_01_2_0",
+      "row": "D",
+      "bay": 1,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -9.1167,
+        3.316,
+        2.1,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0102",
+      "caption": "D-01-2",
+      "entity": "inventory::box_D_01_2_0",
+      "row": "D",
+      "bay": 1,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -9.1167,
+        3.316,
+        1.96,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|01|2|SKU99887",
+      "caption": "SKU99887",
+      "entity": "inventory::box_D_01_2_1",
+      "row": "D",
+      "bay": 1,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -8.0833,
+        3.316,
+        2.05,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0102",
+      "caption": "D-01-2",
+      "entity": "inventory::box_D_01_2_1",
+      "row": "D",
+      "bay": 1,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -8.0833,
+        3.316,
+        1.91,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|01|3|SKU54182",
+      "caption": "SKU54182",
+      "entity": "inventory::box_D_01_3_0",
+      "row": "D",
+      "bay": 1,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -9.4,
+        3.316,
+        3.75,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0103",
+      "caption": "D-01-3",
+      "entity": "inventory::box_D_01_3_0",
+      "row": "D",
+      "bay": 1,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -9.4,
+        3.316,
+        3.61,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|01|3|SKU39458",
+      "caption": "SKU39458",
+      "entity": "inventory::box_D_01_3_1",
+      "row": "D",
+      "bay": 1,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -8.65,
+        3.316,
+        3.75,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0103",
+      "caption": "D-01-3",
+      "entity": "inventory::box_D_01_3_1",
+      "row": "D",
+      "bay": 1,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -8.65,
+        3.316,
+        3.61,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|01|3|SKU89106",
+      "caption": "SKU89106",
+      "entity": "inventory::box_D_01_3_2",
+      "row": "D",
+      "bay": 1,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -7.9,
+        3.316,
+        3.75,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0103",
+      "caption": "D-01-3",
+      "entity": "inventory::box_D_01_3_2",
+      "row": "D",
+      "bay": 1,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -7.9,
+        3.316,
+        3.61,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|02|1|SKU44146",
+      "caption": "SKU44146",
+      "entity": "inventory::box_D_02_1_0",
+      "row": "D",
+      "bay": 2,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -6.3833,
+        3.316,
+        0.425,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0201",
+      "caption": "D-02-1",
+      "entity": "inventory::box_D_02_1_0",
+      "row": "D",
+      "bay": 2,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -6.3833,
+        3.316,
+        0.285,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|02|1|SKU73243",
+      "caption": "SKU73243",
+      "entity": "inventory::box_D_02_1_1",
+      "row": "D",
+      "bay": 2,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -5.3167,
+        3.316,
+        0.35,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0201",
+      "caption": "D-02-1",
+      "entity": "inventory::box_D_02_1_1",
+      "row": "D",
+      "bay": 2,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -5.3167,
+        3.316,
+        0.21,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|02|2|SKU20681",
+      "caption": "SKU20681",
+      "entity": "inventory::box_D_02_2_0",
+      "row": "D",
+      "bay": 2,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -5.95,
+        3.316,
+        2.05,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0202",
+      "caption": "D-02-2",
+      "entity": "inventory::box_D_02_2_0",
+      "row": "D",
+      "bay": 2,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -5.95,
+        3.316,
+        1.91,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|03|1|SKU63667",
+      "caption": "SKU63667",
+      "entity": "inventory::box_D_03_1_0",
+      "row": "D",
+      "bay": 3,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -3.7167,
+        3.316,
+        0.4,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0301",
+      "caption": "D-03-1",
+      "entity": "inventory::box_D_03_1_0",
+      "row": "D",
+      "bay": 3,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -3.7167,
+        3.316,
+        0.26,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|03|1|SKU86615",
+      "caption": "SKU86615",
+      "entity": "inventory::box_D_03_1_1",
+      "row": "D",
+      "bay": 3,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -2.6833,
+        3.316,
+        0.35,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0301",
+      "caption": "D-03-1",
+      "entity": "inventory::box_D_03_1_1",
+      "row": "D",
+      "bay": 3,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -2.6833,
+        3.316,
+        0.21,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|03|2|SKU88036",
+      "caption": "SKU88036",
+      "entity": "inventory::box_D_03_2_0",
+      "row": "D",
+      "bay": 3,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -4.1,
+        3.316,
+        2.125,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0302",
+      "caption": "D-03-2",
+      "entity": "inventory::box_D_03_2_0",
+      "row": "D",
+      "bay": 3,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -4.1,
+        3.316,
+        1.985,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|03|2|SKU98891",
+      "caption": "SKU98891",
+      "entity": "inventory::box_D_03_2_1",
+      "row": "D",
+      "bay": 3,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -3.25,
+        3.316,
+        2.125,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0302",
+      "caption": "D-03-2",
+      "entity": "inventory::box_D_03_2_1",
+      "row": "D",
+      "bay": 3,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -3.25,
+        3.316,
+        1.985,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|03|2|SKU64343",
+      "caption": "SKU64343",
+      "entity": "inventory::box_D_03_2_2",
+      "row": "D",
+      "bay": 3,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -2.4,
+        3.316,
+        2.125,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0302",
+      "caption": "D-03-2",
+      "entity": "inventory::box_D_03_2_2",
+      "row": "D",
+      "bay": 3,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        -2.4,
+        3.316,
+        1.985,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|03|3|SKU85314",
+      "caption": "SKU85314",
+      "entity": "inventory::box_D_03_3_0",
+      "row": "D",
+      "bay": 3,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -3.75,
+        3.316,
+        3.75,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0303",
+      "caption": "D-03-3",
+      "entity": "inventory::box_D_03_3_0",
+      "row": "D",
+      "bay": 3,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -3.75,
+        3.316,
+        3.61,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|03|3|SKU42127",
+      "caption": "SKU42127",
+      "entity": "inventory::box_D_03_3_1",
+      "row": "D",
+      "bay": 3,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -2.75,
+        3.316,
+        3.75,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0303",
+      "caption": "D-03-3",
+      "entity": "inventory::box_D_03_3_1",
+      "row": "D",
+      "bay": 3,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -2.75,
+        3.316,
+        3.61,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|04|1|SKU67348",
+      "caption": "SKU67348",
+      "entity": "inventory::box_D_04_1_0",
+      "row": "D",
+      "bay": 4,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -1.4,
+        3.316,
+        0.4,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0401",
+      "caption": "D-04-1",
+      "entity": "inventory::box_D_04_1_0",
+      "row": "D",
+      "bay": 4,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -1.4,
+        3.316,
+        0.26,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|04|1|SKU13255",
+      "caption": "SKU13255",
+      "entity": "inventory::box_D_04_1_1",
+      "row": "D",
+      "bay": 4,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -0.65,
+        3.316,
+        0.4,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0401",
+      "caption": "D-04-1",
+      "entity": "inventory::box_D_04_1_1",
+      "row": "D",
+      "bay": 4,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        -0.65,
+        3.316,
+        0.26,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|04|1|SKU28819",
+      "caption": "SKU28819",
+      "entity": "inventory::box_D_04_1_2",
+      "row": "D",
+      "bay": 4,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        0.2,
+        3.316,
+        0.425,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0401",
+      "caption": "D-04-1",
+      "entity": "inventory::box_D_04_1_2",
+      "row": "D",
+      "bay": 4,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        0.2,
+        3.316,
+        0.285,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|04|3|SKU36977",
+      "caption": "SKU36977",
+      "entity": "inventory::box_D_04_3_0",
+      "row": "D",
+      "bay": 4,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -1.0833,
+        3.316,
+        3.8,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0403",
+      "caption": "D-04-3",
+      "entity": "inventory::box_D_04_3_0",
+      "row": "D",
+      "bay": 4,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -1.0833,
+        3.316,
+        3.66,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|04|3|SKU41816",
+      "caption": "SKU41816",
+      "entity": "inventory::box_D_04_3_1",
+      "row": "D",
+      "bay": 4,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -0.0167,
+        3.316,
+        3.8,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0403",
+      "caption": "D-04-3",
+      "entity": "inventory::box_D_04_3_1",
+      "row": "D",
+      "bay": 4,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        -0.0167,
+        3.316,
+        3.66,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|05|1|SKU92102",
+      "caption": "SKU92102",
+      "entity": "inventory::box_D_05_1_0",
+      "row": "D",
+      "bay": 5,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        1.6833,
+        3.316,
+        0.4,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0501",
+      "caption": "D-05-1",
+      "entity": "inventory::box_D_05_1_0",
+      "row": "D",
+      "bay": 5,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        1.6833,
+        3.316,
+        0.26,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|05|1|SKU88517",
+      "caption": "SKU88517",
+      "entity": "inventory::box_D_05_1_1",
+      "row": "D",
+      "bay": 5,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        2.7167,
+        3.316,
+        0.35,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0501",
+      "caption": "D-05-1",
+      "entity": "inventory::box_D_05_1_1",
+      "row": "D",
+      "bay": 5,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        2.7167,
+        3.316,
+        0.21,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|05|2|SKU76733",
+      "caption": "SKU76733",
+      "entity": "inventory::box_D_05_2_0",
+      "row": "D",
+      "bay": 5,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        1.55,
+        3.316,
+        2.1,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0502",
+      "caption": "D-05-2",
+      "entity": "inventory::box_D_05_2_0",
+      "row": "D",
+      "bay": 5,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        1.55,
+        3.316,
+        1.96,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|05|2|SKU93170",
+      "caption": "SKU93170",
+      "entity": "inventory::box_D_05_2_1",
+      "row": "D",
+      "bay": 5,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        2.65,
+        3.316,
+        2.125,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0502",
+      "caption": "D-05-2",
+      "entity": "inventory::box_D_05_2_1",
+      "row": "D",
+      "bay": 5,
+      "level": 2,
+      "label_pose_xyzrpy": [
+        2.65,
+        3.316,
+        1.985,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|05|3|SKU48831",
+      "caption": "SKU48831",
+      "entity": "inventory::box_D_05_3_0",
+      "row": "D",
+      "bay": 5,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        2.15,
+        3.316,
+        3.8,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0503",
+      "caption": "D-05-3",
+      "entity": "inventory::box_D_05_3_0",
+      "row": "D",
+      "bay": 5,
+      "level": 3,
+      "label_pose_xyzrpy": [
+        2.15,
+        3.316,
+        3.66,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|06|1|SKU20334",
+      "caption": "SKU20334",
+      "entity": "inventory::box_D_06_1_0",
+      "row": "D",
+      "bay": 6,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        4.2,
+        3.316,
+        0.425,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0601",
+      "caption": "D-06-1",
+      "entity": "inventory::box_D_06_1_0",
+      "row": "D",
+      "bay": 6,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        4.2,
+        3.316,
+        0.285,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|06|1|SKU14965",
+      "caption": "SKU14965",
+      "entity": "inventory::box_D_06_1_1",
+      "row": "D",
+      "bay": 6,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        5.05,
+        3.316,
+        0.35,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0601",
+      "caption": "D-06-1",
+      "entity": "inventory::box_D_06_1_1",
+      "row": "D",
+      "bay": 6,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        5.05,
+        3.316,
+        0.21,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_qr",
+      "symbology": "QR",
+      "payload": "WH1|D|06|1|SKU29350",
+      "caption": "SKU29350",
+      "entity": "inventory::box_D_06_1_2",
+      "row": "D",
+      "bay": 6,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        5.7,
+        3.316,
+        0.35,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.14,
+        0.17
+      ],
+      "module_size_m": 0.004,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "box_placard",
+      "symbology": "CODE128",
+      "payload": "D0601",
+      "caption": "D-06-1",
+      "entity": "inventory::box_D_06_1_2",
+      "row": "D",
+      "bay": 6,
+      "level": 1,
+      "label_pose_xyzrpy": [
+        5.7,
+        3.316,
+        0.21,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.32,
+        0.09
+      ],
+      "module_size_m": 0.003544,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "floor_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 0,
+      "payload": "APRILTAG36H11:0",
+      "caption": "A1 X-10",
+      "entity": "floor_markers::marker_a1_n10",
+      "aisle": 1,
+      "label_pose_xyzrpy": [
+        -10.0,
+        -3.4,
+        0.004,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.44,
+        0.44
+      ],
+      "module_size_m": 0.0425,
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "type": "floor_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 1,
+      "payload": "APRILTAG36H11:1",
+      "caption": "A1 X-6",
+      "entity": "floor_markers::marker_a1_n6",
+      "aisle": 1,
+      "label_pose_xyzrpy": [
+        -6.0,
+        -3.4,
+        0.004,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.44,
+        0.44
+      ],
+      "module_size_m": 0.0425,
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "type": "floor_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 2,
+      "payload": "APRILTAG36H11:2",
+      "caption": "A1 X-2",
+      "entity": "floor_markers::marker_a1_n2",
+      "aisle": 1,
+      "label_pose_xyzrpy": [
+        -2.0,
+        -3.4,
+        0.004,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.44,
+        0.44
+      ],
+      "module_size_m": 0.0425,
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "type": "floor_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 3,
+      "payload": "APRILTAG36H11:3",
+      "caption": "A1 X+2",
+      "entity": "floor_markers::marker_a1_2",
+      "aisle": 1,
+      "label_pose_xyzrpy": [
+        2.0,
+        -3.4,
+        0.004,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.44,
+        0.44
+      ],
+      "module_size_m": 0.0425,
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "type": "floor_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 4,
+      "payload": "APRILTAG36H11:4",
+      "caption": "A1 X+6",
+      "entity": "floor_markers::marker_a1_6",
+      "aisle": 1,
+      "label_pose_xyzrpy": [
+        6.0,
+        -3.4,
+        0.004,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.44,
+        0.44
+      ],
+      "module_size_m": 0.0425,
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "type": "floor_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 5,
+      "payload": "APRILTAG36H11:5",
+      "caption": "A2 X-10",
+      "entity": "floor_markers::marker_a2_n10",
+      "aisle": 2,
+      "label_pose_xyzrpy": [
+        -10.0,
+        1.8,
+        0.004,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.44,
+        0.44
+      ],
+      "module_size_m": 0.0425,
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "type": "floor_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 6,
+      "payload": "APRILTAG36H11:6",
+      "caption": "A2 X-6",
+      "entity": "floor_markers::marker_a2_n6",
+      "aisle": 2,
+      "label_pose_xyzrpy": [
+        -6.0,
+        1.8,
+        0.004,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.44,
+        0.44
+      ],
+      "module_size_m": 0.0425,
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "type": "floor_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 7,
+      "payload": "APRILTAG36H11:7",
+      "caption": "A2 X-2",
+      "entity": "floor_markers::marker_a2_n2",
+      "aisle": 2,
+      "label_pose_xyzrpy": [
+        -2.0,
+        1.8,
+        0.004,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.44,
+        0.44
+      ],
+      "module_size_m": 0.0425,
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "type": "floor_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 8,
+      "payload": "APRILTAG36H11:8",
+      "caption": "A2 X+2",
+      "entity": "floor_markers::marker_a2_2",
+      "aisle": 2,
+      "label_pose_xyzrpy": [
+        2.0,
+        1.8,
+        0.004,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.44,
+        0.44
+      ],
+      "module_size_m": 0.0425,
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "type": "floor_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 9,
+      "payload": "APRILTAG36H11:9",
+      "caption": "A2 X+6",
+      "entity": "floor_markers::marker_a2_6",
+      "aisle": 2,
+      "label_pose_xyzrpy": [
+        6.0,
+        1.8,
+        0.004,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.44,
+        0.44
+      ],
+      "module_size_m": 0.0425,
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    }
+  ]
+}

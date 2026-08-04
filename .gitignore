@@ -1,0 +1,21 @@
+# Python sanal ortamı -- 357 MB
+.venv/
+__pycache__/
+*.py[cod]
+
+# Ortam değişkenleri / yerel sırlar
+.env
+.env.*
+
+# README depoya GİRMİYOR (bilinçli): yerelde duruyor, dokümantasyon
+# ayrı bir aşamada eklenecek.
+README.md
+
+# Koşu çıktıları: her çalıştırmada yeniden üretilir, depoya girmez.
+# ground_truth.json istisna -- world ile birlikte üretiliyor ve
+# decode_frames.py / scan_boxes.py doğrulama için ona bakıyor.
+out/*
+!out/ground_truth.json
+
+# PX4 uçuş logları
+*.ulg
