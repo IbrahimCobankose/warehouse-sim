@@ -227,42 +227,57 @@ def load_rack_tags(gt_path: Path, cfg: dict):
 
 
 def solve_rack(corners, ids, rack_tags, size, K, dist, cam_offset,
-               max_reproj: float):
+               max_reproj: float, min_up: float = 0.9):
     """Ön kameradan dikey raf tag'leriyle aracın GÖVDE pozu + dünya yaw'ı.
-    Genel PnP: her tag kendi çerçevesinde çözülür (IPPE_SQUARE, z=0 düzlemi),
-    bilinen dünya pozuyla (t_tw, R_tw) dünyaya, sonra ön kamera montajıyla
-    gövdeye taşınır. `(pos_dünya(3,), yaw, ort_reproj)` ya da None. Her çözüme
-    yeniden-yansıtma kapısı (floor yolundaki ders)."""
+    Her tag için IPPE'nin İKİ çözümü de alınır (solvePnPGeneric) ve
+    SEVİYE-UÇUŞ ÖNSAVIYLA doğru olan seçilir: quadrotor ~düz uçtuğu için doğru
+    çözümde gövde-yukarısı ~dünya-dikey (R_wb[2,2]~1); yanlış (düzlem-flip)
+    çözüm gövdeyi eğik/ters gösterir. Bu, flip'in DÜŞÜK reprojeksiyonla saçma
+    poz döndürüp (ölçüldü: x=-12 m, uzun B geçişinde aracı rafa çarptırdı)
+    EKF'e sızmasını KAYNAKTA keser. `min_up` altındaki (çok eğik) çözüm atılır.
+    Birden çok tag görülünce medyandan uzak aykırılar atılıp geri kalan
+    ortalanır. `(pos_dünya(3,), yaw, ort_reproj)` ya da None."""
     obj = tag_object_points(size)
-    poss, noses, reps = [], [], []
+    cands = []                                     # (pos, nose_world, rep)
     for c, i in zip(corners, ids.ravel()):
         if i not in rack_tags:
             continue
         ip = c.reshape(4, 2).astype(np.float64)
-        ok, rvec, tvec = cv2.solvePnP(obj, ip, K, dist,
-                                      flags=cv2.SOLVEPNP_IPPE_SQUARE)
-        if not ok:
+        n, rvecs, tvecs, _ = cv2.solvePnPGeneric(
+            obj, ip, K, dist, flags=cv2.SOLVEPNP_IPPE_SQUARE)
+        if not n:
             continue
-        proj, _ = cv2.projectPoints(obj, rvec, tvec, K, dist)
+        t_tw, R_tw = rack_tags[i]
+        # iki çözümden gövde-yukarısı en dik olanı seç (seviye-uçuş önsavı)
+        best_k, best_up, best_Rwb, best_Rct = -1, -2.0, None, None
+        for k in range(n):
+            R_ct, _ = cv2.Rodrigues(rvecs[k])
+            R_wb = (R_tw @ R_ct.T) @ FRONT_BODY_FROM_CAM.T
+            if R_wb[2, 2] > best_up:
+                best_up, best_k, best_Rwb, best_Rct = float(R_wb[2, 2]), k, R_wb, R_ct
+        if best_up < min_up:                       # ikisi de çok eğik -> flip/çöp
+            continue
+        tvec = tvecs[best_k]
+        proj, _ = cv2.projectPoints(obj, rvecs[best_k], tvec, K, dist)
         rep = float(np.linalg.norm(proj.reshape(4, 2) - ip, axis=1).mean())
         if not (rep <= max_reproj):
             continue
-        R_ct, _ = cv2.Rodrigues(rvec)              # tag -> kamera
-        t_tw, R_tw = rack_tags[i]
-        C_w = t_tw + R_tw @ (-R_ct.T @ tvec).ravel()   # kamera merkezi (dünya)
-        R_wc = R_tw @ R_ct.T                           # kamera -> dünya
-        R_wb = R_wc @ FRONT_BODY_FROM_CAM.T            # gövde -> dünya
-        p = C_w - R_wb @ cam_offset
+        C_w = t_tw + R_tw @ (-best_Rct.T @ tvec).ravel()
+        p = C_w - best_Rwb @ cam_offset
         if not np.all(np.isfinite(p)):
             continue
-        poss.append(p)
-        noses.append(R_wb[:, 0])                   # gövde +X'in dünya yönü
-        reps.append(rep)
-    if not poss:
+        cands.append((p, best_Rwb[:, 0].copy(), rep))
+    if not cands:
         return None
-    nose = np.mean(noses, axis=0)
-    return (np.mean(poss, axis=0), math.atan2(nose[1], nose[0]),
-            float(np.mean(reps)))
+    # birden çok tag: medyandan >0.5 m uzak aykırıları at (flip artığı / gürültü)
+    if len(cands) >= 3:
+        med = np.median(np.array([c[0] for c in cands]), axis=0)
+        kept = [c for c in cands if np.linalg.norm(c[0] - med) < 0.5]
+        if kept:
+            cands = kept
+    pos = np.mean([c[0] for c in cands], axis=0)
+    nose = np.mean([c[1] for c in cands], axis=0)
+    return pos, math.atan2(nose[1], nose[0]), float(np.mean([c[2] for c in cands]))
 
 
 def send_vpe(link, spawn, pos, yaw, stamp) -> None:
