@@ -61,6 +61,36 @@ routes:
       4: {log: "dönüş geçişi -- B sırası"}
       0: {log: "koridor 1 başına dönüldü", hold: 3.0}
 
+  # 6. aşama izole testi: koridor 1'de A yüzünü ÜÇ SEVİYEDE tara (dönüş yok).
+  # Çok-seviye + seviye-1'i (yer etkisi) turdan ayrı denemek için. Araç bir
+  # geçişi bir seviyede uçar, uçtaki tag üstünde YERİNDE irtifa değiştirir
+  # (hover_climb -- geçerken değil), ters yönde bir sonraki seviyeyi tarar.
+  # `alt` = o noktadan sonraki bacağın irtifası; verilmezse öncekine düşer.
+  # Sıra L2 -> L3 -> L1: riskli seviye 1 en sonda (L2/L3 verisi çoktan kaydedilir),
+  # ve düşük irtifada bitip kısa iniş yapar.
+  koridor1_A_3seviye:
+    aisle: 1
+    yaw: -90
+    altitude: 2.09                 # başlangıç: seviye 2
+    waypoints:
+      - {tag: 0, log: "A seviye 2 ileri (tag0->4)"}
+      - 1
+      - 2
+      - 3
+      - {tag: 4, alt: 3.79, log: "seviye 3'e çık, geri dön (tag4->0)"}
+      - 3
+      - 2
+      - 1
+      # DİKKAT seviye 1: kutu 0.39 m'de ama dikey bias EKF'i ~0.38 m YÜKSEK
+      # okutuyor; komut 0.39 verilirse araç gerçekte ~0 m = zemine çakılır.
+      # Bu yüzden komut 0.80 (gerçek ~0.42 m, kutu FOV'un merkezine yakın).
+      # Yer etkisi bölgesi -- en riskli geçiş.
+      - {tag: 0, alt: 0.80, log: "seviye 1'e in -- DİKKAT yer etkisi, ileri (tag0->4)"}
+      - 1
+      - 2
+      - 3
+      - {tag: 4, log: "A üç seviye tamam", hold: 3.0}
+
   # 5. aşama: koridor 1'den koridor 2'ye GERÇEK dönüş.
   #
   # Dönüş raf hattında DEĞİL, rafın +x ucunu (raf x=+6.2'de biter) dolaşarak

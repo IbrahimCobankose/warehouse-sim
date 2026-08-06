@@ -126,6 +126,27 @@ def hover_rotate(ob, link, pos_ned, d, from_h, to_h, rate_deg=30.0):
         link.m.recv_match(type="LOCAL_POSITION_NED", blocking=True, timeout=0.5)
 
 
+def hover_climb(ob, link, pos_ned, heading, from_d, to_d, rate=0.4):
+    """Yerinde irtifa değişimi: konumu ve burnu sabit tutup irtifayı `from_d`ten
+    `to_d`e `rate` m/s ile değiştir (d = NED aşağı = -irtifa). Seviyeler arası
+    geçiş için: kutuların önünden geçerken DEĞİL, geçişler ARASINDA irtifa
+    değiştir -- geçerken değiştirmek okumayı bozar. hover_rotate'in irtifa
+    kardeşi; her raf yüzü 3 seviyede tarandığından (12 geçiş) gerekli."""
+    dur = abs(to_d - from_d) / rate if rate > 1e-6 else 0.0
+    print(f"\n  yerinde irtifa {-from_d:.2f} -> {-to_d:.2f} m ({dur:.1f} s)")
+    t0 = time.time()
+    while True:
+        f = min(1.0, (time.time() - t0) / dur) if dur > 1e-3 else 1.0
+        ob.set(pos_ned[0], pos_ned[1], from_d + (to_d - from_d) * f, heading)
+        if f >= 1.0:
+            break
+        link.m.recv_match(type="LOCAL_POSITION_NED", blocking=True, timeout=0.5)
+    settle = time.time() + 1.5
+    while time.time() < settle:
+        ob.set(pos_ned[0], pos_ned[1], to_d, heading)
+        link.m.recv_match(type="LOCAL_POSITION_NED", blocking=True, timeout=0.5)
+
+
 def cross_track(p: np.ndarray, a: np.ndarray, b: np.ndarray) -> float:
     """`p`nin a->b doğrusuna dik uzaklığı (2B)."""
     ab = b - a
@@ -192,12 +213,19 @@ def main() -> int:
     # yaw verilmezse bir önceki noktanın (varsa spin sonrası) yaw'ına düşer;
     # böylece bacaklar SABİT yönle uçulur ve dönüş yalnızca spin noktalarında
     # olur -- eski çıplak-int rotalar (koridor1_A_seviye2) değişmeden çalışır.
+    # `alt` (waypoint başına KALKIŞ irtifası, 6. aşama): o noktadan sonraki
+    # bacak bu irtifada uçulur; irtifa değişirse varışta YERİNDE değişir
+    # (hover_climb). Verilmezse bir öncekine düşer -> tek-irtifa rotalar
+    # (koridor1_A_seviye2) değişmeden çalışır. Her raf yüzü 3 seviyede
+    # taranacağı için (12 geçiş) aynı koridorda ileri-geri geçişlerde alt
+    # değiştirilir.
     wp_world: list = []
     wp_labels: list[str] = []
     wp_yaws: list[float] = []
     wp_spins: list = []          # varışta yerinde dönülecek hedef derece / None
+    wp_alts: list[float] = []    # o noktadan sonraki bacağın irtifası
     wp_action: list = []         # {log?, hold?} / None
-    prev_yaw = route_yaw
+    prev_yaw, prev_alt = route_yaw, alt
     for entry in r["waypoints"]:
         if isinstance(entry, dict) and "xy" in entry:
             wx, wy = float(entry["xy"][0]), float(entry["xy"][1])
@@ -212,17 +240,20 @@ def main() -> int:
         if isinstance(entry, dict):
             y = float(entry.get("yaw", prev_yaw))
             spin = float(entry["spin"]) if "spin" in entry else None
+            a_val = float(entry.get("alt", prev_alt))
             for k in ("log", "hold"):
                 if k in entry:
                     act[k] = entry[k]
         else:
-            y, spin = route_yaw, None
+            y, spin, a_val = route_yaw, None, prev_alt
         wp_world.append((wx, wy))
         wp_labels.append(label)
         wp_yaws.append(y)
         wp_spins.append(spin)
+        wp_alts.append(a_val)
         wp_action.append(act or None)
         prev_yaw = spin if spin is not None else y
+        prev_alt = a_val
 
     wps = [to_ned(w) for w in wp_world]
     wp_headings = [gz_yaw_to_heading(y) for y in wp_yaws]
@@ -230,7 +261,8 @@ def main() -> int:
     depart_headings = [gz_yaw_to_heading(s) if s is not None else h
                        for s, h in zip(wp_spins, wp_headings)]
 
-    varying = len(set(wp_yaws)) > 1 or any(s is not None for s in wp_spins)
+    multi_alt = len(set(wp_alts)) > 1
+    varying = len(set(wp_yaws)) > 1 or any(s is not None for s in wp_spins) or multi_alt
     print(f"rota      : {args.route}  ({len(wps)} nokta)")
     if varying:
         print(f"yaw       : waypoint başına (aşağıda), genel {route_yaw:.0f}°")
@@ -239,13 +271,17 @@ def main() -> int:
               f"{math.degrees(wp_headings[0]):.0f}° (NED)")
     slow_txt = (f"   yavaşlama: {slow_radius:.1f} m kala x{slow_floor:.2f}"
                 if slow_radius > 0 else "")
-    print(f"irtifa    : {alt:.2f} m   hız: {speed:.2f} m/s{slow_txt}")
-    for lab, w, y, s in zip(wp_labels, wps, wp_yaws, wp_spins):
+    alt_txt = (f"{min(wp_alts):.2f}-{max(wp_alts):.2f} m (waypoint başına)"
+               if multi_alt else f"{alt:.2f} m")
+    print(f"irtifa    : {alt_txt}   hız: {speed:.2f} m/s{slow_txt}")
+    for lab, w, y, s, a in zip(wp_labels, wps, wp_yaws, wp_spins, wp_alts):
         extra = ""
         if varying:
             extra = f"  yaw {y:+.0f}°"
             if s is not None:
                 extra += f" -> yerinde {s:+.0f}°"
+            if multi_alt:
+                extra += f"  alt {a:.2f}"
         print(f"  {lab}  NED ({w[0]:+6.2f}, {w[1]:+6.2f}){extra}")
     total = sum(float(np.linalg.norm(wps[i + 1] - wps[i])) for i in range(len(wps) - 1))
     print(f"toplam yol: {total:.1f} m, tahmini süre {total/speed:.0f} s")
@@ -262,7 +298,8 @@ def main() -> int:
     # Offboard'a geçmeden ÖNCE setpoint akmalı: PX4 mod değişimini ancak
     # geçerli bir setpoint görüyorsa kabul ediyor.
     heading = wp_headings[0]
-    ob.set(wps[0][0], wps[0][1], -alt, heading)
+    cur_alt = wp_alts[0]
+    ob.set(wps[0][0], wps[0][1], -cur_alt, heading)
     ob.start()
     time.sleep(1.5)
 
@@ -279,14 +316,14 @@ def main() -> int:
         return 1
 
     # ---- tırmanış: ilk noktanın üstüne çık, sonra rotaya gir
-    print(f"tırmanış -> {alt:.2f} m")
+    print(f"tırmanış -> {cur_alt:.2f} m")
     climb_deadline = time.time() + 40
     while time.time() < climb_deadline:
         msg = link.m.recv_match(type="LOCAL_POSITION_NED", blocking=True, timeout=2)
         if msg is None:
             continue
         progress(f"irtifa {-msg.z:5.2f} m")
-        if -msg.z >= alt - 0.25:
+        if -msg.z >= cur_alt - 0.25:
             break
     print()
 
@@ -328,7 +365,7 @@ def main() -> int:
         if xt > args.abort_offset:
             print(f"\nDURDURULDU: koridor merkezinden {xt:.2f} m saptı "
                   f"(sınır {args.abort_offset:.2f} m). Olduğu yerde tutuluyor.")
-            ob.set(pos[0], pos[1], -alt, heading)
+            ob.set(pos[0], pos[1], -cur_alt, heading)
             aborted = True
             break
 
@@ -354,7 +391,7 @@ def main() -> int:
         seg = b - carrot
         d = float(np.linalg.norm(seg))
         carrot = b.copy() if d <= step else carrot + seg / d * step
-        ob.set(carrot[0], carrot[1], -alt, heading)
+        ob.set(carrot[0], carrot[1], -cur_alt, heading)
 
         progress(f"nokta {leg+1}/{len(wps)-1}  kalan {remaining:5.2f} m  "
                  f"sapma {xt:4.2f} m  hız {v:4.2f}  irtifa {-msg.z:4.2f} m")
@@ -366,9 +403,16 @@ def main() -> int:
             # Böylece büyük yaw dönüşü translasyondan ayrılır ve ancak güvenli
             # yerde (tag üstünde ya da açık alanda) yapılır.
             if wp_spins[leg] is not None:
-                hover_rotate(ob, link, wps[leg], -alt,
+                hover_rotate(ob, link, wps[leg], -cur_alt,
                              heading, depart_headings[leg])
                 heading = depart_headings[leg]
+                carrot = wps[leg].copy()
+                t_prev = time.time()
+            # varışta yerinde irtifa değişimi: sonraki bacak farklı seviyedeyse
+            # burada, kutuların önünden geçmeden önce değiştir (12 geçiş).
+            if abs(wp_alts[leg] - cur_alt) > 1e-3:
+                hover_climb(ob, link, wps[leg], heading, -cur_alt, -wp_alts[leg])
+                cur_alt = wp_alts[leg]
                 carrot = wps[leg].copy()
                 t_prev = time.time()
             if hold > 0:
