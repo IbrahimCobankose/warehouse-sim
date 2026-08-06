@@ -167,7 +167,12 @@ class Scanner:
                     # Geçiş bittikten (relock penceresi kapandıktan) sonra
                     # gelen tekrar görüşler yok sayılır -- README'nin "aynı
                     # kutuyu tekrar kaydetme" kuralı.
-                    self._save_frame(rgb, rec.image)
+                    # rec.image "frames/xxx.png" (JSON'da göreli yol dursun
+                    # diye); _save_frame zaten frames_dir'e yazıyor, tam yolu
+                    # vermek frames/frames/... üretiyordu. Sadece askıda
+                    # bekleyen testlerde bu dal hiç çalışmadığı için 1.
+                    # aşamada fark edilmemişti.
+                    self._save_frame(rgb, Path(rec.image).name)
                     rec.best_area_px, rec.best_polygon, rec.best_t = area, poly, t
                 for b in barcodes:
                     if b not in rec.barcodes:

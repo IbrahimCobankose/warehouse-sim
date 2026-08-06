@@ -67,3 +67,25 @@ param set-default EKF2_HGT_REF 2
 # EKF2_RNG_A_HMAX (5 m) altında kullanır. Bizde tavan yüksekliği zaten 4 m
 # civarı ve mesafe ölçerin sürekli devrede olmasını istiyoruz.
 param set-default EKF2_RNG_CTRL 2
+
+# --- AprilTag ile mutlak düzeltme (yol haritası 3. aşama) ---
+# scripts/apriltag_localize.py zemin markörlerinden poz kestirip
+# VISION_POSITION_ESTIMATE olarak yolluyor.
+#
+# EKF2_EV_CTRL bit maskesi: 1=yatay konum, 2=dikey konum, 4=hız, 8=yaw.
+# 9 = yatay konum + yaw. Dikey KASITLI olarak dışarıda: yükseklik referansı
+# mesafe ölçer (EKF2_HGT_REF 2) ve iki kaynağı aynı anda karıştırmak,
+# markör görünürken/kaybolurken origin zıplatıyor. Dikey kestirimdeki
+# 0.375 m'lik sapma bu yüzden 3. aşamada kapanmıyor -- ayrı iş.
+param set-default EKF2_EV_CTRL 9
+
+# Kamera 20 Hz + ROS köprüsü + tespit: kabaca 50 ms gecikme. Ölçülmedi,
+# makul bir başlangıç; kestirim titrerse önce buraya bakın.
+param set-default EKF2_EV_DELAY 50.0
+
+# Gürültüyü mesajdan değil parametreden al (1). VISION_POSITION_ESTIMATE'in
+# kovaryans alanını doldurmuyoruz, mesaja güvenmek sıfır kovaryans demek
+# olurdu -- EKF ölçümü mutlak doğru sanıp diğer kaynakları ezerdi.
+param set-default EKF2_EV_NOISE_MD 1
+param set-default EKF2_EVP_NOISE 0.05
+param set-default EKF2_EVA_NOISE 0.05

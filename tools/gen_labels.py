@@ -289,6 +289,34 @@ def make_bay_placard(payload: str, caption: str, spec: dict,
     return img, module_m
 
 
+def floor_marker_geometry(spec: dict, px_per_m_tex: float,
+                          max_px: int) -> tuple[float, float, float]:
+    """Zemin markörünün etiket içindeki GERÇEK yerleşimi.
+
+    `(tag_kenar_m, dx_m, dy_m)` döndürür: tag'in dünyadaki kenar uzunluğu ve
+    merkezinin ETİKET merkezine göre kayması. Etiket düzleminde u -> +X,
+    v -> +Y (bkz. label_quad.obj).
+
+    Neden ayrı bir fonksiyon: tag etiketin tam ortasında DEĞİL -- altta bir
+    caption şeridi var, tag onun üstündeki alana ortalanıyor. Ayrıca modül
+    boyutu tam sayı piksele yuvarlandığı için gerçek kenar `spec["code"]`
+    ile birebir aynı değil. 3. aşamadaki lokalizasyon bu iki ayrıntıyı
+    bilmek zorunda; make_floor_marker ile aynı hesabı iki yerde tutmak
+    sessiz bir konum hatası kaynağı olurdu.
+    """
+    _, scale = _canvas(spec["label"], px_per_m_tex, max_px)
+    h_px = max(8, int(round(spec["label"][1] * scale)))
+    module_px = max(1, int(round(spec["code"] * scale / APRILTAG_MODULES)))
+    tag_px = module_px * APRILTAG_MODULES
+    caption_px = int(round(spec.get("caption_height", 0.0) * scale))
+    tag_area_h = h_px - caption_px
+
+    # Dokuda y aşağı doğru büyür, dünyada +Y yukarı (v) doğru: işaret ters.
+    top = (tag_area_h - tag_px) // 2
+    dy_px = (h_px / 2.0) - (top + tag_px / 2.0)
+    return tag_px / scale, 0.0, dy_px / scale
+
+
 def make_floor_marker(tag_id: int, caption: str, spec: dict,
                       px_per_m_tex: float, max_px: int) -> tuple[Image.Image, float]:
     """Zemin markörü: AprilTag (tag36h11) + kalın çerçeve (alt kameradan

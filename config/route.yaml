@@ -1,0 +1,87 @@
+# Rota tanımı -- AprilTag'ler YALNIZCA KİMLİK taşır, ne yapılacağı burada.
+#
+# Bu ayrım bilinçli: markörün üstüne "burada sağa dön" gibi bir talimat
+# gömülürse rotayı değiştirmek için world'ü yeniden üretmek gerekir. Tag
+# sadece "neredeyim" sorusunu cevaplar; "ne yapayım" sorusu bu dosyada.
+#
+# Tag kimlikleri ve dünya konumları out/ground_truth.json'dan geliyor
+# (bkz. scripts/apriltag_localize.py -- markör yerleşimi bilinen altyapı).
+#   koridor 1 (y=-3.40): id 0..4, x = -10, -6, -2, +2, +6
+#   koridor 2 (y=+1.80): id 5..9, aynı x'ler
+
+# --------------------------------------------------------------- uçuş zarfı
+# Seyir hızı. ÜST SINIR İKİ YERDEN GELİYOR, ikisi de ölçüldü:
+#   * Optik akış: PX4 vehicle_local_position.vxy_max ~0.82 m/s bildiriyor.
+#   * Kutu tarama: kullanılabilir kare hızı ~5 Hz, kutu başına ~1 m pencere;
+#     kutu başına 3 deneme için ~1.5 m/s.
+# Düşük olan bağlayıcı.
+speed: 0.7
+
+# Konum toleransı: bir sonraki noktaya geçmek için bu kadar yaklaşmak yeter.
+waypoint_tolerance: 0.35
+
+# Hedefe yaklaşırken oransal yavaşlama (5. aşama ön koşulu, 4. aşama
+# ölçümünden çıktı). Havuç waypoint'e `slow_radius` m kala hızı `speed`ten
+# `speed * slow_floor`a kadar oransal düşürür. Amaç: overshoot'u ve düz
+# geçişte dört koşunun birinde görülen 0.85 m sapma aykırısını kesmek.
+# slow_radius: 0 verilirse eski (sabit hız) davranışa dönülür.
+slow_radius: 1.0
+slow_floor: 0.2
+
+# Rotalar
+routes:
+  # 4. aşamanın testi: TEK, DÜZ koridor geçişi. Dönüş manevrası yok --
+  # offboard kontrolün çalıştığını rota mantığından ayrı doğrulamak için.
+  koridor1_A_seviye2:
+    aisle: 1
+    # Burun yönü (Gazebo dünya yaw'ı, derece). Koridorlar X boyunca uzandığı
+    # için ön kamera ancak ±90 ile raflara bakar; -90 = burun -Y'ye,
+    # yani A sırasına (y=-6.0) döner. Bkz. README "kamera koridora değil
+    # rafa bakmalı".
+    yaw: -90
+    # Seviye 2 etiketleri 2.09 m'de. DİKKAT: PX4'ün yükseklik kestiriminde
+    # ~0.375 m'lik sabit sapma var (2. aşamada ölçüldü, 3. aşamada
+    # kapatılmadı), yani araç fiziksel olarak bunun ~0.37 m altında uçar.
+    # Kapsama testinde bu göz önünde bulundurulmalı.
+    altitude: 2.09
+    waypoints: [0, 1, 2, 3, 4]
+    actions:
+      0: {log: "koridor 1 girişi -- tarama başlıyor"}
+      2: {log: "koridor ortası"}
+      4: {log: "koridor 1 sonu", hold: 3.0}
+
+  # Dönüş geçişi (B sırası). 4. aşamada KULLANILMIYOR -- burada duruyor
+  # çünkü 5. aşamanın rotası bunu ve dönüş manevralarını ekleyecek.
+  koridor1_B_seviye2:
+    aisle: 1
+    yaw: 90
+    altitude: 2.09
+    waypoints: [4, 3, 2, 1, 0]
+    actions:
+      4: {log: "dönüş geçişi -- B sırası"}
+      0: {log: "koridor 1 başına dönüldü", hold: 3.0}
+
+  # 5. aşama iskeleti: waypoint başına yaw. Waypoint iki biçimde yazılabilir:
+  #   - 0                 (çıplak tag -> rotanın genel `yaw`ını alır)
+  #   - {tag: 0, yaw: -90}(kendi yaw'ını taşır)
+  # fly_route.py yaw'ı bacak boyunca aracın ilerleme oranına göre en kısa
+  # yoldan interpolasyonla döndürür. Burada A pasında -90 ile gidilip son iki
+  # tag'de +90'a dönülerek B pasına hazırlanılıyor.
+  #
+  # DİKKAT: gerçek bir dönüş, rafın ucunu dolaşan KÖŞE noktaları (tag
+  # olmayan, koridorun dışında) gerektirir -- o 5. aşamanın asıl işi. Bu rota
+  # yalnızca yeni şemayı ve yaw interpolasyonunu (dry-run'da) gösterir; olduğu
+  # gibi uçurulursa araç düz koridorda dönerek gider, dönüş manevrası yapmaz.
+  koridor1_tur_iskelet:
+    aisle: 1
+    yaw: -90            # genel varsayılan; her waypoint kendi yaw'ıyla ezebilir
+    altitude: 2.09
+    waypoints:
+      - {tag: 0, yaw: -90}
+      - {tag: 1, yaw: -90}
+      - {tag: 2, yaw: -90}
+      - {tag: 3, yaw: 0}     # köşeye yaklaşırken dönmeye başla
+      - {tag: 4, yaw: 90}    # B pasına bakacak şekilde tamamla
+    actions:
+      0: {log: "A pası -- tarama başlıyor"}
+      4: {log: "dönüş yaw'ı tamamlandı", hold: 3.0}
