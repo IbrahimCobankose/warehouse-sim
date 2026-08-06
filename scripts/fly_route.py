@@ -245,7 +245,10 @@ def main() -> int:
                 if k in entry:
                     act[k] = entry[k]
         else:
-            y, spin, a_val = route_yaw, None, prev_alt
+            # Çıplak int: dict {tag:N} gibi bir öncekini taşı (yaw ve alt).
+            # route_yaw taşımak spin sonrası B yüzünü -90'da bırakıyordu (bug).
+            # Tek-yaw rotalarda prev_yaw zaten route_yaw, davranış değişmez.
+            y, spin, a_val = prev_yaw, None, prev_alt
         wp_world.append((wx, wy))
         wp_labels.append(label)
         wp_yaws.append(y)

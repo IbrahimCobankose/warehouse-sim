@@ -91,6 +91,45 @@ routes:
       - 3
       - {tag: 4, log: "A üç seviye tamam", hold: 3.0}
 
+  # 6. aşama: koridor 1'in HER İKİ yüzünü (A ve B) 3 seviyede tara, dönüş yok.
+  # A'yı tarayıp tag4 üstünde YERİNDE 180° dönüp (spin) B'yi tarar -- yaw-çevirme
+  # ile aynı koridorda iki yüz taramayı izole test eder. A=yaw-90 (y=-6 sırası),
+  # B=yaw+90 (y=-1.9 sırası). Bittiğinde koridor 1 tam: A(27)+B(26)=53 kutu.
+  # Her yüzde seviye zigzag (L2->L3->L1 A'da, L1->L2->L3 B'de); L1 komutu 0.80
+  # (dikey bias telafisi). Dönüş tag4 üstünde -> floor tag 4 lokalize ediyor.
+  koridor1_AB_3seviye:
+    aisle: 1
+    yaw: -90
+    altitude: 2.09
+    waypoints:
+      # --- A yüzü (yaw -90) ---
+      - {tag: 0, log: "A L2 ileri"}
+      - 1
+      - 2
+      - 3
+      - {tag: 4, alt: 3.79, log: "A L3'e çık, geri"}
+      - 3
+      - 2
+      - 1
+      - {tag: 0, alt: 0.80, log: "A L1'e in, ileri (DİKKAT yer etkisi)"}
+      - 1
+      - 2
+      - 3
+      - {tag: 4, spin: 90, log: "A bitti -- B'ye dön (yerinde 180°)"}
+      # --- B yüzü (yaw +90) ---
+      - 3
+      - 2
+      - 1
+      - {tag: 0, alt: 2.09, log: "B L2'ye çık, ileri"}
+      - 1
+      - 2
+      - 3
+      - {tag: 4, alt: 3.79, log: "B L3'e çık, geri"}
+      - 3
+      - 2
+      - 1
+      - {tag: 0, log: "koridor 1 iki yüz tamam", hold: 3.0}
+
   # 5. aşama: koridor 1'den koridor 2'ye GERÇEK dönüş.
   #
   # Dönüş raf hattında DEĞİL, rafın +x ucunu (raf x=+6.2'de biter) dolaşarak
