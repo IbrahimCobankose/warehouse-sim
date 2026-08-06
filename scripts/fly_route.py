@@ -102,6 +102,30 @@ class Offboard:
         self._stop.set()
 
 
+def hover_rotate(ob, link, pos_ned, d, from_h, to_h, rate_deg=30.0):
+    """Yerinde (hover) dönüş: konumu `pos_ned`de sabit tutup burnu `from_h`ten
+    `to_h`e en kısa yoldan, `rate_deg`/s ile döndür. Büyük yaw dönüşlerini
+    translasyondan AYIRIR: optik akış dönerken bozuluyor (2. aşama), o yüzden
+    dönüş ya tag üstünde (AprilTag düzeltmesi var) ya açık alanda (raf uzakta)
+    yapılmalı -- ikisinde de konum bu setpoint'le tutuluyor."""
+    delta = (to_h - from_h + math.pi) % (2.0 * math.pi) - math.pi
+    dur = abs(delta) / math.radians(rate_deg)
+    print(f"\n  yerinde dönüş {math.degrees(from_h):+.0f}° -> "
+          f"{math.degrees(to_h):+.0f}° ({dur:.1f} s)")
+    t0 = time.time()
+    while True:
+        f = min(1.0, (time.time() - t0) / dur) if dur > 1e-3 else 1.0
+        ob.set(pos_ned[0], pos_ned[1], d, from_h + delta * f)
+        if f >= 1.0:
+            break
+        link.m.recv_match(type="LOCAL_POSITION_NED", blocking=True, timeout=0.5)
+    # dönüş bitince kısa oturma: yeni yönde dengelensin
+    settle = time.time() + 1.5
+    while time.time() < settle:
+        ob.set(pos_ned[0], pos_ned[1], d, to_h)
+        link.m.recv_match(type="LOCAL_POSITION_NED", blocking=True, timeout=0.5)
+
+
 def cross_track(p: np.ndarray, a: np.ndarray, b: np.ndarray) -> float:
     """`p`nin a->b doğrusuna dik uzaklığı (2B)."""
     ab = b - a
@@ -147,40 +171,68 @@ def main() -> int:
     slow_radius = float(routes.get("slow_radius", 0.0))
     slow_floor = float(routes.get("slow_floor", 0.2))
     actions = {int(k): v for k, v in (r.get("actions") or {}).items()}
-
-    # Waypoint'ler ya çıplak tag kimliği (int) ya da {tag, yaw} sözlüğü.
-    # İkinci biçim waypoint başına yaw taşır (dönüş manevraları, 5. aşama);
-    # yaw verilmezse rotanın genel `yaw`ına düşer. Böylece eski, tek-yaw'lı
-    # rotalar (koridor1_A_seviye2) değişmeden çalışır.
     route_yaw = float(r["yaw"])
-    wp_tags: list[int] = []
-    wp_yaws: list[float] = []
-    for entry in r["waypoints"]:
-        if isinstance(entry, dict):
-            wp_tags.append(int(entry["tag"]))
-            wp_yaws.append(float(entry.get("yaw", route_yaw)))
-        else:
-            wp_tags.append(int(entry))
-            wp_yaws.append(route_yaw)
-
-    tags, _ = load_tag_map(args.ground_truth, cfg)
-    missing = [t for t in wp_tags if t not in tags]
-    if missing:
-        print(f"Haritada olmayan tag: {missing}", file=sys.stderr)
-        return 1
-
-    spawn = np.array(cfg["spawn"]["pose"][:3], dtype=np.float64)
     alt = float(r["altitude"])
-    wp_headings = [gz_yaw_to_heading(y) for y in wp_yaws]
+    spawn = np.array(cfg["spawn"]["pose"][:3], dtype=np.float64)
+    tags, _ = load_tag_map(args.ground_truth, cfg)
 
     # Dünya -> yerel NED. Kuzey = dünya +Y, Doğu = dünya +X.
     def to_ned(world_xy):
         return np.array([world_xy[1] - spawn[1], world_xy[0] - spawn[0]])
 
-    wps = [to_ned(tags[t][:2]) for t in wp_tags]
-    varying_yaw = len(set(wp_yaws)) > 1
+    # Waypoint biçimleri (bir rotada karışabilir):
+    #   0                      -> çıplak tag; yaw = rotanın genel `yaw`ı
+    #   {tag: 4, yaw: -90}     -> tag + kendi yaw'ı
+    #   {xy: [8.5, -3.4]}      -> tag OLMAYAN dünya noktası (rafın ucunu
+    #                             dolaşan köşe noktaları için, 5. aşama dönüşü)
+    #   {..., spin: 0}         -> VARIŞTA yerinde dön: burnu bu noktanın
+    #                             yaw'ından `spin` dereceye HOVER'da çevir.
+    #                             Büyük dönüşleri translasyondan ayırır.
+    #   {..., log:.., hold:..} -> tag'e bağlı `actions` yerine satır-içi eylem
+    # yaw verilmezse bir önceki noktanın (varsa spin sonrası) yaw'ına düşer;
+    # böylece bacaklar SABİT yönle uçulur ve dönüş yalnızca spin noktalarında
+    # olur -- eski çıplak-int rotalar (koridor1_A_seviye2) değişmeden çalışır.
+    wp_world: list = []
+    wp_labels: list[str] = []
+    wp_yaws: list[float] = []
+    wp_spins: list = []          # varışta yerinde dönülecek hedef derece / None
+    wp_action: list = []         # {log?, hold?} / None
+    prev_yaw = route_yaw
+    for entry in r["waypoints"]:
+        if isinstance(entry, dict) and "xy" in entry:
+            wx, wy = float(entry["xy"][0]), float(entry["xy"][1])
+            label, act = f"xy({wx:+5.1f},{wy:+5.1f})", {}
+        else:
+            t = int(entry["tag"]) if isinstance(entry, dict) else int(entry)
+            if t not in tags:
+                print(f"Haritada olmayan tag: {t}", file=sys.stderr)
+                return 1
+            wx, wy = float(tags[t][0]), float(tags[t][1])
+            label, act = f"tag {t:>2}       ", dict(actions.get(t) or {})
+        if isinstance(entry, dict):
+            y = float(entry.get("yaw", prev_yaw))
+            spin = float(entry["spin"]) if "spin" in entry else None
+            for k in ("log", "hold"):
+                if k in entry:
+                    act[k] = entry[k]
+        else:
+            y, spin = route_yaw, None
+        wp_world.append((wx, wy))
+        wp_labels.append(label)
+        wp_yaws.append(y)
+        wp_spins.append(spin)
+        wp_action.append(act or None)
+        prev_yaw = spin if spin is not None else y
+
+    wps = [to_ned(w) for w in wp_world]
+    wp_headings = [gz_yaw_to_heading(y) for y in wp_yaws]
+    # Bacaktan ÇIKIŞ yönü: nokta spin ediyorsa spin hedefi, yoksa giriş yönü.
+    depart_headings = [gz_yaw_to_heading(s) if s is not None else h
+                       for s, h in zip(wp_spins, wp_headings)]
+
+    varying = len(set(wp_yaws)) > 1 or any(s is not None for s in wp_spins)
     print(f"rota      : {args.route}  ({len(wps)} nokta)")
-    if varying_yaw:
+    if varying:
         print(f"yaw       : waypoint başına (aşağıda), genel {route_yaw:.0f}°")
     else:
         print(f"yaw       : {route_yaw:.0f}° (dünya) -> "
@@ -188,10 +240,13 @@ def main() -> int:
     slow_txt = (f"   yavaşlama: {slow_radius:.1f} m kala x{slow_floor:.2f}"
                 if slow_radius > 0 else "")
     print(f"irtifa    : {alt:.2f} m   hız: {speed:.2f} m/s{slow_txt}")
-    for t, w, y in zip(wp_tags, wps, wp_yaws):
-        extra = f"  yaw {y:+.0f}°" if varying_yaw else ""
-        print(f"  tag {t:>2}  dünya ({tags[t][0]:+6.2f}, {tags[t][1]:+6.2f})"
-              f"  -> NED ({w[0]:+6.2f}, {w[1]:+6.2f}){extra}")
+    for lab, w, y, s in zip(wp_labels, wps, wp_yaws, wp_spins):
+        extra = ""
+        if varying:
+            extra = f"  yaw {y:+.0f}°"
+            if s is not None:
+                extra += f" -> yerinde {s:+.0f}°"
+        print(f"  {lab}  NED ({w[0]:+6.2f}, {w[1]:+6.2f}){extra}")
     total = sum(float(np.linalg.norm(wps[i + 1] - wps[i])) for i in range(len(wps) - 1))
     print(f"toplam yol: {total:.1f} m, tahmini süre {total/speed:.0f} s")
     if args.dry_run:
@@ -244,16 +299,16 @@ def main() -> int:
     t_prev = time.time()
     done_actions: set[int] = set()
 
-    def do_action(tag_id: int) -> float:
-        a = actions.get(tag_id)
-        if not a or tag_id in done_actions:
+    def do_action(i: int) -> float:
+        a = wp_action[i]
+        if not a or i in done_actions:
             return 0.0
-        done_actions.add(tag_id)
+        done_actions.add(i)
         if a.get("log"):
-            print(f"\n  [tag {tag_id}] {a['log']}")
+            print(f"\n  [{wp_labels[i].strip()}] {a['log']}")
         return float(a.get("hold", 0.0))
 
-    do_action(wp_tags[0])
+    do_action(0)
 
     while leg < len(wps) - 1:
         msg = link.m.recv_match(type="LOCAL_POSITION_NED", blocking=True, timeout=2)
@@ -285,7 +340,7 @@ def main() -> int:
         ab = b - a
         L2 = float(ab @ ab)
         f = float((pos - a) @ ab) / L2 if L2 > 1e-9 else 1.0
-        heading = lerp_angle(wp_headings[leg], wp_headings[leg + 1], f)
+        heading = lerp_angle(depart_headings[leg], wp_headings[leg + 1], f)
 
         # hedefe yaklaşırken oransal yavaşlama: son slow_radius m'de hızı
         # slow_floor'a kadar düşür. Overshoot'u ve 4. aşamada bir koşuda
@@ -305,8 +360,17 @@ def main() -> int:
                  f"sapma {xt:4.2f} m  hız {v:4.2f}  irtifa {-msg.z:4.2f} m")
 
         if remaining <= tol:
-            hold = do_action(wp_tags[leg + 1])
+            hold = do_action(leg + 1)
             leg += 1
+            # varışta yerinde dönüş (spin): burnu bu noktada, HOVER'da çevir.
+            # Böylece büyük yaw dönüşü translasyondan ayrılır ve ancak güvenli
+            # yerde (tag üstünde ya da açık alanda) yapılır.
+            if wp_spins[leg] is not None:
+                hover_rotate(ob, link, wps[leg], -alt,
+                             heading, depart_headings[leg])
+                heading = depart_headings[leg]
+                carrot = wps[leg].copy()
+                t_prev = time.time()
             if hold > 0:
                 print(f"  {hold:.0f} s bekleniyor")
                 end = time.time() + hold

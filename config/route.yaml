@@ -61,27 +61,37 @@ routes:
       4: {log: "dönüş geçişi -- B sırası"}
       0: {log: "koridor 1 başına dönüldü", hold: 3.0}
 
-  # 5. aşama iskeleti: waypoint başına yaw. Waypoint iki biçimde yazılabilir:
-  #   - 0                 (çıplak tag -> rotanın genel `yaw`ını alır)
-  #   - {tag: 0, yaw: -90}(kendi yaw'ını taşır)
-  # fly_route.py yaw'ı bacak boyunca aracın ilerleme oranına göre en kısa
-  # yoldan interpolasyonla döndürür. Burada A pasında -90 ile gidilip son iki
-  # tag'de +90'a dönülerek B pasına hazırlanılıyor.
+  # 5. aşama: koridor 1'den koridor 2'ye GERÇEK dönüş.
   #
-  # DİKKAT: gerçek bir dönüş, rafın ucunu dolaşan KÖŞE noktaları (tag
-  # olmayan, koridorun dışında) gerektirir -- o 5. aşamanın asıl işi. Bu rota
-  # yalnızca yeni şemayı ve yaw interpolasyonunu (dry-run'da) gösterir; olduğu
-  # gibi uçurulursa araç düz koridorda dönerek gider, dönüş manevrası yapmaz.
-  koridor1_tur_iskelet:
+  # Dönüş raf hattında DEĞİL, rafın +x ucunu (raf x=+6.2'de biter) dolaşarak
+  # AÇIK ALANDA yapılır. Büyük yaw dönüşleri `spin` ile translasyondan ayrılıp
+  # YERİNDE yapılır -- optik akış dönerken bozuluyor (2. aşama), o yüzden dönüş
+  # ancak güvenli yerde olmalı: tag 4 ÜSTÜNDE (AprilTag düzeltmesi var) ya da
+  # x=+8.5 köşesinde (açık alan, en yakın raf >2 m). Bacaklar hep sabit yönle,
+  # burun ileri ya da rafa dönük uçulur; hiçbir zaman raf yanında dönerek değil.
+  #
+  # Geometri: koridor 1 y=-3.40 (tag 0..4), koridor 2 y=+1.80 (tag 5..9),
+  # ikisinde de x=-10,-6,-2,+2,+6. Köşe x=+8.5 rafın ucundan ~2.3 m açıkta.
+  #
+  # (Bunun öncülü `koridor1_tur_iskelet` idi: raf hattında 180° dönüp aracı
+  # rafa çarptırıyordu -- bkz. README "dönüş raf yanında yapılamaz" dersi.)
+  koridor1_to_2_donus:
     aisle: 1
-    yaw: -90            # genel varsayılan; her waypoint kendi yaw'ıyla ezebilir
+    yaw: -90                       # koridor 1 tarama yönü (A sırası, y=-6)
     altitude: 2.09
     waypoints:
-      - {tag: 0, yaw: -90}
-      - {tag: 1, yaw: -90}
-      - {tag: 2, yaw: -90}
-      - {tag: 3, yaw: 0}     # köşeye yaklaşırken dönmeye başla
-      - {tag: 4, yaw: 90}    # B pasına bakacak şekilde tamamla
-    actions:
-      0: {log: "A pası -- tarama başlıyor"}
-      4: {log: "dönüş yaw'ı tamamlandı", hold: 3.0}
+      - {tag: 0, log: "koridor 1 -- A sırası taranıyor"}
+      - {tag: 1}
+      - {tag: 2}
+      - {tag: 3}
+      # koridor 1 sonu: tag üstünde dur, burnu ileriye (+x, dünya yaw 0) çevir
+      - {tag: 4, spin: 0, log: "koridor 1 sonu -- rafın ucuna çıkılıyor"}
+      # rafın ucu, açık alan: burnu +y'ye (dünya yaw 90) çevirip koridor 2'ye
+      - {xy: [8.5, -3.40], spin: 90, log: "raf ucu -- koridor 2'ye dönülüyor"}
+      - {xy: [8.5,  1.80]}         # koridor 2 hizası (burun +y, ileri uçuş)
+      # koridor 2: burun +y (yaw 90) = D sırasına (y=+3.30) dönük, -x tarama
+      - {tag: 9, log: "koridor 2 -- D sırası taranıyor"}
+      - {tag: 8}
+      - {tag: 7}
+      - {tag: 6}
+      - {tag: 5, log: "koridor 2 sonu", hold: 3.0}
