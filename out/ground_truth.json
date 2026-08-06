@@ -6991,6 +6991,2526 @@
         0.0,
         1.0
       ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 10,
+      "payload": "APRILTAG36H11:10",
+      "caption": "A0L1",
+      "entity": "rack_markers::rackmark_A_0_1",
+      "row": "A",
+      "upright": 0,
+      "level": 1,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -10.0,
+        -4.896,
+        0.39,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 11,
+      "payload": "APRILTAG36H11:11",
+      "caption": "A0L2",
+      "entity": "rack_markers::rackmark_A_0_2",
+      "row": "A",
+      "upright": 0,
+      "level": 2,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -10.0,
+        -4.896,
+        2.09,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 12,
+      "payload": "APRILTAG36H11:12",
+      "caption": "A0L3",
+      "entity": "rack_markers::rackmark_A_0_3",
+      "row": "A",
+      "upright": 0,
+      "level": 3,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -10.0,
+        -4.896,
+        3.79,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 13,
+      "payload": "APRILTAG36H11:13",
+      "caption": "A1L1",
+      "entity": "rack_markers::rackmark_A_1_1",
+      "row": "A",
+      "upright": 1,
+      "level": 1,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -7.3,
+        -4.896,
+        0.39,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 14,
+      "payload": "APRILTAG36H11:14",
+      "caption": "A1L2",
+      "entity": "rack_markers::rackmark_A_1_2",
+      "row": "A",
+      "upright": 1,
+      "level": 2,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -7.3,
+        -4.896,
+        2.09,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 15,
+      "payload": "APRILTAG36H11:15",
+      "caption": "A1L3",
+      "entity": "rack_markers::rackmark_A_1_3",
+      "row": "A",
+      "upright": 1,
+      "level": 3,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -7.3,
+        -4.896,
+        3.79,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 16,
+      "payload": "APRILTAG36H11:16",
+      "caption": "A2L1",
+      "entity": "rack_markers::rackmark_A_2_1",
+      "row": "A",
+      "upright": 2,
+      "level": 1,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -4.6,
+        -4.896,
+        0.39,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 17,
+      "payload": "APRILTAG36H11:17",
+      "caption": "A2L2",
+      "entity": "rack_markers::rackmark_A_2_2",
+      "row": "A",
+      "upright": 2,
+      "level": 2,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -4.6,
+        -4.896,
+        2.09,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 18,
+      "payload": "APRILTAG36H11:18",
+      "caption": "A2L3",
+      "entity": "rack_markers::rackmark_A_2_3",
+      "row": "A",
+      "upright": 2,
+      "level": 3,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -4.6,
+        -4.896,
+        3.79,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 19,
+      "payload": "APRILTAG36H11:19",
+      "caption": "A3L1",
+      "entity": "rack_markers::rackmark_A_3_1",
+      "row": "A",
+      "upright": 3,
+      "level": 1,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -1.9,
+        -4.896,
+        0.39,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 20,
+      "payload": "APRILTAG36H11:20",
+      "caption": "A3L2",
+      "entity": "rack_markers::rackmark_A_3_2",
+      "row": "A",
+      "upright": 3,
+      "level": 2,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -1.9,
+        -4.896,
+        2.09,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 21,
+      "payload": "APRILTAG36H11:21",
+      "caption": "A3L3",
+      "entity": "rack_markers::rackmark_A_3_3",
+      "row": "A",
+      "upright": 3,
+      "level": 3,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -1.9,
+        -4.896,
+        3.79,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 22,
+      "payload": "APRILTAG36H11:22",
+      "caption": "A4L1",
+      "entity": "rack_markers::rackmark_A_4_1",
+      "row": "A",
+      "upright": 4,
+      "level": 1,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        0.8,
+        -4.896,
+        0.39,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 23,
+      "payload": "APRILTAG36H11:23",
+      "caption": "A4L2",
+      "entity": "rack_markers::rackmark_A_4_2",
+      "row": "A",
+      "upright": 4,
+      "level": 2,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        0.8,
+        -4.896,
+        2.09,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 24,
+      "payload": "APRILTAG36H11:24",
+      "caption": "A4L3",
+      "entity": "rack_markers::rackmark_A_4_3",
+      "row": "A",
+      "upright": 4,
+      "level": 3,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        0.8,
+        -4.896,
+        3.79,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 25,
+      "payload": "APRILTAG36H11:25",
+      "caption": "A5L1",
+      "entity": "rack_markers::rackmark_A_5_1",
+      "row": "A",
+      "upright": 5,
+      "level": 1,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        3.5,
+        -4.896,
+        0.39,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 26,
+      "payload": "APRILTAG36H11:26",
+      "caption": "A5L2",
+      "entity": "rack_markers::rackmark_A_5_2",
+      "row": "A",
+      "upright": 5,
+      "level": 2,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        3.5,
+        -4.896,
+        2.09,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 27,
+      "payload": "APRILTAG36H11:27",
+      "caption": "A5L3",
+      "entity": "rack_markers::rackmark_A_5_3",
+      "row": "A",
+      "upright": 5,
+      "level": 3,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        3.5,
+        -4.896,
+        3.79,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 28,
+      "payload": "APRILTAG36H11:28",
+      "caption": "A6L1",
+      "entity": "rack_markers::rackmark_A_6_1",
+      "row": "A",
+      "upright": 6,
+      "level": 1,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        6.2,
+        -4.896,
+        0.39,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 29,
+      "payload": "APRILTAG36H11:29",
+      "caption": "A6L2",
+      "entity": "rack_markers::rackmark_A_6_2",
+      "row": "A",
+      "upright": 6,
+      "level": 2,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        6.2,
+        -4.896,
+        2.09,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 30,
+      "payload": "APRILTAG36H11:30",
+      "caption": "A6L3",
+      "entity": "rack_markers::rackmark_A_6_3",
+      "row": "A",
+      "upright": 6,
+      "level": 3,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        6.2,
+        -4.896,
+        3.79,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 31,
+      "payload": "APRILTAG36H11:31",
+      "caption": "B0L1",
+      "entity": "rack_markers::rackmark_B_0_1",
+      "row": "B",
+      "upright": 0,
+      "level": 1,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -10.0,
+        -1.904,
+        0.39,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 32,
+      "payload": "APRILTAG36H11:32",
+      "caption": "B0L2",
+      "entity": "rack_markers::rackmark_B_0_2",
+      "row": "B",
+      "upright": 0,
+      "level": 2,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -10.0,
+        -1.904,
+        2.09,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 33,
+      "payload": "APRILTAG36H11:33",
+      "caption": "B0L3",
+      "entity": "rack_markers::rackmark_B_0_3",
+      "row": "B",
+      "upright": 0,
+      "level": 3,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -10.0,
+        -1.904,
+        3.79,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 34,
+      "payload": "APRILTAG36H11:34",
+      "caption": "B1L1",
+      "entity": "rack_markers::rackmark_B_1_1",
+      "row": "B",
+      "upright": 1,
+      "level": 1,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -7.3,
+        -1.904,
+        0.39,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 35,
+      "payload": "APRILTAG36H11:35",
+      "caption": "B1L2",
+      "entity": "rack_markers::rackmark_B_1_2",
+      "row": "B",
+      "upright": 1,
+      "level": 2,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -7.3,
+        -1.904,
+        2.09,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 36,
+      "payload": "APRILTAG36H11:36",
+      "caption": "B1L3",
+      "entity": "rack_markers::rackmark_B_1_3",
+      "row": "B",
+      "upright": 1,
+      "level": 3,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -7.3,
+        -1.904,
+        3.79,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 37,
+      "payload": "APRILTAG36H11:37",
+      "caption": "B2L1",
+      "entity": "rack_markers::rackmark_B_2_1",
+      "row": "B",
+      "upright": 2,
+      "level": 1,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -4.6,
+        -1.904,
+        0.39,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 38,
+      "payload": "APRILTAG36H11:38",
+      "caption": "B2L2",
+      "entity": "rack_markers::rackmark_B_2_2",
+      "row": "B",
+      "upright": 2,
+      "level": 2,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -4.6,
+        -1.904,
+        2.09,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 39,
+      "payload": "APRILTAG36H11:39",
+      "caption": "B2L3",
+      "entity": "rack_markers::rackmark_B_2_3",
+      "row": "B",
+      "upright": 2,
+      "level": 3,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -4.6,
+        -1.904,
+        3.79,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 40,
+      "payload": "APRILTAG36H11:40",
+      "caption": "B3L1",
+      "entity": "rack_markers::rackmark_B_3_1",
+      "row": "B",
+      "upright": 3,
+      "level": 1,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -1.9,
+        -1.904,
+        0.39,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 41,
+      "payload": "APRILTAG36H11:41",
+      "caption": "B3L2",
+      "entity": "rack_markers::rackmark_B_3_2",
+      "row": "B",
+      "upright": 3,
+      "level": 2,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -1.9,
+        -1.904,
+        2.09,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 42,
+      "payload": "APRILTAG36H11:42",
+      "caption": "B3L3",
+      "entity": "rack_markers::rackmark_B_3_3",
+      "row": "B",
+      "upright": 3,
+      "level": 3,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -1.9,
+        -1.904,
+        3.79,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 43,
+      "payload": "APRILTAG36H11:43",
+      "caption": "B4L1",
+      "entity": "rack_markers::rackmark_B_4_1",
+      "row": "B",
+      "upright": 4,
+      "level": 1,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        0.8,
+        -1.904,
+        0.39,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 44,
+      "payload": "APRILTAG36H11:44",
+      "caption": "B4L2",
+      "entity": "rack_markers::rackmark_B_4_2",
+      "row": "B",
+      "upright": 4,
+      "level": 2,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        0.8,
+        -1.904,
+        2.09,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 45,
+      "payload": "APRILTAG36H11:45",
+      "caption": "B4L3",
+      "entity": "rack_markers::rackmark_B_4_3",
+      "row": "B",
+      "upright": 4,
+      "level": 3,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        0.8,
+        -1.904,
+        3.79,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 46,
+      "payload": "APRILTAG36H11:46",
+      "caption": "B5L1",
+      "entity": "rack_markers::rackmark_B_5_1",
+      "row": "B",
+      "upright": 5,
+      "level": 1,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        3.5,
+        -1.904,
+        0.39,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 47,
+      "payload": "APRILTAG36H11:47",
+      "caption": "B5L2",
+      "entity": "rack_markers::rackmark_B_5_2",
+      "row": "B",
+      "upright": 5,
+      "level": 2,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        3.5,
+        -1.904,
+        2.09,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 48,
+      "payload": "APRILTAG36H11:48",
+      "caption": "B5L3",
+      "entity": "rack_markers::rackmark_B_5_3",
+      "row": "B",
+      "upright": 5,
+      "level": 3,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        3.5,
+        -1.904,
+        3.79,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 49,
+      "payload": "APRILTAG36H11:49",
+      "caption": "B6L1",
+      "entity": "rack_markers::rackmark_B_6_1",
+      "row": "B",
+      "upright": 6,
+      "level": 1,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        6.2,
+        -1.904,
+        0.39,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 50,
+      "payload": "APRILTAG36H11:50",
+      "caption": "B6L2",
+      "entity": "rack_markers::rackmark_B_6_2",
+      "row": "B",
+      "upright": 6,
+      "level": 2,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        6.2,
+        -1.904,
+        2.09,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 51,
+      "payload": "APRILTAG36H11:51",
+      "caption": "B6L3",
+      "entity": "rack_markers::rackmark_B_6_3",
+      "row": "B",
+      "upright": 6,
+      "level": 3,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        6.2,
+        -1.904,
+        3.79,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 52,
+      "payload": "APRILTAG36H11:52",
+      "caption": "C0L1",
+      "entity": "rack_markers::rackmark_C_0_1",
+      "row": "C",
+      "upright": 0,
+      "level": 1,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -10.0,
+        0.304,
+        0.39,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 53,
+      "payload": "APRILTAG36H11:53",
+      "caption": "C0L2",
+      "entity": "rack_markers::rackmark_C_0_2",
+      "row": "C",
+      "upright": 0,
+      "level": 2,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -10.0,
+        0.304,
+        2.09,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 54,
+      "payload": "APRILTAG36H11:54",
+      "caption": "C0L3",
+      "entity": "rack_markers::rackmark_C_0_3",
+      "row": "C",
+      "upright": 0,
+      "level": 3,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -10.0,
+        0.304,
+        3.79,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 55,
+      "payload": "APRILTAG36H11:55",
+      "caption": "C1L1",
+      "entity": "rack_markers::rackmark_C_1_1",
+      "row": "C",
+      "upright": 1,
+      "level": 1,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -7.3,
+        0.304,
+        0.39,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 56,
+      "payload": "APRILTAG36H11:56",
+      "caption": "C1L2",
+      "entity": "rack_markers::rackmark_C_1_2",
+      "row": "C",
+      "upright": 1,
+      "level": 2,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -7.3,
+        0.304,
+        2.09,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 57,
+      "payload": "APRILTAG36H11:57",
+      "caption": "C1L3",
+      "entity": "rack_markers::rackmark_C_1_3",
+      "row": "C",
+      "upright": 1,
+      "level": 3,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -7.3,
+        0.304,
+        3.79,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 58,
+      "payload": "APRILTAG36H11:58",
+      "caption": "C2L1",
+      "entity": "rack_markers::rackmark_C_2_1",
+      "row": "C",
+      "upright": 2,
+      "level": 1,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -4.6,
+        0.304,
+        0.39,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 59,
+      "payload": "APRILTAG36H11:59",
+      "caption": "C2L2",
+      "entity": "rack_markers::rackmark_C_2_2",
+      "row": "C",
+      "upright": 2,
+      "level": 2,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -4.6,
+        0.304,
+        2.09,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 60,
+      "payload": "APRILTAG36H11:60",
+      "caption": "C2L3",
+      "entity": "rack_markers::rackmark_C_2_3",
+      "row": "C",
+      "upright": 2,
+      "level": 3,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -4.6,
+        0.304,
+        3.79,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 61,
+      "payload": "APRILTAG36H11:61",
+      "caption": "C3L1",
+      "entity": "rack_markers::rackmark_C_3_1",
+      "row": "C",
+      "upright": 3,
+      "level": 1,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -1.9,
+        0.304,
+        0.39,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 62,
+      "payload": "APRILTAG36H11:62",
+      "caption": "C3L2",
+      "entity": "rack_markers::rackmark_C_3_2",
+      "row": "C",
+      "upright": 3,
+      "level": 2,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -1.9,
+        0.304,
+        2.09,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 63,
+      "payload": "APRILTAG36H11:63",
+      "caption": "C3L3",
+      "entity": "rack_markers::rackmark_C_3_3",
+      "row": "C",
+      "upright": 3,
+      "level": 3,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        -1.9,
+        0.304,
+        3.79,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 64,
+      "payload": "APRILTAG36H11:64",
+      "caption": "C4L1",
+      "entity": "rack_markers::rackmark_C_4_1",
+      "row": "C",
+      "upright": 4,
+      "level": 1,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        0.8,
+        0.304,
+        0.39,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 65,
+      "payload": "APRILTAG36H11:65",
+      "caption": "C4L2",
+      "entity": "rack_markers::rackmark_C_4_2",
+      "row": "C",
+      "upright": 4,
+      "level": 2,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        0.8,
+        0.304,
+        2.09,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 66,
+      "payload": "APRILTAG36H11:66",
+      "caption": "C4L3",
+      "entity": "rack_markers::rackmark_C_4_3",
+      "row": "C",
+      "upright": 4,
+      "level": 3,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        0.8,
+        0.304,
+        3.79,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 67,
+      "payload": "APRILTAG36H11:67",
+      "caption": "C5L1",
+      "entity": "rack_markers::rackmark_C_5_1",
+      "row": "C",
+      "upright": 5,
+      "level": 1,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        3.5,
+        0.304,
+        0.39,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 68,
+      "payload": "APRILTAG36H11:68",
+      "caption": "C5L2",
+      "entity": "rack_markers::rackmark_C_5_2",
+      "row": "C",
+      "upright": 5,
+      "level": 2,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        3.5,
+        0.304,
+        2.09,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 69,
+      "payload": "APRILTAG36H11:69",
+      "caption": "C5L3",
+      "entity": "rack_markers::rackmark_C_5_3",
+      "row": "C",
+      "upright": 5,
+      "level": 3,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        3.5,
+        0.304,
+        3.79,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 70,
+      "payload": "APRILTAG36H11:70",
+      "caption": "C6L1",
+      "entity": "rack_markers::rackmark_C_6_1",
+      "row": "C",
+      "upright": 6,
+      "level": 1,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        6.2,
+        0.304,
+        0.39,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 71,
+      "payload": "APRILTAG36H11:71",
+      "caption": "C6L2",
+      "entity": "rack_markers::rackmark_C_6_2",
+      "row": "C",
+      "upright": 6,
+      "level": 2,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        6.2,
+        0.304,
+        2.09,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 72,
+      "payload": "APRILTAG36H11:72",
+      "caption": "C6L3",
+      "entity": "rack_markers::rackmark_C_6_3",
+      "row": "C",
+      "upright": 6,
+      "level": 3,
+      "facing": 1,
+      "label_pose_xyzrpy": [
+        6.2,
+        0.304,
+        3.79,
+        1.570796,
+        0.0,
+        3.141593
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 73,
+      "payload": "APRILTAG36H11:73",
+      "caption": "D0L1",
+      "entity": "rack_markers::rackmark_D_0_1",
+      "row": "D",
+      "upright": 0,
+      "level": 1,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -10.0,
+        3.296,
+        0.39,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 74,
+      "payload": "APRILTAG36H11:74",
+      "caption": "D0L2",
+      "entity": "rack_markers::rackmark_D_0_2",
+      "row": "D",
+      "upright": 0,
+      "level": 2,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -10.0,
+        3.296,
+        2.09,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 75,
+      "payload": "APRILTAG36H11:75",
+      "caption": "D0L3",
+      "entity": "rack_markers::rackmark_D_0_3",
+      "row": "D",
+      "upright": 0,
+      "level": 3,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -10.0,
+        3.296,
+        3.79,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 76,
+      "payload": "APRILTAG36H11:76",
+      "caption": "D1L1",
+      "entity": "rack_markers::rackmark_D_1_1",
+      "row": "D",
+      "upright": 1,
+      "level": 1,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -7.3,
+        3.296,
+        0.39,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 77,
+      "payload": "APRILTAG36H11:77",
+      "caption": "D1L2",
+      "entity": "rack_markers::rackmark_D_1_2",
+      "row": "D",
+      "upright": 1,
+      "level": 2,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -7.3,
+        3.296,
+        2.09,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 78,
+      "payload": "APRILTAG36H11:78",
+      "caption": "D1L3",
+      "entity": "rack_markers::rackmark_D_1_3",
+      "row": "D",
+      "upright": 1,
+      "level": 3,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -7.3,
+        3.296,
+        3.79,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 79,
+      "payload": "APRILTAG36H11:79",
+      "caption": "D2L1",
+      "entity": "rack_markers::rackmark_D_2_1",
+      "row": "D",
+      "upright": 2,
+      "level": 1,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -4.6,
+        3.296,
+        0.39,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 80,
+      "payload": "APRILTAG36H11:80",
+      "caption": "D2L2",
+      "entity": "rack_markers::rackmark_D_2_2",
+      "row": "D",
+      "upright": 2,
+      "level": 2,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -4.6,
+        3.296,
+        2.09,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 81,
+      "payload": "APRILTAG36H11:81",
+      "caption": "D2L3",
+      "entity": "rack_markers::rackmark_D_2_3",
+      "row": "D",
+      "upright": 2,
+      "level": 3,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -4.6,
+        3.296,
+        3.79,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 82,
+      "payload": "APRILTAG36H11:82",
+      "caption": "D3L1",
+      "entity": "rack_markers::rackmark_D_3_1",
+      "row": "D",
+      "upright": 3,
+      "level": 1,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -1.9,
+        3.296,
+        0.39,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 83,
+      "payload": "APRILTAG36H11:83",
+      "caption": "D3L2",
+      "entity": "rack_markers::rackmark_D_3_2",
+      "row": "D",
+      "upright": 3,
+      "level": 2,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -1.9,
+        3.296,
+        2.09,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 84,
+      "payload": "APRILTAG36H11:84",
+      "caption": "D3L3",
+      "entity": "rack_markers::rackmark_D_3_3",
+      "row": "D",
+      "upright": 3,
+      "level": 3,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        -1.9,
+        3.296,
+        3.79,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 85,
+      "payload": "APRILTAG36H11:85",
+      "caption": "D4L1",
+      "entity": "rack_markers::rackmark_D_4_1",
+      "row": "D",
+      "upright": 4,
+      "level": 1,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        0.8,
+        3.296,
+        0.39,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 86,
+      "payload": "APRILTAG36H11:86",
+      "caption": "D4L2",
+      "entity": "rack_markers::rackmark_D_4_2",
+      "row": "D",
+      "upright": 4,
+      "level": 2,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        0.8,
+        3.296,
+        2.09,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 87,
+      "payload": "APRILTAG36H11:87",
+      "caption": "D4L3",
+      "entity": "rack_markers::rackmark_D_4_3",
+      "row": "D",
+      "upright": 4,
+      "level": 3,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        0.8,
+        3.296,
+        3.79,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 88,
+      "payload": "APRILTAG36H11:88",
+      "caption": "D5L1",
+      "entity": "rack_markers::rackmark_D_5_1",
+      "row": "D",
+      "upright": 5,
+      "level": 1,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        3.5,
+        3.296,
+        0.39,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 89,
+      "payload": "APRILTAG36H11:89",
+      "caption": "D5L2",
+      "entity": "rack_markers::rackmark_D_5_2",
+      "row": "D",
+      "upright": 5,
+      "level": 2,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        3.5,
+        3.296,
+        2.09,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 90,
+      "payload": "APRILTAG36H11:90",
+      "caption": "D5L3",
+      "entity": "rack_markers::rackmark_D_5_3",
+      "row": "D",
+      "upright": 5,
+      "level": 3,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        3.5,
+        3.296,
+        3.79,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 91,
+      "payload": "APRILTAG36H11:91",
+      "caption": "D6L1",
+      "entity": "rack_markers::rackmark_D_6_1",
+      "row": "D",
+      "upright": 6,
+      "level": 1,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        6.2,
+        3.296,
+        0.39,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 92,
+      "payload": "APRILTAG36H11:92",
+      "caption": "D6L2",
+      "entity": "rack_markers::rackmark_D_6_2",
+      "row": "D",
+      "upright": 6,
+      "level": 2,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        6.2,
+        3.296,
+        2.09,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "type": "rack_marker",
+      "symbology": "APRILTAG_36H11",
+      "tag_id": 93,
+      "payload": "APRILTAG36H11:93",
+      "caption": "D6L3",
+      "entity": "rack_markers::rackmark_D_6_3",
+      "row": "D",
+      "upright": 6,
+      "level": 3,
+      "facing": -1,
+      "label_pose_xyzrpy": [
+        6.2,
+        3.296,
+        3.79,
+        1.570796,
+        0.0,
+        0.0
+      ],
+      "label_size_m": [
+        0.1,
+        0.1
+      ],
+      "module_size_m": 0.0105,
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ]
     }
   ]
 }

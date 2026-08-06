@@ -11841,6 +11841,1773 @@
       </visual>
     </link>
   </model>
+  <model name="rack_markers">
+    <static>true</static>
+    <link name="rackmark_A_0_1">
+      <visual name="label">
+        <pose>-10 -4.896 0.39 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_A_0_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_A_0_2">
+      <visual name="label">
+        <pose>-10 -4.896 2.09 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_A_0_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_A_0_3">
+      <visual name="label">
+        <pose>-10 -4.896 3.79 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_A_0_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_A_1_1">
+      <visual name="label">
+        <pose>-7.3 -4.896 0.39 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_A_1_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_A_1_2">
+      <visual name="label">
+        <pose>-7.3 -4.896 2.09 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_A_1_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_A_1_3">
+      <visual name="label">
+        <pose>-7.3 -4.896 3.79 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_A_1_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_A_2_1">
+      <visual name="label">
+        <pose>-4.6 -4.896 0.39 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_A_2_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_A_2_2">
+      <visual name="label">
+        <pose>-4.6 -4.896 2.09 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_A_2_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_A_2_3">
+      <visual name="label">
+        <pose>-4.6 -4.896 3.79 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_A_2_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_A_3_1">
+      <visual name="label">
+        <pose>-1.9 -4.896 0.39 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_A_3_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_A_3_2">
+      <visual name="label">
+        <pose>-1.9 -4.896 2.09 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_A_3_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_A_3_3">
+      <visual name="label">
+        <pose>-1.9 -4.896 3.79 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_A_3_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_A_4_1">
+      <visual name="label">
+        <pose>0.8 -4.896 0.39 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_A_4_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_A_4_2">
+      <visual name="label">
+        <pose>0.8 -4.896 2.09 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_A_4_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_A_4_3">
+      <visual name="label">
+        <pose>0.8 -4.896 3.79 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_A_4_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_A_5_1">
+      <visual name="label">
+        <pose>3.5 -4.896 0.39 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_A_5_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_A_5_2">
+      <visual name="label">
+        <pose>3.5 -4.896 2.09 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_A_5_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_A_5_3">
+      <visual name="label">
+        <pose>3.5 -4.896 3.79 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_A_5_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_A_6_1">
+      <visual name="label">
+        <pose>6.2 -4.896 0.39 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_A_6_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_A_6_2">
+      <visual name="label">
+        <pose>6.2 -4.896 2.09 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_A_6_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_A_6_3">
+      <visual name="label">
+        <pose>6.2 -4.896 3.79 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_A_6_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_B_0_1">
+      <visual name="label">
+        <pose>-10 -1.904 0.39 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_B_0_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_B_0_2">
+      <visual name="label">
+        <pose>-10 -1.904 2.09 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_B_0_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_B_0_3">
+      <visual name="label">
+        <pose>-10 -1.904 3.79 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_B_0_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_B_1_1">
+      <visual name="label">
+        <pose>-7.3 -1.904 0.39 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_B_1_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_B_1_2">
+      <visual name="label">
+        <pose>-7.3 -1.904 2.09 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_B_1_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_B_1_3">
+      <visual name="label">
+        <pose>-7.3 -1.904 3.79 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_B_1_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_B_2_1">
+      <visual name="label">
+        <pose>-4.6 -1.904 0.39 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_B_2_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_B_2_2">
+      <visual name="label">
+        <pose>-4.6 -1.904 2.09 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_B_2_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_B_2_3">
+      <visual name="label">
+        <pose>-4.6 -1.904 3.79 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_B_2_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_B_3_1">
+      <visual name="label">
+        <pose>-1.9 -1.904 0.39 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_B_3_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_B_3_2">
+      <visual name="label">
+        <pose>-1.9 -1.904 2.09 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_B_3_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_B_3_3">
+      <visual name="label">
+        <pose>-1.9 -1.904 3.79 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_B_3_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_B_4_1">
+      <visual name="label">
+        <pose>0.8 -1.904 0.39 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_B_4_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_B_4_2">
+      <visual name="label">
+        <pose>0.8 -1.904 2.09 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_B_4_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_B_4_3">
+      <visual name="label">
+        <pose>0.8 -1.904 3.79 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_B_4_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_B_5_1">
+      <visual name="label">
+        <pose>3.5 -1.904 0.39 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_B_5_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_B_5_2">
+      <visual name="label">
+        <pose>3.5 -1.904 2.09 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_B_5_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_B_5_3">
+      <visual name="label">
+        <pose>3.5 -1.904 3.79 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_B_5_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_B_6_1">
+      <visual name="label">
+        <pose>6.2 -1.904 0.39 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_B_6_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_B_6_2">
+      <visual name="label">
+        <pose>6.2 -1.904 2.09 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_B_6_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_B_6_3">
+      <visual name="label">
+        <pose>6.2 -1.904 3.79 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_B_6_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_C_0_1">
+      <visual name="label">
+        <pose>-10 0.304 0.39 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_C_0_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_C_0_2">
+      <visual name="label">
+        <pose>-10 0.304 2.09 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_C_0_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_C_0_3">
+      <visual name="label">
+        <pose>-10 0.304 3.79 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_C_0_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_C_1_1">
+      <visual name="label">
+        <pose>-7.3 0.304 0.39 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_C_1_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_C_1_2">
+      <visual name="label">
+        <pose>-7.3 0.304 2.09 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_C_1_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_C_1_3">
+      <visual name="label">
+        <pose>-7.3 0.304 3.79 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_C_1_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_C_2_1">
+      <visual name="label">
+        <pose>-4.6 0.304 0.39 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_C_2_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_C_2_2">
+      <visual name="label">
+        <pose>-4.6 0.304 2.09 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_C_2_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_C_2_3">
+      <visual name="label">
+        <pose>-4.6 0.304 3.79 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_C_2_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_C_3_1">
+      <visual name="label">
+        <pose>-1.9 0.304 0.39 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_C_3_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_C_3_2">
+      <visual name="label">
+        <pose>-1.9 0.304 2.09 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_C_3_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_C_3_3">
+      <visual name="label">
+        <pose>-1.9 0.304 3.79 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_C_3_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_C_4_1">
+      <visual name="label">
+        <pose>0.8 0.304 0.39 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_C_4_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_C_4_2">
+      <visual name="label">
+        <pose>0.8 0.304 2.09 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_C_4_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_C_4_3">
+      <visual name="label">
+        <pose>0.8 0.304 3.79 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_C_4_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_C_5_1">
+      <visual name="label">
+        <pose>3.5 0.304 0.39 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_C_5_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_C_5_2">
+      <visual name="label">
+        <pose>3.5 0.304 2.09 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_C_5_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_C_5_3">
+      <visual name="label">
+        <pose>3.5 0.304 3.79 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_C_5_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_C_6_1">
+      <visual name="label">
+        <pose>6.2 0.304 0.39 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_C_6_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_C_6_2">
+      <visual name="label">
+        <pose>6.2 0.304 2.09 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_C_6_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_C_6_3">
+      <visual name="label">
+        <pose>6.2 0.304 3.79 1.5708 0 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_C_6_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_D_0_1">
+      <visual name="label">
+        <pose>-10 3.296 0.39 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_D_0_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_D_0_2">
+      <visual name="label">
+        <pose>-10 3.296 2.09 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_D_0_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_D_0_3">
+      <visual name="label">
+        <pose>-10 3.296 3.79 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_D_0_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_D_1_1">
+      <visual name="label">
+        <pose>-7.3 3.296 0.39 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_D_1_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_D_1_2">
+      <visual name="label">
+        <pose>-7.3 3.296 2.09 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_D_1_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_D_1_3">
+      <visual name="label">
+        <pose>-7.3 3.296 3.79 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_D_1_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_D_2_1">
+      <visual name="label">
+        <pose>-4.6 3.296 0.39 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_D_2_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_D_2_2">
+      <visual name="label">
+        <pose>-4.6 3.296 2.09 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_D_2_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_D_2_3">
+      <visual name="label">
+        <pose>-4.6 3.296 3.79 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_D_2_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_D_3_1">
+      <visual name="label">
+        <pose>-1.9 3.296 0.39 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_D_3_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_D_3_2">
+      <visual name="label">
+        <pose>-1.9 3.296 2.09 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_D_3_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_D_3_3">
+      <visual name="label">
+        <pose>-1.9 3.296 3.79 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_D_3_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_D_4_1">
+      <visual name="label">
+        <pose>0.8 3.296 0.39 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_D_4_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_D_4_2">
+      <visual name="label">
+        <pose>0.8 3.296 2.09 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_D_4_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_D_4_3">
+      <visual name="label">
+        <pose>0.8 3.296 3.79 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_D_4_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_D_5_1">
+      <visual name="label">
+        <pose>3.5 3.296 0.39 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_D_5_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_D_5_2">
+      <visual name="label">
+        <pose>3.5 3.296 2.09 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_D_5_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_D_5_3">
+      <visual name="label">
+        <pose>3.5 3.296 3.79 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_D_5_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_D_6_1">
+      <visual name="label">
+        <pose>6.2 3.296 0.39 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_D_6_1.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_D_6_2">
+      <visual name="label">
+        <pose>6.2 3.296 2.09 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_D_6_2.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+    <link name="rackmark_D_6_3">
+      <visual name="label">
+        <pose>6.2 3.296 3.79 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://warehouse_assets/meshes/label_quad.obj</uri>
+            <scale>0.1 0.1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <pbr><metal>
+            <albedo_map>model://warehouse_assets/materials/textures/rackmark_D_6_3.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>1.0</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+    </link>
+  </model>
   <light type="point" name="ceiling_0">
     <pose>-8 -3.4 5.4 0 0 0</pose>
     <cast_shadows>false</cast_shadows>

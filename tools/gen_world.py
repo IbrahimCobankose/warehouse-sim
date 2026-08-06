@@ -401,6 +401,69 @@ def floor_markers(cfg, textures, manifest) -> str:
     return "".join(out)
 
 
+def rack_markers(cfg, textures, manifest) -> str:
+    """Raf dikmelerine dikey AprilTag'ler -- ÖN kameranın lokalizasyon hedefi.
+    Tarama sırasında araç yaw ±90 ile raf yüzüne bakıyor; ön kamera raf yüzünü
+    KESİNTİSİZ gördüğü için bu tag'ler floor tag'lerin 4 m'lik boşluğunu (araç
+    orada salınıyordu) kapatıyor. Her koridora bakan raf yüzünde, göz sınırı
+    dikmelerinde, üç tarama irtifasında bir tag. Floor'la aynı aile ama ID'ler
+    floor'un bittiği yerden (10) devam ediyor -- lokalizasyon ikisini id ile
+    ayırıyor, floor için alt kamera / raf için ön kamera."""
+    rk, codes = cfg["racking"], cfg["codes"]
+    spec = codes["rack_marker"]
+    ppm, maxpx = codes["texture_px_per_m"], codes["max_texture_px"]
+    lw, lh = spec["label"]
+    bw, nb, depth = rk["bay_width"], rk["bay_count"], rk["depth"]
+    x0 = rk["x_origin"]
+    heights = spec["heights"]
+
+    # floor tag'ler zaten 0..(n-1); raf tag'leri oradan devam etsin ki
+    # tag36h11 uzayında id çakışması olmasın.
+    tag_id = sum(1 for c in manifest if c["type"] == "floor_marker")
+    out = ['  <model name="rack_markers">\n    <static>true</static>\n']
+    n = 0
+    for row in rk["rows"]:
+        rid, y0, facing = row["id"], row["y0"], row["facing"]
+        # koridora bakan ürün yüzü düzlemi (kutu etiketleriyle aynı)
+        y_face = (y0 + depth) if facing > 0 else y0
+        off = LABEL_STANDOFF * (1 if facing > 0 else -1)
+        rpy = facing_rpy(facing)
+        for i in range(nb + 1):
+            x = x0 + i * bw                      # göz sınırı dikmesinin x'i
+            for li, h in enumerate(heights):
+                caption = f"{rid}{i}L{li+1}"
+                tex = f"rackmark_{rid}_{i}_{li+1}.png"
+                img, module_m = gl.make_floor_marker(tag_id, caption, spec, ppm, maxpx)
+                textures[tex] = img
+
+                link = f"rackmark_{rid}_{i}_{li+1}"
+                out.append(f'    <link name="{link}">\n')
+                out.append(label_visual("label", tex, (lw, lh),
+                                        (x, y_face + off, h, *rpy), "      "))
+                out.append("    </link>\n")
+
+                manifest.append({
+                    "type": "rack_marker",
+                    "symbology": "APRILTAG_36H11",
+                    "tag_id": tag_id,
+                    "payload": f"APRILTAG36H11:{tag_id}",
+                    "caption": caption,
+                    "entity": f"rack_markers::{link}",
+                    "row": rid, "upright": i, "level": li + 1,
+                    "facing": facing,
+                    "label_pose_xyzrpy": [round(x, 4), round(y_face + off, 4),
+                                          round(h, 4), *[round(v, 6) for v in rpy]],
+                    "label_size_m": [lw, lh],
+                    "module_size_m": round(module_m, 6),
+                    "normal": [0.0, float(facing), 0.0],
+                })
+                tag_id += 1
+                n += 1
+    out.append("  </model>\n")
+    print(f"  raf AprilTag   : {n}")
+    return "".join(out)
+
+
 def lighting(cfg) -> str:
     lt = cfg["lighting"]["ceiling_lights"]
     dr, dg, db, da = lt["diffuse"]
@@ -447,6 +510,7 @@ def build(cfg) -> tuple[str, list]:
         racking(cfg),
         inventory(cfg, rng, textures, manifest),
         floor_markers(cfg, textures, manifest),
+        rack_markers(cfg, textures, manifest),
         lighting(cfg),
     ]
 

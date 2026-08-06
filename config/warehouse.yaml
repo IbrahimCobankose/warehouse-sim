@@ -99,6 +99,20 @@ codes:
     caption_height: 0.048
     spacing: 4.0              # koridor boyunca X'te markörler arası mesafe
 
+  # Raf markörü -- ÖN kameranın lokalizasyon hedefi. Floor tag'ler 4 m arayla
+  # ve alt kamera bir tag'i ancak tam üstünden kısa süre görüyor; aralarda
+  # araç referanssız kalıp salınıyordu (07_18_14.ulg, ~6.35 s boşluk).
+  # Tarama sırasında araç yaw ±90 ile raf yüzüne bakıyor ve ön kamera raf
+  # yüzünü KESİNTİSİZ görüyor; dikmelere tag koyunca lokalizasyon boşluğu
+  # kapanıyor. Floor'la AYNI aile (tag36h11) ama ID'ler çakışmasın diye 10'dan
+  # başlıyor (floor 0..9). Dikme ön yüzü 0.10 m; tag ona sığacak boyutta.
+  rack_marker:
+    label: [0.100, 0.100]
+    code: 0.084              # -> 8 modülde 10.5 mm/modül, 1.5 m ön kamerada ~11.6 px/modül
+    tag_family: "tag36h11"
+    caption_height: 0.0      # caption yok -> tag etiket merkezinde, merkez ofseti sıfır
+    heights: [0.39, 2.09, 3.79]  # seviye tarama irtifaları (route altitude'larıyla aynı)
+
 # ------------------------------------------------------------ aydınlatma
 lighting:
   ambient: [0.45, 0.45, 0.45, 1.0]
