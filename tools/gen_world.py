@@ -396,8 +396,41 @@ def floor_markers(cfg, textures, manifest) -> str:
             })
             n += 1
             x += spec["spacing"]
+
+    # Dönüş bölgesi markörleri (rafın ucundaki açık alan). Koridor tag'lerinin
+    # HEMEN ardından id alırlar; alt kamera dönüş boyunca bunları görüp EV
+    # verir. Rota köşeleri (route.yaml xy waypoint'leri) bunların üstünde.
+    n_turn = 0
+    for tx, ty in (spec.get("turnarounds") or []):
+        tag_id = n
+        caption = f"T X{tx:+.0f} Y{ty:+.0f}"
+        key = f"{int(round(tx))}_{int(round(ty))}".replace("-", "n")
+        tex, link = f"marker_t_{key}.png", f"marker_t_{key}"
+        img, module_m = gl.make_floor_marker(tag_id, caption, spec, ppm, maxpx)
+        textures[tex] = img
+        out.append(f'    <link name="{link}">\n')
+        out.append(label_visual("label", tex, (lw, lh),
+                                (tx, ty, LABEL_STANDOFF, 0, 0, 0), "      "))
+        out.append("    </link>\n")
+        manifest.append({
+            "type": "floor_marker",
+            "symbology": "APRILTAG_36H11",
+            "tag_id": tag_id,
+            "payload": f"APRILTAG36H11:{tag_id}",
+            "caption": caption,
+            "entity": f"floor_markers::{link}",
+            "aisle": 0,                     # dönüş bölgesi, tek koridora ait değil
+            "label_pose_xyzrpy": [round(tx, 4), round(ty, 4), LABEL_STANDOFF,
+                                  0.0, 0.0, 0.0],
+            "label_size_m": [lw, lh],
+            "module_size_m": round(module_m, 6),
+            "normal": [0.0, 0.0, 1.0],
+        })
+        n += 1
+        n_turn += 1
+
     out.append("  </model>\n")
-    print(f"  zemin AprilTag : {n}")
+    print(f"  zemin AprilTag : {n}  (koridor {n - n_turn}, dönüş {n_turn})")
     return "".join(out)
 
 

@@ -98,6 +98,17 @@ codes:
     tag_family: "tag36h11"
     caption_height: 0.048
     spacing: 4.0              # koridor boyunca X'te markörler arası mesafe
+    # Dönüş bölgesi markörleri: rafın +x ucundaki AÇIK ALANDA (koridorların
+    # dışında, x>6.2) dönüş sırasında alt kameranın referansı. Dönüş rotası
+    # burada 90° spin + koridorlar-arası geçiş yapıyor ve orada başka tag yok;
+    # bunlar olmadan araç referanssız kalıp sapıp irtifa kaybediyor (ölçüldü,
+    # koridor1_to_2_donus 6. bacakta abort). Koridor floor tag'lerinin (0..9)
+    # HEMEN ARDINDAN id alırlar (rack tag'leri de ona göre kayar; lokalizasyon
+    # id ile okuduğu için sorun değil). [x, y] dünya; rota köşeleriyle aynı.
+    turnarounds:
+      - [8.5, -3.40]         # koridor 1 çıkış köşesi (spin burada)
+      - [8.5, -0.80]         # koridorlar arası geçiş ortası
+      - [8.5,  1.80]         # koridor 2 giriş köşesi (spin burada)
 
   # Raf markörü -- ÖN kameranın lokalizasyon hedefi. Floor tag'ler 4 m arayla
   # ve alt kamera bir tag'i ancak tam üstünden kısa süre görüyor; aralarda
