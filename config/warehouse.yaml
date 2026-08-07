@@ -106,9 +106,15 @@ codes:
     # HEMEN ARDINDAN id alırlar (rack tag'leri de ona göre kayar; lokalizasyon
     # id ile okuduğu için sorun değil). [x, y] dünya; rota köşeleriyle aynı.
     turnarounds:
-      - [8.5, -3.40]         # koridor 1 çıkış köşesi (spin burada)
-      - [8.5, -0.80]         # koridorlar arası geçiş ortası
-      - [8.5,  1.80]         # koridor 2 giriş köşesi (spin burada)
+      - [8.5, -3.40]         # koridor 1 +x çıkış köşesi (spin burada)
+      - [8.5, -0.80]         # koridorlar arası geçiş ortası (+x)
+      - [8.5,  1.80]         # koridor 2 +x giriş köşesi (spin burada)
+      # -x ucu köşesi (tam tur için): koridor1_AB_donusL3 tag0'da (-x) bitiyor,
+      # koridor 2'ye buradan dönmek gerekiyor. Raf -x kenarı -10; +x köşesi
+      # uçtan +2.3 m açıkta (8.5) olduğu için simetrik -x köşe -12.3.
+      - [-12.3, -3.40]       # koridor 1 -x çıkış köşesi (spin burada)
+      - [-12.3, -0.80]       # koridorlar arası geçiş ortası (-x)
+      - [-12.3,  1.80]       # koridor 2 -x giriş köşesi (spin burada)
 
   # Raf markörü -- ÖN kameranın lokalizasyon hedefi. Floor tag'ler 4 m arayla
   # ve alt kamera bir tag'i ancak tam üstünden kısa süre görüyor; aralarda
