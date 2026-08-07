@@ -94,33 +94,83 @@ routes:
   # 6. aşama: koridor 1'in HER İKİ yüzünü (A ve B) 3 seviyede tara, dönüş yok.
   # A'yı tarayıp tag4 üstünde YERİNDE 180° dönüp (spin) B'yi tarar. A=yaw-90
   # (y=-6 sırası), B=yaw+90 (y=-1.9). Bittiğinde koridor 1 tam: A(27)+B(26)=53.
+  # Seviye zigzag: A'da L2->L3->L1, B'de L1->L2->L3. L1 komutu 0.80 (dikey bias
+  # telafisi). Dönüş tag4 üstünde -> floor tag 4 lokalize ediyor.
   #
-  # SEVİYE SIRASI KRİTİK: 180° dönüş YÜKSEKTE (L3, 3.79 m) yapılmalı. Seviye
-  # 1'de (0.80 m komut ~0.42 m gerçek) yerinde dönmek yer etkisi + dönüşte
-  # bozulan optik akış yüzünden aracı zemine sürükledi (ölçüldü, çakıldı). Bu
-  # yüzden A: L2->L1->L3 (kalkış L2'de güvenli, dönüş L3'te), B: L3->L2->L1.
-  # L1 geçişleri sadece DÜZ UÇUŞ (dönüşsüz, kanıtlı güvenli). L1 komutu 0.80
-  # (dikey bias telafisi). Dönüş tag4 üstünde -> floor tag 4 lokalize ediyor.
+  # NOT (2026-08-06 geri alındı): bu, "A TAMAMEN TARANDI, sadece B'de sorun"
+  # halidir (A L2/L3/L1 hepsi geçti, B'de flip yüzünden çöküyordu; flip artık
+  # solve_rack'te seviye-uçuş önsavıyla eleniyor). Bir ara sıra L2->L1->L3'e
+  # çevrilip 180° dönüş L3'e taşınmıştı (yerdeki dönüş çakması için), ama o
+  # sürümde A-L1 ortada kalınca sürüklendi. Bu sıra (dönüş L1'de) marjinal:
+  # L1'deki spin bir koşuda geçti bir koşuda çakmıştı -- B'yi çözerken bu spin
+  # riski aklında olsun.
   koridor1_AB_3seviye:
     aisle: 1
     yaw: -90
-    altitude: 2.09                 # kalkış L2 (güvenli)
+    altitude: 2.09
     waypoints:
-      # --- A yüzü (yaw -90): L2 -> L1 -> L3 ---
+      # --- A yüzü (yaw -90): L2 -> L3 -> L1 ---
       - {tag: 0, log: "A L2 ileri"}
       - 1
       - 2
       - 3
-      - {tag: 4, alt: 0.80, log: "A L1'e in, geri (DİKKAT yer etkisi)"}
+      - {tag: 4, alt: 3.79, log: "A L3'e çık, geri"}
       - 3
       - 2
       - 1
-      - {tag: 0, alt: 3.79, log: "A L3'e çık, ileri"}
+      - {tag: 0, alt: 0.80, log: "A L1'e in, ileri (DİKKAT yer etkisi)"}
       - 1
       - 2
       - 3
-      - {tag: 4, spin: 90, log: "A bitti -- B'ye dön (L3'te, YÜKSEKTE güvenli)"}
-      # --- B yüzü (yaw +90): L3 -> L2 -> L1 ---
+      - {tag: 4, spin: 90, log: "A bitti -- B'ye dön (yerinde 180°)"}
+      # --- B yüzü (yaw +90): L1 -> L2 -> L3 ---
+      - 3
+      - 2
+      - 1
+      - {tag: 0, alt: 2.09, log: "B L2'ye çık, ileri"}
+      - 1
+      - 2
+      - 3
+      - {tag: 4, alt: 3.79, log: "B L3'e çık, geri"}
+      - 3
+      - 2
+      - 1
+      - {tag: 0, log: "koridor 1 iki yüz tamam", hold: 3.0}
+
+  # 6. aşama: koridor1_AB_3seviye'nin İYİLEŞTİRİLMİŞİ -- "ikisini de al".
+  # Sorun: eski format A'yı kanıtlı sırada (L2->L3->L1) tarıyor AMA 180° dönüşü
+  # tag4'te L1'de (0.80 m ~0.42 gerçek) yapıyor. Alçak dönüş down-kamera akışını
+  # döndürüp bozuyor -> zayıf tutuş çöküyor -> sürüklenme (ölçüldü, marjinal:
+  # bir koşuda geçti bir koşuda çaktı). e5df6c7 bunu dönüşü L3'e taşıyarak
+  # çözmüştü ama o sürüm A-L1'i ortaya alıp A'yı bozuyordu.
+  # ÇÖZÜM: A kanıtlı sırada (L2->L3->L1) KALIR; A-L1 tag4'te bitince tag4 üstünde
+  # YERİNDE L1->L3 tırman, SONRA L3'te 180° dön (spin arrival'da climb'den önce
+  # olduğu için climb ve spin AYRI waypoint). B: L3->L2->L1 (L1 en sonda = güvenli).
+  # Böylece hem A kanıtlı sırada hem dönüş yüksekte.
+  # NOT: B-L2 yanal salınımı (flip sızıntısı) ayrı sorun -- solve_rack'e
+  # EKF-uzaklık kapısı gerekebilir; bu rota onu ÇÖZMEZ, dönüşü çözer.
+  koridor1_AB_donusL3:
+    aisle: 1
+    yaw: -90
+    altitude: 2.09
+    waypoints:
+      # --- A yüzü (yaw -90): L2 -> L3 -> L1 (kanıtlı sıra) ---
+      - {tag: 0, log: "A L2 ileri"}
+      - 1
+      - 2
+      - 3
+      - {tag: 4, alt: 3.79, log: "A L3'e çık, geri"}
+      - 3
+      - 2
+      - 1
+      - {tag: 0, alt: 0.80, log: "A L1'e in, ileri (DİKKAT yer etkisi)"}
+      - 1
+      - 2
+      - 3
+      # --- dönüş YÜKSEKTE: önce tag4'te L3'e tırman, SONRA spin ---
+      - {tag: 4, alt: 3.79, log: "A L1 bitti -- tag4'te L3'e tırman (dönüş öncesi)"}
+      - {tag: 4, spin: 90, log: "L3'te 180° dön -- B'ye (YÜKSEKTE güvenli)"}
+      # --- B yüzü (yaw +90): L3 -> L2 -> L1 (L1 en sonda) ---
       - 3
       - 2
       - 1
@@ -168,3 +218,190 @@ routes:
       - {tag: 7}
       - {tag: 6}
       - {tag: 5, log: "koridor 2 sonu", hold: 3.0}
+
+  # 6. aşama TAM TUR: koridor 1'in -x ucundan koridor 2'ye dönüş (AB turunun
+  # aynası). koridor1_AB_donusL3 tag0'da (-x, x=-10) bitiyor; bu rota oradan
+  # koridor 2'ye geçişi kanıtlar. koridor1_to_2_donus'un (+x, x=8.5) aynası:
+  # -x köşe tag 13/14/15 @ x=-12.3 (regen'de eklendi). Dönüş AÇIK ALANDA, tag
+  # üstünde/köşede -- raf hattında ASLA (README dersi). İzole test için önce
+  # A'yı gidip-gel tara (localization kur), sonra tag0'da -x dönüşü yap.
+  koridor1_to_2_donus_negx:
+    aisle: 1
+    yaw: -90                       # koridor 1 A tarama yönü
+    altitude: 2.09
+    waypoints:
+      - {tag: 0, log: "koridor 1 A ileri (localization kur)"}
+      - {tag: 1}
+      - {tag: 2}
+      - {tag: 3}
+      - {tag: 4, log: "koridor 1 +x ucu -- geri dön"}
+      - {tag: 3}
+      - {tag: 2}
+      - {tag: 1}
+      # koridor 1 -x sonu: burnu -X'e (dünya yaw 180) çevir, rafın -x ucuna çık
+      - {tag: 0, spin: 180, log: "koridor 1 -x sonu -- rafın -x ucuna çıkılıyor"}
+      # -x köşe (açık alan, tag 13): burnu +Y'ye (yaw 90) çevir, koridor 2'ye
+      - {xy: [-12.3, -3.40], spin: 90, log: "-x köşe -- koridor 2'ye dönülüyor"}
+      - {xy: [-12.3,  1.80]}       # koridor 2 -x hizası (burun +y, ileri uçuş)
+      # koridor 2: burun +y (yaw 90) = D sırasına (y=+3.30) dönük, +x tarama
+      - {tag: 5, log: "koridor 2 -- D sırası taranıyor"}
+      - {tag: 6}
+      - {tag: 7}
+      - {tag: 8}
+      - {tag: 9, log: "koridor 2 sonu", hold: 3.0}
+
+  # 6. aşama FAZ 3: koridor 2'yi HER İKİ yüzde (D+C) 3 seviyede tara.
+  # koridor1_AB_donusL3'ün koridor-2 muadili: D=A rolü (yaw+90, y=+3.30),
+  # C=B rolü (yaw-90, y=-0.80). Yaklaşım kanıtlanmış -x dönüşü (yukarıdaki
+  # koridor1_to_2_donus_negx ile birebir). Koridor 2'ye girince D'yi L2->L3->L1
+  # tara, tag9'da YÜKSEKTE (L3) 180° dön, C'yi L3->L2->L1 tara. Dönüş hep tag
+  # üstünde/köşede, yüksek irtifada (AB'de kanıtlanan desen).
+  koridor2_CD_3seviye:
+    aisle: 1
+    yaw: -90
+    altitude: 2.09
+    waypoints:
+      # --- yaklaşım: A'yı tara (localization), -x köşesinden koridor 2'ye ---
+      - {tag: 0, log: "koridor 1 A -- localization kur"}
+      - {tag: 1}
+      - {tag: 2}
+      - {tag: 3}
+      - {tag: 4, log: "koridor 1 +x ucu -- geri"}
+      - {tag: 3}
+      - {tag: 2}
+      - {tag: 1}
+      - {tag: 0, spin: 180, log: "koridor 1 -x sonu -- rafın -x ucuna"}
+      - {xy: [-12.3, -3.40], spin: 90, log: "-x köşe -- koridor 2'ye"}
+      - {xy: [-12.3,  1.80]}
+      # --- koridor 2 D yüzü (yaw +90): L2 -> L3 -> L1 ---
+      - {tag: 5, log: "D L2 ileri"}
+      - {tag: 6}
+      - {tag: 7}
+      - {tag: 8}
+      - {tag: 9, alt: 3.79, log: "D L3'e çık, geri"}
+      - {tag: 8}
+      - {tag: 7}
+      - {tag: 6}
+      - {tag: 5, alt: 0.80, log: "D L1'e in, ileri (DİKKAT yer etkisi)"}
+      - {tag: 6}
+      - {tag: 7}
+      - {tag: 8}
+      # --- dönüş YÜKSEKTE: tag9'da L3'e tırman, sonra spin (yaw+90 -> -90) ---
+      - {tag: 9, alt: 3.79, log: "D L1 bitti -- tag9'da L3'e tırman (dönüş öncesi)"}
+      - {tag: 9, spin: -90, log: "L3'te 180° dön -- C'ye (YÜKSEKTE güvenli)"}
+      # --- koridor 2 C yüzü (yaw -90): L3 -> L2 -> L1 ---
+      - {tag: 8}
+      - {tag: 7}
+      - {tag: 6}
+      - {tag: 5, alt: 2.09, log: "C L2'ye in, ileri"}
+      - {tag: 6}
+      - {tag: 7}
+      - {tag: 8}
+      - {tag: 9, alt: 0.80, log: "C L1'e in, geri (DİKKAT yer etkisi)"}
+      - {tag: 8}
+      - {tag: 7}
+      - {tag: 6}
+      - {tag: 5, log: "koridor 2 iki yüz tamam", hold: 3.0}
+
+  # 6. aşama TEŞHİS: koridor1_AB_3seviye L1'de neden kararsızlaşıyor?
+  # Hareketsiz, elmayla-elma karşılaştırma. Aynı yerde (tag2, koridor 1 ortası),
+  # aynı A yüzüne bakarak (yaw -90) ÖNCE bilinen-iyi L2'de, SONRA şüpheli L1'de
+  # asılı dur. `apriltag_localize --compare` her 3 s'de floor + raf hatasını
+  # ayrı ayrı bastığı için hangi kaynağın L1'de bozulduğu doğrudan okunur:
+  #   * floor hatası L2'de küçük, L1'de büyür/zıplarsa -> alt kamera tag kırpma
+  #     (README şüphe #1: 0.42 m'de floor tag kadraja sığmıyor).
+  #   * raf hatası L1'de büyür/flip verirse -> ön kamera raf çözümü (şüphe #3).
+  # Son bacak L1'de yavaş bir ileri geçiş: duruşta temizse hareket/kontrol mü
+  # bozuyor onu da görürüz (sapma patlarsa abort eder, o da veridir).
+  # ÖNEMLİ: ilk waypoint tag0 = SPAWN. Çalışan tüm rotalar burada başlar; araç
+  # YERİNDE tırmanır, sonra raf tag'leri kadraja girmişken ilerler. (İlk sürümde
+  # tag2'de başlamıştım -> araç tırmanırken 8 m ileri süründü, L1'e varmadan
+  # 1. bacakta abort etti. Ders: teşhis rotası da spawn'da başlamalı.)
+  teshis_L1:
+    aisle: 1
+    yaw: -90
+    altitude: 2.09                 # L2'de başla (kontrol)
+    waypoints:
+      - {tag: 0, log: "spawn ustunde L2'ye YERINDE tirman"}
+      - {tag: 2, alt: 2.09, hold: 15, log: "L2 KONTROL -- floor+raf hatasini oku (ikisi de kucuk olmali)"}
+      - {tag: 2, alt: 0.80, hold: 30, log: "L1 HOVER -- hangisi bozuluyor? floor mu raf mi?"}
+      - {tag: 4, alt: 0.80, log: "L1 HAREKET ileri (tag2->4) -- sapma nerede patliyor"}
+      - {tag: 4, hold: 5, log: "teshis bitti"}
+
+  # 6. aşama FAZ 4: TAM TUR -- iki koridoru tek uçuşta tara.
+  # Kanıtlanmış parçaların birleşimi (hepsi ayrı ayrı canlı doğrulandı):
+  #   koridor1_AB_donusL3 (AB 3-seviye, 25/25) + tag0'da L2'ye çık + -x dönüş
+  #   (koridor1_to_2_donus_negx, 15/15) + koridor2 CD 3-seviye (36/36).
+  # AB tag0'da L1'de bitiyor; dönüşten önce tag0'da YERİNDE L2'ye tırman (dönüş
+  # yüksekte olsun, alçak dönüş sürükleniyordu). Toplam ~64 nokta, ~5-6 dk.
+  # Seviye sırası her yüzde AB'yle aynı: A/D = L2->L3->L1, B/C = L3->L2->L1.
+  koridor1_tam_tur:
+    aisle: 1
+    yaw: -90
+    altitude: 2.09
+    waypoints:
+      # ===== KORİDOR 1 -- A yüzü (yaw -90): L2 -> L3 -> L1 =====
+      - {tag: 0, log: "A L2 ileri"}
+      - 1
+      - 2
+      - 3
+      - {tag: 4, alt: 3.79, log: "A L3'e çık, geri"}
+      - 3
+      - 2
+      - 1
+      - {tag: 0, alt: 0.80, log: "A L1'e in, ileri (DİKKAT yer etkisi)"}
+      - 1
+      - 2
+      - 3
+      - {tag: 4, alt: 3.79, log: "A L1 bitti -- tag4'te L3'e tırman (dönüş öncesi)"}
+      - {tag: 4, spin: 90, log: "L3'te 180° dön -- B'ye (YÜKSEKTE güvenli)"}
+      # ===== KORİDOR 1 -- B yüzü (yaw +90): L3 -> L2 -> L1 =====
+      - 3
+      - 2
+      - 1
+      - {tag: 0, alt: 2.09, log: "B L2'ye in, ileri"}
+      - 1
+      - 2
+      - 3
+      - {tag: 4, alt: 0.80, log: "B L1'e in, geri (DİKKAT yer etkisi)"}
+      - 3
+      - 2
+      - 1
+      # ===== -x DÖNÜŞÜ (koridor 1 -> koridor 2) =====
+      # B tag0'da L1'de bitti. Dönüş yüksek olsun: önce L2'ye tırman, sonra spin.
+      # DİKKAT: uzun AB taramasından (~4 dk) sonra EKF'te birikmiş kayma, tag0'da
+      # spin + açık-alan geçişini kırılganlaştırıyor (tam tur ilk denemede burada
+      # dışarı sürüklendi; -x dönüşü TEK BAŞINA 15/15 idi). L2'ye çıkınca 5 s asılı
+      # dur -> EKF tag0'ın floor+raf tag'leriyle yeniden otursun, sonra dön.
+      - {tag: 0, alt: 2.09, hold: 5.0, log: "koridor 1 tamam -- L2'ye çık, EKF otursun"}
+      - {tag: 0, spin: 180, log: "-x dönüş: burnu rafın -x ucuna"}
+      - {xy: [-12.3, -3.40], spin: 90, log: "-x köşe -- koridor 2'ye dönülüyor"}
+      - {xy: [-12.3,  1.80]}
+      # ===== KORİDOR 2 -- D yüzü (yaw +90): L2 -> L3 -> L1 =====
+      - {tag: 5, log: "D L2 ileri"}
+      - 6
+      - 7
+      - 8
+      - {tag: 9, alt: 3.79, log: "D L3'e çık, geri"}
+      - 8
+      - 7
+      - 6
+      - {tag: 5, alt: 0.80, log: "D L1'e in, ileri (DİKKAT yer etkisi)"}
+      - 6
+      - 7
+      - 8
+      - {tag: 9, alt: 3.79, log: "D L1 bitti -- tag9'da L3'e tırman (dönüş öncesi)"}
+      - {tag: 9, spin: -90, log: "L3'te 180° dön -- C'ye (YÜKSEKTE güvenli)"}
+      # ===== KORİDOR 2 -- C yüzü (yaw -90): L3 -> L2 -> L1 =====
+      - 8
+      - 7
+      - 6
+      - {tag: 5, alt: 2.09, log: "C L2'ye in, ileri"}
+      - 6
+      - 7
+      - 8
+      - {tag: 9, alt: 0.80, log: "C L1'e in, geri (DİKKAT yer etkisi)"}
+      - 8
+      - 7
+      - 6
+      - {tag: 5, log: "TAM TUR TAMAM -- 2 koridor x 2 yüz x 3 seviye", hold: 3.0}
