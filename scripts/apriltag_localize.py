@@ -227,7 +227,7 @@ def load_rack_tags(gt_path: Path, cfg: dict):
 
 
 def solve_rack(corners, ids, rack_tags, size, K, dist, cam_offset,
-               max_reproj: float, min_up: float = 0.9):
+               max_reproj: float, min_up: float = 0.9, max_dist: float = 3.0):
     """Ön kameradan dikey raf tag'leriyle aracın GÖVDE pozu + dünya yaw'ı.
     Her tag için IPPE'nin İKİ çözümü de alınır (solvePnPGeneric) ve
     SEVİYE-UÇUŞ ÖNSAVIYLA doğru olan seçilir: quadrotor ~düz uçtuğu için doğru
@@ -235,6 +235,14 @@ def solve_rack(corners, ids, rack_tags, size, K, dist, cam_offset,
     çözüm gövdeyi eğik/ters gösterir. Bu, flip'in DÜŞÜK reprojeksiyonla saçma
     poz döndürüp (ölçüldü: x=-12 m, uzun B geçişinde aracı rafa çarptırdı)
     EKF'e sızmasını KAYNAKTA keser. `min_up` altındaki (çok eğik) çözüm atılır.
+
+    MESAFE KAPISI (`max_dist`): kameradan >max_dist uzaktaki tag ATILIR. Neden:
+    B yüzü (y=-1.9) taranırken arkadaki D yüzü (y=+3.3, AYNI -Y yöne bakıyor)
+    raf araklarından ~6.7 m'de görünüyor; iki farklı raftan tag ortalanınca poz
+    bozulup araç B rafına sürükleniyordu (A'da arka raf YOK, o yüzden A hep temiz).
+    Taranan yüz hep ~1.5 m; 3 m kapısı arka rafı eler, ön yüzü tutar. Per-tag ve
+    yerel -- EKF referansı YOK (EKF'e referanslı kapı runaway yapıyordu, bkz. notlar).
+
     Birden çok tag görülünce medyandan uzak aykırılar atılıp geri kalan
     ortalanır. `(pos_dünya(3,), yaw, ort_reproj)` ya da None."""
     obj = tag_object_points(size)
@@ -258,6 +266,8 @@ def solve_rack(corners, ids, rack_tags, size, K, dist, cam_offset,
         if best_up < min_up:                       # ikisi de çok eğik -> flip/çöp
             continue
         tvec = tvecs[best_k]
+        if float(np.linalg.norm(tvec)) > max_dist:  # arka raf (D) tag'i -> at
+            continue
         proj, _ = cv2.projectPoints(obj, rvecs[best_k], tvec, K, dist)
         rep = float(np.linalg.norm(proj.reshape(4, 2) - ip, axis=1).mean())
         if not (rep <= max_reproj):
