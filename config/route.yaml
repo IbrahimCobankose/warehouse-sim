@@ -349,11 +349,22 @@ routes:
       - 3
       - 2
       - 1
-      - {tag: 0, alt: 0.80, log: "A L1'e in, ileri (DİKKAT yer etkisi)"}
+      # L1 tarama irtifası 0.80 -> 1.00: alt kameranın zemin AprilTag'ini daha
+      # iyi kadrajlaması için (footprint 0.72 m'de ±0.6 m -> 0.90 m'de ±0.75 m).
+      # Ön kamera L1 QR'ı hâlâ FOV'da (1.1 m'ye kadar doğrulanmıştı). 4 yüzde de.
+      - {tag: 0, alt: 1.00, log: "A L1'e in, ileri (DİKKAT yer etkisi)"}
       - 1
       - 2
       - 3
-      - {tag: 4, alt: 3.79, log: "A L1 bitti -- tag4'te L3'e tırman (dönüş öncesi)"}
+      # A-L1 bitti (tag4). SORUN: buradan L3'e YERİNDE dikey tırmanış (öteleme=0)
+      # düşük irtifada optik akışı öldürüp runaway yapıyordu (settle-hold de çözmedi,
+      # 140 m). ÇÖZÜM (A): tırmanışı ÖTELEYEREK yap -- tag4->tag3 giderken irtifayı
+      # L3'e rampala (ramp: true), öteleme akışı canlı kalır. Sonra L3'te (yüksek,
+      # güvenli) tag4'e geri gel ve HER ZAMANKİ gibi tag4'te spin -> B taraması
+      # (tag3,2,1) DEĞİŞMEDEN kalır, kapsama kaybı yok.
+      - {tag: 4, log: "A L1 bitti (tag4)"}
+      - {tag: 3, alt: 3.79, ramp: true, log: "ilerleyerek L3'e tırman (tag4->tag3, akış canlı)"}
+      - {tag: 4, log: "L3'te tag4'e dön (yüksek, güvenli)"}
       - {tag: 4, spin: 90, log: "L3'te 180° dön -- B'ye (YÜKSEKTE güvenli)"}
       # ===== KORİDOR 1 -- B yüzü (yaw +90): L3 -> L2 -> L1 =====
       - 3
@@ -363,7 +374,7 @@ routes:
       - 1
       - 2
       - 3
-      - {tag: 4, alt: 0.80, log: "B L1'e in, geri (DİKKAT yer etkisi)"}
+      - {tag: 4, alt: 1.00, log: "B L1'e in, geri (DİKKAT yer etkisi)"}
       - 3
       - 2
       - 1
@@ -386,11 +397,15 @@ routes:
       - 8
       - 7
       - 6
-      - {tag: 5, alt: 0.80, log: "D L1'e in, ileri (DİKKAT yer etkisi)"}
+      - {tag: 5, alt: 1.00, log: "D L1'e in, ileri (DİKKAT yer etkisi)"}
       - 6
       - 7
       - 8
-      - {tag: 9, alt: 3.79, log: "D L1 bitti -- tag9'da L3'e tırman (dönüş öncesi)"}
+      # D-L1 bitti (tag9). tag4 ile aynı ilaç: yerinde tırmanış yerine ÖTELEYEREK
+      # tag9->tag8 giderken L3'e rampala, sonra L3'te tag9'e dön ve spin.
+      - {tag: 9, log: "D L1 bitti (tag9)"}
+      - {tag: 8, alt: 3.79, ramp: true, log: "ilerleyerek L3'e tırman (tag9->tag8, akış canlı)"}
+      - {tag: 9, log: "L3'te tag9'e dön (yüksek, güvenli)"}
       - {tag: 9, spin: -90, log: "L3'te 180° dön -- C'ye (YÜKSEKTE güvenli)"}
       # ===== KORİDOR 2 -- C yüzü (yaw -90): L3 -> L2 -> L1 =====
       - 8
@@ -400,7 +415,7 @@ routes:
       - 6
       - 7
       - 8
-      - {tag: 9, alt: 0.80, log: "C L1'e in, geri (DİKKAT yer etkisi)"}
+      - {tag: 9, alt: 1.00, log: "C L1'e in, geri (DİKKAT yer etkisi)"}
       - 8
       - 7
       - 6

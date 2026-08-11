@@ -224,6 +224,11 @@ def main() -> int:
     wp_yaws: list[float] = []
     wp_spins: list = []          # varışta yerinde dönülecek hedef derece / None
     wp_alts: list[float] = []    # o noktadan sonraki bacağın irtifası
+    wp_ramp: list[bool] = []     # irtifa VARIŞTA yerinde değil, bacak boyunca
+                                 # ÖTELENEREK rampalansın mı (True) -- yerinde
+                                 # dikey tırmanış L1'de (0.80 m) optik akışı
+                                 # öldürüp runaway yapıyor; ötelemeli tırmanışta
+                                 # akış canlı kalıyor. Varsayılan False (yerinde).
     wp_action: list = []         # {log?, hold?} / None
     prev_yaw, prev_alt = route_yaw, alt
     for entry in r["waypoints"]:
@@ -241,6 +246,7 @@ def main() -> int:
             y = float(entry.get("yaw", prev_yaw))
             spin = float(entry["spin"]) if "spin" in entry else None
             a_val = float(entry.get("alt", prev_alt))
+            ramp = bool(entry.get("ramp", False))
             for k in ("log", "hold"):
                 if k in entry:
                     act[k] = entry[k]
@@ -248,12 +254,13 @@ def main() -> int:
             # Çıplak int: dict {tag:N} gibi bir öncekini taşı (yaw ve alt).
             # route_yaw taşımak spin sonrası B yüzünü -90'da bırakıyordu (bug).
             # Tek-yaw rotalarda prev_yaw zaten route_yaw, davranış değişmez.
-            y, spin, a_val = prev_yaw, None, prev_alt
+            y, spin, a_val, ramp = prev_yaw, None, prev_alt, False
         wp_world.append((wx, wy))
         wp_labels.append(label)
         wp_yaws.append(y)
         wp_spins.append(spin)
         wp_alts.append(a_val)
+        wp_ramp.append(ramp)
         wp_action.append(act or None)
         prev_yaw = spin if spin is not None else y
         prev_alt = a_val
@@ -349,6 +356,7 @@ def main() -> int:
         return float(a.get("hold", 0.0))
 
     do_action(0)
+    leg_start_alt = cur_alt   # bu bacağın başlangıç irtifası (ramp için)
 
     while leg < len(wps) - 1:
         msg = link.m.recv_match(type="LOCAL_POSITION_NED", blocking=True, timeout=2)
@@ -390,6 +398,13 @@ def main() -> int:
             v = speed * max(slow_floor, min(1.0, remaining / slow_radius))
         step = v * min(dt, 0.5)
 
+        # bacak boyunca ötelemeli irtifa rampası (sonraki nokta ramp: true ise):
+        # yerinde dikey tırmanış yerine hedefe ilerledikçe (f) irtifayı da
+        # rampala. Yerinde tırmanış (öteleme=0) L1'de (0.80 m) optik akışı
+        # öldürüp runaway yapıyordu; ötelemeli tırmanışta akış canlı kalıyor.
+        if wp_ramp[leg + 1] and abs(wp_alts[leg + 1] - leg_start_alt) > 1e-3:
+            cur_alt = leg_start_alt + (wp_alts[leg + 1] - leg_start_alt) * max(0.0, min(1.0, f))
+
         # havucu ilerlet
         seg = b - carrot
         d = float(np.linalg.norm(seg))
@@ -402,6 +417,10 @@ def main() -> int:
         if remaining <= tol:
             hold = do_action(leg + 1)
             leg += 1
+            # ramp bacağı ise irtifa yol boyunca zaten hedefe ulaştı -> aşağıdaki
+            # yerinde hover_climb'i no-op yapmak için cur_alt'ı tam oturt.
+            if wp_ramp[leg]:
+                cur_alt = wp_alts[leg]
             # varışta yerinde dönüş (spin): burnu bu noktada, HOVER'da çevir.
             # Böylece büyük yaw dönüşü translasyondan ayrılır ve ancak güvenli
             # yerde (tag üstünde ya da açık alanda) yapılır.
@@ -425,6 +444,7 @@ def main() -> int:
                     link.m.recv_match(type="LOCAL_POSITION_NED", blocking=True,
                                       timeout=1)
                 t_prev = time.time()
+            leg_start_alt = cur_alt   # yeni bacak bu irtifadan başlar
     print()
 
     print("iniş...")
