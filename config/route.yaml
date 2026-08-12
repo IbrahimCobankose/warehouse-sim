@@ -361,11 +361,23 @@ routes:
       - 1
       - 2
       - 3
-      - {tag: 4, alt: 3.79, log: "A L3'e çık, geri"}
+      # A-L2 ileri bitti (tag4). Buradan L3'e YERİNDE dikey tırmanış (öteleme=0)
+      # düşük akış üretip runaway riski taşıyor -- tag4 L2->L3'te sapma gözlendi
+      # (mevkiyi koruyamadı). ÇÖZÜM (A, aşağıdaki L1->L3 deseniyle birebir):
+      # tırmanışı ÖTELEYEREK yap -- tag4->tag3 giderken L3'e rampala (akış canlı),
+      # sonra L3'te tag4'e geri dön; L3 back-scan (3,2,1) DEĞİŞMEDEN kalır,
+      # kapsama kaybı yok.
+      - {tag: 4, log: "A L2 ucu (tag4)"}
+      - {tag: 3, alt: 3.79, ramp: true, log: "ilerleyerek L3'e tırman (tag4->tag3, akış canlı)"}
+      - {tag: 4, log: "L3'te tag4'e dön (yüksek, güvenli)"}
       - 3
       - 2
       - 1
-      - {tag: 0, alt: 0.80, log: "A L1'e in, ileri (DİKKAT yer etkisi)"}
+      # L3->L1 İNİŞ de ötelemeli (ramp): YERİNDE 3 m dikey iniş (öteleme=0) de
+      # tırmanış gibi optik akışı öldürüp EKF'i kaçırıyordu -- 2026-08-12 koşusunda
+      # tag0'da "yerinde irtifa 3.79->0.80" sonrası sapma 0.93 -> abort. tag1->tag0
+      # bacağı boyunca inerek L1'e geç (akış canlı); L1 forward (tag0-4) tam kalır.
+      - {tag: 0, alt: 0.80, ramp: true, log: "inerek L1'e (tag1->tag0, akış canlı)"}
       - 1
       - 2
       - 3
@@ -410,7 +422,12 @@ routes:
       - 6
       - 7
       - 8
-      - {tag: 9, alt: 3.79, log: "D L3'e çık, geri"}
+      # D L2->L3 tırmanışı da ötelemeli (A tag4 ile birebir aynı desen): tag9'a
+      # L2'de var -> tag9->tag8 giderek L3'e rampala (akış canlı) -> L3'te tag9'e
+      # dön; back-scan (8,7,6 L3) ve kapsama DEĞİŞMEZ.
+      - {tag: 9, log: "D L2 ucu (tag9)"}
+      - {tag: 8, alt: 3.79, ramp: true, log: "ilerleyerek L3'e tırman (tag9->tag8, akış canlı)"}
+      - {tag: 9, log: "L3'te tag9'e dön (yüksek, güvenli)"}
       - 8
       - 7
       - 6
