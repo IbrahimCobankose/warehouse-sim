@@ -476,18 +476,47 @@ def main() -> int:
                                          self.on_front, qos)
             self.last_report = 0.0
             self.last_rack_report = 0.0
+            # ---- EV besleme monitörü (TEŞHİS) ----
+            # Amaç (kullanıcı sorusu): koridor sonunda "anlamsız hızlanma" gerçekten
+            # bir DÜZELTME BOŞLUĞUNDAN mı? Her kamera karesinde çalışır; ne floor ne
+            # rack EV beslemiyorsa uyarır ve tag'in görülmediğini mi yoksa görülüp
+            # kapıdan (reproj/mesafe/flip) reddedildiğini mi ayırt eder.
+            self.ev_last = time.time()   # son BAŞARILI fix (floor VEYA rack) zamanı
+            self.ev_src = "—"            # son besleyen: floor[...] / rack[...]
+            self.ev_warn_t = 0.0         # son uyarı zamanı (spam engeli)
+
+        def _ev_note(self, src: str) -> None:
+            """Başarılı bir fix oldu: boşluk sayacını sıfırla, kaynağı kaydet."""
+            self.ev_last = time.time()
+            self.ev_src = src
+
+        def _ev_gap(self, now: float, seen: list, rejected: bool) -> None:
+            """Her karede çağrılır. EV boşluğu (>1.5 s hiç fix yok) varsa, saniyede
+            en fazla bir kez uyar. seen: bu kamerada GÖRÜLEN tag id'leri; rejected:
+            tag görüldü ama çözüm/kapı reddetti (=okundu ama kullanılamadı)."""
+            gap = now - self.ev_last
+            if gap > 1.5 and now - self.ev_warn_t > 1.0:
+                self.ev_warn_t = now
+                if not seen:
+                    why = "görüş alanında tag YOK"
+                elif rejected:
+                    why = f"tag {seen} GÖRÜLDÜ ama REDDEDİLDİ (reproj/mesafe/flip kapısı)"
+                else:
+                    why = f"tag {seen} okunuyor"
+                print(f"  ⚠ EV BOŞLUK {gap:4.1f}s — {why}  [son besleyen: {self.ev_src}]")
 
         def on_front(self, msg: Image) -> None:
             """Ön kameradan dikey raf tag'leriyle lokalizasyon. Floor yolundan
             (on_image) bağımsız çalışır, aynı EKF konusuna besler; ikisi de
             reprojeksiyon kapısıyla korunuyor."""
             stats["rack_frames"] += 1
+            now = time.time()
             gray = to_gray(to_array(msg))
             corners, ids, _ = det.detectMarkers(gray)
-            if ids is None or len(ids) == 0:
-                return
-            res = solve_rack(corners, ids, rack_tags, rack_size, fK, fdist,
-                             fcam_offset, args.max_reproj)
+            seen = sorted(int(i) for i in ids.ravel()) if ids is not None and len(ids) else []
+            res = (solve_rack(corners, ids, rack_tags, rack_size, fK, fdist,
+                              fcam_offset, args.max_reproj) if seen else None)
+            self._ev_gap(now, seen, res is None and bool(seen))
             if res is None:
                 return
             pos, yaw, rep = res
@@ -495,6 +524,7 @@ def main() -> int:
             stats["rack_rep"].append(rep)
             if link is not None:
                 send_vpe(link, spawn, pos, yaw, msg.header.stamp)
+            self._ev_note(f"rack{seen}")
             now = time.time()
             if now - self.last_rack_report >= 3.0:
                 self.last_rack_report = now
@@ -508,11 +538,13 @@ def main() -> int:
 
         def on_image(self, msg: Image) -> None:
             stats["frames"] += 1
+            now = time.time()
             gray = to_gray(to_array(msg))
             corners, ids, _ = det.detectMarkers(gray)
-            if ids is None or len(ids) == 0:
-                return
-            res = solve_pose(corners, ids, tags, tag_size, K, dist, args.max_reproj)
+            seen = sorted(ids.ravel().tolist()) if ids is not None and len(ids) else []
+            res = (solve_pose(corners, ids, tags, tag_size, K, dist, args.max_reproj)
+                   if seen else None)
+            self._ev_gap(now, seen, res is None and bool(seen))
             if res is None:
                 return
             cam_world, nose, rep = res
@@ -522,6 +554,7 @@ def main() -> int:
 
             if link is not None:
                 send_vpe(link, spawn, pos, yaw, msg.header.stamp)
+            self._ev_note(f"floor{seen}")
 
             if truth is not None and truth.pose is not None:
                 err = float(np.linalg.norm(pos[:2] - truth.pose[:2]))

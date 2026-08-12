@@ -15,9 +15,11 @@ ne yapılacağı route.yaml'da (bkz. o dosyanın başındaki gerekçe).
 
 NASIL UÇAR
   Havuç (carrot) yöntemi: hedef nokta doğrudan verilmiyor, ara nokta
-  `speed` m/s ile yol boyunca kaydırılıyor. Böylece hız rota dosyasından
-  denetleniyor -- PX4'e uzak bir nokta verip MPC_XY_VEL_MAX'e bırakmak
-  koridorda çok hızlı ve savrulmalı olurdu.
+  `speed` m/s ile yol boyunca kaydırılıyor (aracın izdüşümünden en fazla
+  `lookahead` önde tutulan LEASH'li havuç). Böylece hız rota dosyasından
+  denetleniyor ve EKF kayınca havuç kaçıp "anlamsız hızlanma" yapmıyor --
+  PX4'e uzak bir nokta verip MPC_XY_VEL_MAX'e bırakmak koridorda çok hızlı
+  ve savrulmalı olurdu.
 
 ÇERÇEVE
   Rota dünya (Gazebo) koordinatlarında yazılı; PX4 yerel NED istiyor.
@@ -191,6 +193,19 @@ def main() -> int:
     # `speed * slow_floor`a kadar oransal düşürülür.
     slow_radius = float(routes.get("slow_radius", 0.0))
     slow_floor = float(routes.get("slow_floor", 0.2))
+    # Havuç LEASH'i: havuç, aracın bacak üstündeki izdüşümünden en fazla
+    # `lookahead` m önde tutulur. EKF kayıp gösterip araç geride kalınca havuç
+    # UZAKLAŞMAZ -> PX4'e verilen konum hatası sınırlı -> "anlamsız hızlanma"
+    # (runaway sprint) OLMAZ. Optik akış açlığında (L1, dikey tırmanış)
+    # kestirim kayması yüksek-hız çarpmaya dönüşmez; araç yavaş kalıp
+    # toparlanma şansı bulur (cross-track abort yine korur). 0 = leash kapalı.
+    lookahead = float(routes.get("lookahead", 0.8))
+    # L1 (düşük irtifa) bacaklarında otomatik yavaşlama: optik akış kalitesi
+    # doğrudan hızla ilişkili (yavaş = kareler arası daha çok örtüşme = daha
+    # sağlam akış). İrtifası `l1_alt`in altındaki bacaklar `l1_speed` ile
+    # uçulur. 0 = kapalı (eski davranış, tüm bacaklar `speed`).
+    l1_speed = float(routes.get("l1_speed", 0.0))
+    l1_alt = float(routes.get("l1_alt", 0.9))
     actions = {int(k): v for k, v in (r.get("actions") or {}).items()}
     route_yaw = float(r["yaw"])
     alt = float(r["altitude"])
@@ -339,7 +354,7 @@ def main() -> int:
 
     # ---- rota
     print("rota izleniyor")
-    carrot = np.array(wps[0], dtype=np.float64)
+    s_car = 0.0                # havucun bacak başından yay-uzunluğu (leash için)
     leg = 0
     aborted = False
     max_xt, max_xt_where = 0.0, (0, 0.0)
@@ -382,34 +397,46 @@ def main() -> int:
 
         remaining = float(np.linalg.norm(b - pos))
 
-        # waypoint başına yaw: bacak boyunca aracın ilerleme oranına göre
-        # interpolasyon (dönüş manevraları için). Oran, pozun a->b üstüne
-        # izdüşümü -- carrot değil poz, çünkü hedeflenen değil ulaşılan yaw.
+        # bacak geometrisi
         ab = b - a
-        L2 = float(ab @ ab)
-        f = float((pos - a) @ ab) / L2 if L2 > 1e-9 else 1.0
+        ab_len = float(np.linalg.norm(ab))
+        u = ab / ab_len if ab_len > 1e-9 else ab
+        # waypoint başına yaw: bacak boyunca aracın ilerleme oranına (f) göre
+        # interpolasyon (dönüş manevraları için). f, pozun a->b üstüne izdüşümü.
+        f = float((pos - a) @ u) / ab_len if ab_len > 1e-9 else 1.0
+        f = max(0.0, min(1.0, f))
         heading = lerp_angle(depart_headings[leg], wp_headings[leg + 1], f)
 
+        # bacak boyunca ötelemeli irtifa rampası (sonraki nokta ramp: true ise):
+        # hedefe ilerledikçe (f) irtifayı da rampala.
+        if wp_ramp[leg + 1] and abs(wp_alts[leg + 1] - leg_start_alt) > 1e-3:
+            cur_alt = leg_start_alt + (wp_alts[leg + 1] - leg_start_alt) * f
+
+        # bu bacağın üst-sınır hızı: L1 (düşük irtifa) bacakları daha yavaş
+        # (optik akışı güçlendirir). wp_alts[leg] = bu bacağın irtifası.
+        v_max = (l1_speed if (l1_speed > 0 and wp_alts[leg] <= l1_alt)
+                 else speed)
         # hedefe yaklaşırken oransal yavaşlama: son slow_radius m'de hızı
-        # slow_floor'a kadar düşür. Overshoot'u ve 4. aşamada bir koşuda
-        # görülen 0.85 m sapma aykırısını azaltmak için.
-        v = speed
+        # slow_floor'a kadar düşür.
+        v = v_max
         if slow_radius > 0:
-            v = speed * max(slow_floor, min(1.0, remaining / slow_radius))
+            v = v_max * max(slow_floor, min(1.0, remaining / slow_radius))
         step = v * min(dt, 0.5)
 
-        # bacak boyunca ötelemeli irtifa rampası (sonraki nokta ramp: true ise):
-        # yerinde dikey tırmanış yerine hedefe ilerledikçe (f) irtifayı da
-        # rampala. Yerinde tırmanış (öteleme=0) L1'de (0.80 m) optik akışı
-        # öldürüp runaway yapıyordu; ötelemeli tırmanışta akış canlı kalıyor.
-        if wp_ramp[leg + 1] and abs(wp_alts[leg + 1] - leg_start_alt) > 1e-3:
-            cur_alt = leg_start_alt + (wp_alts[leg + 1] - leg_start_alt) * max(0.0, min(1.0, f))
-
-        # havucu ilerlet
-        seg = b - carrot
-        d = float(np.linalg.norm(seg))
-        carrot = b.copy() if d <= step else carrot + seg / d * step
-        ob.set(carrot[0], carrot[1], -cur_alt, heading)
+        # havuç LEASH'li ilerletme: havuç bacak üstünde yay-uzunluğuyla (s_car)
+        # izlenir ve aracın izdüşümünden (s_veh) en fazla `lookahead` önde
+        # tutulur. Araç geride kalınca havuç KAÇMAZ -> PX4'e verilen konum hatası
+        # sınırlı -> "anlamsız hızlanma" (runaway) olmaz.
+        if ab_len > 1e-9:
+            s_veh = float(np.clip(float((pos - a) @ u), 0.0, ab_len))
+            s_car = min(s_car + step, ab_len)
+            if lookahead > 0:
+                s_car = min(s_car, s_veh + lookahead)   # LEASH: aracı geçme
+            s_car = max(s_car, s_veh)                    # gerisine de düşme
+            target = a + u * s_car
+        else:
+            target = b.copy()
+        ob.set(target[0], target[1], -cur_alt, heading)
 
         progress(f"nokta {leg+1}/{len(wps)-1}  kalan {remaining:5.2f} m  "
                  f"sapma {xt:4.2f} m  hız {v:4.2f}  irtifa {-msg.z:4.2f} m")
@@ -428,14 +455,12 @@ def main() -> int:
                 hover_rotate(ob, link, wps[leg], -cur_alt,
                              heading, depart_headings[leg])
                 heading = depart_headings[leg]
-                carrot = wps[leg].copy()
                 t_prev = time.time()
             # varışta yerinde irtifa değişimi: sonraki bacak farklı seviyedeyse
             # burada, kutuların önünden geçmeden önce değiştir (12 geçiş).
             if abs(wp_alts[leg] - cur_alt) > 1e-3:
                 hover_climb(ob, link, wps[leg], heading, -cur_alt, -wp_alts[leg])
                 cur_alt = wp_alts[leg]
-                carrot = wps[leg].copy()
                 t_prev = time.time()
             if hold > 0:
                 print(f"  {hold:.0f} s bekleniyor")
@@ -445,6 +470,7 @@ def main() -> int:
                                       timeout=1)
                 t_prev = time.time()
             leg_start_alt = cur_alt   # yeni bacak bu irtifadan başlar
+            s_car = 0.0               # havuç yeni bacağın başından başlar
     print()
 
     print("iniş...")

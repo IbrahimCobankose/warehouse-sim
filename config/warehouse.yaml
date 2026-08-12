@@ -33,7 +33,7 @@ racking:
   depth: 1.10           # Y'de raf derinliği
   upright_height: 4.50
   frame_thickness: 0.10 # dikme ve kirişlerin kalınlığı
-  level_heights: [0.15, 1.85, 3.55]   # kiriş üst yüzey yükseklikleri
+  level_heights: [0.40, 1.85, 3.55]   # kiriş üst yüzey yükseklikleri
   x_origin: -10.0       # ilk gözün sol kenarı
 
   # Her sıra: y0 = raf bloğunun Y'de başlangıcı, facing = ürün yüzünün baktığı yön
@@ -49,8 +49,8 @@ racking:
 
 # --------------------------------------------------------------- kutular
 boxes:
-  fill_probability: 0.80      # bir gözün bir seviyesinin dolu olma olasılığı
-  per_slot: [1,3]            # dolu bir gözde kaç kutu (min, max)
+  fill_probability: 1.00      # bir gözün bir seviyesinin dolu olma olasılığı
+  per_slot: [3,3]            # dolu bir gözde kaç kutu (min, max)
   sizes:                      # [X genişlik, Y derinlik, Z yükseklik]
     - {name: "S", dims: [0.40, 0.30, 0.30]}
     - {name: "M", dims: [0.60, 0.40, 0.40]}
@@ -128,7 +128,11 @@ codes:
     code: 0.084              # -> 8 modülde 10.5 mm/modül, 1.5 m ön kamerada ~11.6 px/modül
     tag_family: "tag36h11"
     caption_height: 0.0      # caption yok -> tag etiket merkezinde, merkez ofseti sıfır
-    heights: [0.39, 2.09, 3.79]  # seviye tarama irtifaları (route altitude'larıyla aynı)
+    heights: [0.80, 2.09, 3.79]  # seviye tarama irtifaları (route altitude'larıyla aynı)
+    # NOT: L1 0.39 -> 0.80. L1 uçuşu yer etkisi için 0.80 m'ye çekilmişti ama
+    # tag 0.39'da kalınca kadraj alt kenarına düşüp kameradan çıkıyordu (C-L1
+    # düz tarama sapması). L2/L3 gibi tag yüksekliği = uçuş irtifası -> kadraj
+    # ortası. Dikme ön yüzü boyunca tag serbest konumlanır, fiziksel engel yok.
 
 # ------------------------------------------------------------ aydınlatma
 lighting:

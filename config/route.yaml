@@ -28,6 +28,22 @@ waypoint_tolerance: 0.35
 slow_radius: 1.0
 slow_floor: 0.2
 
+# Havuç LEASH'i: havuç, aracın bacak üstündeki izdüşümünden en fazla bu kadar
+# (m) önde tutulur. EKF optik-akış açlığında (L1, dikey tırmanış) kayınca araç
+# geride kalıyor; leash yoksa havuç uzaklaşıp PX4 uzak setpoint'i TAM GAZA
+# kovalıyordu ("anlamsız hızlanma" -> 67 m runaway, notlarda kayıtlı). Leash
+# konum hatasını sınırlar -> hız sınırlı kalır, araç yavaşlayıp toparlanır.
+# Normal seyirde araç havucu zaten <0.3 m ile takip ettiği için 0.8 m eşiği
+# seyri DEĞİŞTİRMEZ; yalnız kaçış anında devreye girer. 0 = kapalı.
+lookahead: 0.8
+
+# L1 (düşük irtifa) bacaklarında otomatik yavaşlama: irtifası l1_alt'in
+# altındaki bacaklar l1_speed ile uçulur. Yavaş uçuş optik akışı doğrudan
+# güçlendirir (kareler arası daha çok örtüşme) -- C-L1 diverjansının asıl
+# ilacı. 0 = kapalı (tüm bacaklar `speed`).
+l1_speed: 0.4
+l1_alt: 0.9
+
 # Rotalar
 routes:
   # 4. aşamanın testi: TEK, DÜZ koridor geçişi. Dönüş manevrası yok --
@@ -349,10 +365,7 @@ routes:
       - 3
       - 2
       - 1
-      # L1 tarama irtifası 0.80 -> 1.00: alt kameranın zemin AprilTag'ini daha
-      # iyi kadrajlaması için (footprint 0.72 m'de ±0.6 m -> 0.90 m'de ±0.75 m).
-      # Ön kamera L1 QR'ı hâlâ FOV'da (1.1 m'ye kadar doğrulanmıştı). 4 yüzde de.
-      - {tag: 0, alt: 1.00, log: "A L1'e in, ileri (DİKKAT yer etkisi)"}
+      - {tag: 0, alt: 0.80, log: "A L1'e in, ileri (DİKKAT yer etkisi)"}
       - 1
       - 2
       - 3
@@ -374,17 +387,21 @@ routes:
       - 1
       - 2
       - 3
-      - {tag: 4, alt: 1.00, log: "B L1'e in, geri (DİKKAT yer etkisi)"}
+      - {tag: 4, alt: 0.80, log: "B L1'e in, geri (DİKKAT yer etkisi)"}
       - 3
       - 2
       - 1
       # ===== -x DÖNÜŞÜ (koridor 1 -> koridor 2) =====
-      # B tag0'da L1'de bitti. Dönüş yüksek olsun: önce L2'ye tırman, sonra spin.
-      # DİKKAT: uzun AB taramasından (~4 dk) sonra EKF'te birikmiş kayma, tag0'da
-      # spin + açık-alan geçişini kırılganlaştırıyor (tam tur ilk denemede burada
-      # dışarı sürüklendi; -x dönüşü TEK BAŞINA 15/15 idi). L2'ye çıkınca 5 s asılı
-      # dur -> EKF tag0'ın floor+raf tag'leriyle yeniden otursun, sonra dön.
-      - {tag: 0, alt: 2.09, hold: 5.0, log: "koridor 1 tamam -- L2'ye çık, EKF otursun"}
+      # B tag0'da L1'de (~0.80) bitti. Dönüş yüksekte olmalı. DİKKAT: buradaki
+      # L2'ye tırmanış da tag4/tag9 gibi YERİNDE yapılırsa (öteleme=0) düşük
+      # irtifada akış açlığından EKF kaçıyor (tam turda nokta 28'de sapma 1.24 ->
+      # abort; EV monitörü o an düzeltme boşluğu gösterdi). ÇÖZÜM: aynı ötelemeli
+      # tırmanış -- tag0->tag1 giderken L2'ye rampala (akış canlı), sonra L2'de
+      # tag0'a dön. AYRICA -x açık-alan geçişi için 5 s settle-hold: EKF tag0'ın
+      # floor+raf tag'leriyle otursun, sonra spin.
+      - {tag: 0, log: "B L1 bitti (tag0) -- L1'de ~0.80"}
+      - {tag: 1, alt: 2.09, ramp: true, log: "ilerleyerek L2'ye tırman (tag0->tag1, akış canlı)"}
+      - {tag: 0, alt: 2.09, hold: 5.0, log: "L2'de tag0'a dön -- EKF otursun, sonra -x dönüş"}
       - {tag: 0, spin: 180, log: "-x dönüş: burnu rafın -x ucuna"}
       - {xy: [-12.3, -3.40], spin: 90, log: "-x köşe -- koridor 2'ye dönülüyor"}
       - {xy: [-12.3,  1.80]}
@@ -397,7 +414,7 @@ routes:
       - 8
       - 7
       - 6
-      - {tag: 5, alt: 1.00, log: "D L1'e in, ileri (DİKKAT yer etkisi)"}
+      - {tag: 5, alt: 0.80, log: "D L1'e in, ileri (DİKKAT yer etkisi)"}
       - 6
       - 7
       - 8
@@ -415,7 +432,7 @@ routes:
       - 6
       - 7
       - 8
-      - {tag: 9, alt: 1.00, log: "C L1'e in, geri (DİKKAT yer etkisi)"}
+      - {tag: 9, alt: 0.80, log: "C L1'e in, geri (DİKKAT yer etkisi)"}
       - 8
       - 7
       - 6
