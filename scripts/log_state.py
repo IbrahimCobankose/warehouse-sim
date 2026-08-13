@@ -64,7 +64,10 @@ def main() -> int:
           file=sys.stderr)
     try:
         with args.out.open("w") as f:
-            f.write("t_s,x,y,z,yaw_deg\n")
+            # wall_ms: duvar-saati (Unix epoch, ms). EV besleme loguyla
+            # (out/logs/ev_feed.csv, aynı saat) hizalamak için -- "L1 kaçışı
+            # anında raf tag'i besleniyor muydu?" sorusunu cevaplar.
+            f.write("t_s,wall_ms,x,y,z,yaw_deg\n")
             while True:
                 loop_t = time.time()
                 p, y = truth.pose, truth.yaw
@@ -72,7 +75,8 @@ def main() -> int:
                     t = loop_t - t0
                     yaw_deg = (y * 180.0 / 3.141592653589793
                                if y is not None else float("nan"))
-                    f.write(f"{t:.3f},{p[0]:.4f},{p[1]:.4f},{p[2]:.4f},"
+                    f.write(f"{t:.3f},{int(loop_t*1000)},"
+                            f"{p[0]:.4f},{p[1]:.4f},{p[2]:.4f},"
                             f"{yaw_deg:.2f}\n")
                     f.flush()                     # canlı okunabilsin diye her satır
                     n += 1

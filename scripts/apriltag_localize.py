@@ -290,13 +290,55 @@ def solve_rack(corners, ids, rack_tags, size, K, dist, cam_offset,
     return pos, math.atan2(nose[1], nose[0]), float(np.mean([c[2] for c in cands]))
 
 
-def send_vpe(link, spawn, pos, yaw, stamp) -> None:
+class VelEstimator:
+    """Gürültülü, İKİ kameralı EV konumundan DÜZGÜN hız üretir (α-β izleyici).
+
+    Neden: optik akış L1'de bozuk hız üretip EKF'i kaçırıyordu; akışı kapatınca
+    EKF'in yatay HIZ referansı kalmıyor -> PX4 arm'ı reddediyor + kestirim
+    yumuşamıyor. Çözüm: aynı cm-doğru görüşten hızı da besle. Ama ham fark
+    (5 cm / ~10 Hz differencing, üstelik floor+rack iki kaynak farklı anlarda)
+    çok gürültülü; α-β izleyici konumu yumuşatıp tutarlı bir hız DURUMU taşır.
+    Dünya çerçevesinde çalışır (send_vpe NED'e çevirir)."""
+
+    def __init__(self, alpha: float = 0.5, beta: float = 0.1, v_max: float = 2.0):
+        self.alpha, self.beta, self.v_max = alpha, beta, v_max
+        self.p = None
+        self.v = np.zeros(3)
+        self.t = None
+
+    def update(self, pos_world, now: float):
+        p = np.asarray(pos_world, dtype=np.float64)
+        if self.p is None or self.t is None:
+            self.p, self.t = p, now
+            return None
+        dt = now - self.t
+        if dt <= 1e-3 or dt > 0.5:          # çok yakın / uzun boşluk -> resetle
+            self.p, self.t = p, now
+            if dt > 0.5:
+                self.v = np.zeros(3)         # boşluk sonrası hızı sıfırla
+            return None
+        pred = self.p + self.v * dt
+        r = p - pred
+        self.p = pred + self.alpha * r
+        self.v = self.v + (self.beta / dt) * r
+        n = float(np.linalg.norm(self.v))
+        if n > self.v_max:                   # ışınlama/aykırı fix'e karşı klemp
+            self.v *= self.v_max / n
+        self.t = now
+        return self.v.copy()                 # dünya çerçevesi hız (vx,vy,vz)
+
+
+def send_vpe(link, spawn, pos, yaw, stamp, vel_est=None) -> None:
     """Aracın dünya pozunu PX4'e VISION_POSITION_ESTIMATE olarak besler
     (alt ve ön kamera yolları ortak kullanır). NED: Kuzey=dünya+Y,
     Doğu=dünya+X, Aşağı=-Z. Zaman damgası görüntünün YAKALAMA anı (sim-zamanı,
     header.stamp), gönderme anının duvar saati DEĞİL -- duvar saati faz
     gecikmesi olarak girip seyrek düzeltmede salınım besliyordu (07_18_14.ulg).
-    Damga boşsa duvar saatine düşer (sessiz ts=0 göndermektense)."""
+    Damga boşsa duvar saatine düşer (sessiz ts=0 göndermektense).
+
+    vel_est verilirse AYRICA VISION_SPEED_ESTIMATE besler (akış kapalıyken EKF'e
+    yatay hız referansı; arm ve L1 stabilitesi için). EKF2_EV_CTRL bit 4 açık
+    olmalı ve akış (EKF2_OF_CTRL) kapalı."""
     n = pos[1] - spawn[1]
     e = pos[0] - spawn[0]
     d = -(pos[2] - 0.0)
@@ -306,6 +348,13 @@ def send_vpe(link, spawn, pos, yaw, stamp) -> None:
         ts = int(time.time() * 1e6)
     link.mav.vision_position_estimate_send(
         ts, float(n), float(e), float(d), 0.0, 0.0, float(heading))
+    if vel_est is not None:
+        vw = vel_est.update(pos, time.time())
+        if vw is not None:
+            # dünya -> NED (konumla aynı eksen eşlemesi; ofset yok, hızda iptal)
+            vn, ve_, vd = float(vw[1]), float(vw[0]), float(-vw[2])
+            link.mav.vision_speed_estimate_send(
+                ts, vn, ve_, vd, [0.0] * 9, 0)
 
 
 def self_test_rack(cfg: dict, gt_path: Path) -> int:
@@ -417,6 +466,14 @@ def main() -> int:
                     help="bu piksel değerinden kötü oturan çözümü at (kapı)")
     ap.add_argument("--world", default="warehouse")
     ap.add_argument("--model", default="warehouse_scout_0")
+    ap.add_argument("--ev-log", type=Path,
+                    default=PROJECT_ROOT / "out" / "logs" / "ev_feed.csv",
+                    help="her başarılı EV fix'ini CSV'ye yaz (duvar saati; "
+                         "state_log ile hizalanır). Boş verilirse kapalı.")
+    ap.add_argument("--no-ev-vel", action="store_true",
+                    help="görüş HIZI (VISION_SPEED_ESTIMATE) besleme. Akış "
+                         "(EKF2_OF_CTRL) kapalıyken EKF'in yatay hız referansı "
+                         "budur; kapatmak arm'ı ve L1 stabilitesini bozabilir.")
     args = ap.parse_args()
 
     cfg = gl._load_cfg(args.config)
@@ -465,6 +522,30 @@ def main() -> int:
 
     stats = {"frames": 0, "fixes": 0, "err": [], "yaw_err": [], "rep": [],
              "rack_frames": 0, "rack_fixes": 0, "rack_rep": []}
+
+    # ---- EV besleme CSV kaydı (her zaman açık, teşhis) ----
+    # "L1 kaçışı anında raf tag'i besleniyor muydu?" sorusunu KESİN cevaplar.
+    # Her başarılı fix bir satır: duvar saati (state_log wall_ms ile hizalanır),
+    # kaynak (floor/rack), görülen tag'ler, KESTİRİLEN konum (state_log gerçek
+    # pozla karşılaştırılır -> fix tag'i doğru mu izliyor yoksa kayıyor mu).
+    ev_file = None
+    if args.ev_log and str(args.ev_log):
+        args.ev_log.parent.mkdir(parents=True, exist_ok=True)
+        ev_file = args.ev_log.open("w", buffering=1)
+        ev_file.write("wall_ms,src,tags,x,y,z,yaw_deg,rep_px\n")
+        print(f"EV besleme kaydı  : {args.ev_log}")
+
+    # Görüş hızı kestiricisi (akış kapalıyken EKF'in yatay hız referansı).
+    vel_est = None if args.no_ev_vel else VelEstimator()
+    if vel_est is not None:
+        print("görüş HIZI besleniyor (VISION_SPEED_ESTIMATE) -- akış kapalıysa şart")
+
+    def ev_log(src: str, seen: list, pos, yaw: float, rep: float) -> None:
+        if ev_file is None:
+            return
+        ev_file.write(f"{int(time.time()*1000)},{src},{'|'.join(map(str, seen))},"
+                      f"{pos[0]:.3f},{pos[1]:.3f},{pos[2]:.3f},"
+                      f"{math.degrees(yaw):.1f},{rep:.2f}\n")
 
     class LocNode(Node):
         def __init__(self):
@@ -523,8 +604,9 @@ def main() -> int:
             stats["rack_fixes"] += 1
             stats["rack_rep"].append(rep)
             if link is not None:
-                send_vpe(link, spawn, pos, yaw, msg.header.stamp)
+                send_vpe(link, spawn, pos, yaw, msg.header.stamp, vel_est)
             self._ev_note(f"rack{seen}")
+            ev_log("rack", seen, pos, yaw, rep)
             now = time.time()
             if now - self.last_rack_report >= 3.0:
                 self.last_rack_report = now
@@ -553,8 +635,9 @@ def main() -> int:
             stats["rep"].append(rep)
 
             if link is not None:
-                send_vpe(link, spawn, pos, yaw, msg.header.stamp)
+                send_vpe(link, spawn, pos, yaw, msg.header.stamp, vel_est)
             self._ev_note(f"floor{seen}")
+            ev_log("floor", seen, pos, yaw, rep)
 
             if truth is not None and truth.pose is not None:
                 err = float(np.linalg.norm(pos[:2] - truth.pose[:2]))
@@ -600,6 +683,8 @@ def main() -> int:
             b.terminate()
         if truth:
             truth.stop()
+        if ev_file is not None:
+            ev_file.close()
 
     print(f"\nfloor (alt kamera): {stats['frames']} kare, {stats['fixes']} poz "
           f"({100*stats['fixes']/max(1,stats['frames']):.0f}%)")
