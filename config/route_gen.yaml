@@ -1,0 +1,197 @@
+# OTOMATİK ÜRETİLDİ -- elle düzenleme; kaynak: scripts/gen_route.py
+#   .venv/bin/python scripts/gen_route.py
+#
+# Rota depo geometrisinden (config/warehouse.yaml) türetilir:
+#   * Her raf yüzü her seviyede rafın ucundan ucuna TEK SABİT İRTİFADA taranır.
+#   * BÜTÜN irtifa değişimleri açık köşede (x=±turnaround) ÖTELEYEREK yapılır --
+#     raf önünde asla, böylece hiçbir uç göz feda edilmez.
+# Waypoint biçimi fly_route.py ile aynı: {xy,yaw,alt,ramp?,spin?,log?,hold?}.
+speed: 0.7
+waypoint_tolerance: 0.35
+slow_radius: 1.0
+slow_floor: 0.2
+lookahead: 0.8
+l1_speed: 0.25
+l1_alt: 0.9
+routes:
+  koridor1_geo:
+    aisle: 1
+    yaw: -90
+    altitude: 2.09
+    waypoints:
+    - xy: [-10.0, -3.4]
+      yaw: -90
+      alt: 2.09
+      log: A L2 ileri(+x) -- yüz başı
+    - xy: [6.2, -3.4]
+      yaw: -90
+      alt: 2.09
+      log: A L2 tarandı (ileri(+x))
+    - xy: [8.5, -3.4]
+      yaw: -90
+      alt: 3.79
+      ramp: true
+      log: açık köşe -- öteleyerek L3'e geç (raf önünde DEĞİL)
+    - xy: [-10.0, -3.4]
+      yaw: -90
+      alt: 3.79
+      log: A L3 tarandı (geri(-x))
+    - xy: [-12.3, -3.4]
+      yaw: -90
+      alt: 0.8
+      ramp: true
+      log: açık köşe -- öteleyerek L1'e geç (raf önünde DEĞİL)
+    - xy: [6.2, -3.4]
+      yaw: -90
+      alt: 0.8
+      log: A L1 tarandı (ileri(+x))
+    - xy: [8.5, -3.4]
+      yaw: -90
+      alt: 2.09
+      ramp: true
+      spin: 90
+      log: açık köşe -- +90° dön + L2'ye çık (sonraki yüze)
+    - xy: [-10.0, -3.4]
+      yaw: 90
+      alt: 2.09
+      log: B L2 tarandı (geri(-x))
+    - xy: [-12.3, -3.4]
+      yaw: 90
+      alt: 3.79
+      ramp: true
+      log: açık köşe -- öteleyerek L3'e geç (raf önünde DEĞİL)
+    - xy: [6.2, -3.4]
+      yaw: 90
+      alt: 3.79
+      log: B L3 tarandı (ileri(+x))
+    - xy: [8.5, -3.4]
+      yaw: 90
+      alt: 0.8
+      ramp: true
+      log: açık köşe -- öteleyerek L1'e geç (raf önünde DEĞİL)
+    - xy: [-10.0, -3.4]
+      yaw: 90
+      alt: 0.8
+      log: KORİDOR 1 TAMAM (A+B, 3 seviye)
+      hold: 3.0
+  tam_tur_geo:
+    aisle: 1
+    yaw: -90
+    altitude: 2.09
+    waypoints:
+    - xy: [-10.0, -3.4]
+      yaw: -90
+      alt: 2.09
+      log: A L2 ileri(+x) -- yüz başı
+    - xy: [6.2, -3.4]
+      yaw: -90
+      alt: 2.09
+      log: A L2 tarandı (ileri(+x))
+    - xy: [8.5, -3.4]
+      yaw: -90
+      alt: 3.79
+      ramp: true
+      log: açık köşe -- öteleyerek L3'e geç (raf önünde DEĞİL)
+    - xy: [-10.0, -3.4]
+      yaw: -90
+      alt: 3.79
+      log: A L3 tarandı (geri(-x))
+    - xy: [-12.3, -3.4]
+      yaw: -90
+      alt: 0.8
+      ramp: true
+      log: açık köşe -- öteleyerek L1'e geç (raf önünde DEĞİL)
+    - xy: [6.2, -3.4]
+      yaw: -90
+      alt: 0.8
+      log: A L1 tarandı (ileri(+x))
+    - xy: [8.5, -3.4]
+      yaw: -90
+      alt: 2.09
+      ramp: true
+      spin: 90
+      log: açık köşe -- +90° dön + L2'ye çık (sonraki yüze)
+    - xy: [-10.0, -3.4]
+      yaw: 90
+      alt: 2.09
+      log: B L2 tarandı (geri(-x))
+    - xy: [-12.3, -3.4]
+      yaw: 90
+      alt: 3.79
+      ramp: true
+      log: açık köşe -- öteleyerek L3'e geç (raf önünde DEĞİL)
+    - xy: [6.2, -3.4]
+      yaw: 90
+      alt: 3.79
+      log: B L3 tarandı (ileri(+x))
+    - xy: [8.5, -3.4]
+      yaw: 90
+      alt: 0.8
+      ramp: true
+      log: açık köşe -- öteleyerek L1'e geç (raf önünde DEĞİL)
+    - xy: [-10.0, -3.4]
+      yaw: 90
+      alt: 0.8
+      log: B L1 tarandı (geri(-x))
+    - xy: [-12.3, -3.4]
+      yaw: 90
+      alt: 0.8
+      spin: 180
+      log: -x köşeye çık, burnu rafın -x ucuna
+    - xy: [-12.3, 1.8]
+      yaw: 180
+      alt: 2.09
+      ramp: true
+      spin: 90
+      log: diğer koridora geç + L2'ye çık
+    - xy: [6.2, 1.8]
+      yaw: 90
+      alt: 2.09
+      log: D L2 tarandı (ileri(+x))
+    - xy: [8.5, 1.8]
+      yaw: 90
+      alt: 3.79
+      ramp: true
+      log: açık köşe -- öteleyerek L3'e geç (raf önünde DEĞİL)
+    - xy: [-10.0, 1.8]
+      yaw: 90
+      alt: 3.79
+      log: D L3 tarandı (geri(-x))
+    - xy: [-12.3, 1.8]
+      yaw: 90
+      alt: 0.8
+      ramp: true
+      log: açık köşe -- öteleyerek L1'e geç (raf önünde DEĞİL)
+    - xy: [6.2, 1.8]
+      yaw: 90
+      alt: 0.8
+      log: D L1 tarandı (ileri(+x))
+    - xy: [8.5, 1.8]
+      yaw: 90
+      alt: 2.09
+      ramp: true
+      spin: -90
+      log: açık köşe -- -90° dön + L2'ye çık (sonraki yüze)
+    - xy: [-10.0, 1.8]
+      yaw: -90
+      alt: 2.09
+      log: C L2 tarandı (geri(-x))
+    - xy: [-12.3, 1.8]
+      yaw: -90
+      alt: 3.79
+      ramp: true
+      log: açık köşe -- öteleyerek L3'e geç (raf önünde DEĞİL)
+    - xy: [6.2, 1.8]
+      yaw: -90
+      alt: 3.79
+      log: C L3 tarandı (ileri(+x))
+    - xy: [8.5, 1.8]
+      yaw: -90
+      alt: 0.8
+      ramp: true
+      log: açık köşe -- öteleyerek L1'e geç (raf önünde DEĞİL)
+    - xy: [-10.0, 1.8]
+      yaw: -90
+      alt: 0.8
+      log: TAM TUR TAMAM -- 2 koridor x 2 yüz x 3 seviye
+      hold: 3.0
