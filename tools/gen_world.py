@@ -27,9 +27,51 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import gen_labels as gl  # noqa: E402
+import numpy as np  # noqa: E402
+from PIL import Image  # noqa: E402
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 ASSET_MODEL = "warehouse_assets"
+
+# Zemin dokusu karo boyu (m). Optik akış sensörü zemindeki GÖRSEL ÖZELLİKLERİ
+# izler; düz renk zeminde iz yok -> "2/20 eşleşme" -> L1'de bozuk hız -> runaway
+# (2026-08-13 kök neden). Beton benekli doku tekrarlı UV ile döşenir; karo ~0.5 m
+# olunca L1'de (0.4 m irtifa, ~0.7 m alt-kamera FOV) kadrajda bol özellik olur.
+FLOOR_TILE_M = 0.5
+
+
+def floor_texture(px: int = 256, seed: int = 7) -> "Image.Image":
+    """Beton benekli, tekrarlanabilir zemin dokusu. Optik akış için asıl olan
+    YÜKSEK FREKANSLI kontrast (özellik köşeleri); ince benek + orta ölçek leke."""
+    rng = np.random.default_rng(seed)
+    fine = rng.normal(0.0, 0.10, (px, px))                    # ince benek
+    cs = rng.normal(0.0, 1.0, (px // 16, px // 16))           # orta ölçek
+    cs = (cs - cs.min()) / (np.ptp(cs) + 1e-9)
+    coarse = np.asarray(Image.fromarray((cs * 255).astype(np.uint8))
+                        .resize((px, px), Image.BILINEAR), dtype=np.float64) / 255.0 - 0.5
+    g = np.clip(0.5 + fine + 0.15 * coarse, 0.18, 0.82)
+    a = (g * 255).astype(np.uint8)
+    rgb = np.stack([a, a, np.clip(a.astype(int) + 4, 0, 255).astype(np.uint8)], -1)
+    return Image.fromarray(rgb, "RGB")
+
+
+def floor_mesh_obj(L: float, W: float, tile_m: float) -> str:
+    """Zemin quad'ı; UV 0..(L/tile) x 0..(W/tile) -> doku tekrarlı döşenir
+    (gz albedo_map varsayılan sarma REPEAT). Gerçek boyutta, SDF scale 1."""
+    ru, rv = L / tile_m, W / tile_m
+    return f"""# Zemin quad -- gen_world.py üretti; UV {ru:.1f}x{rv:.1f} tekrar (~{tile_m} m/karo)
+v {-L/2:.4f} {-W/2:.4f} 0.0
+v {L/2:.4f} {-W/2:.4f} 0.0
+v {L/2:.4f} {W/2:.4f} 0.0
+v {-L/2:.4f} {W/2:.4f} 0.0
+vt 0 0
+vt {ru:.4f} 0
+vt {ru:.4f} {rv:.4f}
+vt 0 {rv:.4f}
+vn 0 0 1
+f 1/1/1 2/2/1 3/3/1
+f 1/1/1 3/3/1 4/4/1
+"""
 
 # Etiket quad'ı: XY düzleminde 1x1 m, normali +Z, UV [0,1].
 # Kendi mesh'imizi üretiyoruz çünkü SDF <box>/<plane> primitiflerinde UV'nin
@@ -158,13 +200,30 @@ def facing_rpy(facing: int):
 # world parçaları
 # --------------------------------------------------------------------------
 
-def building(cfg) -> str:
+def building(cfg, textures) -> str:
     b = cfg["building"]
     L, W, H, t = b["length"], b["width"], b["height"], b["wall_thickness"]
     parts = [f'  <model name="warehouse_building">\n    <static>true</static>\n    <link name="structure">\n']
 
-    # zemin -- beton grisi
-    parts.append(box_visual("floor_v", (L, W, t), (0, 0, -t / 2), (0.52, 0.52, 0.54), "      "))
+    # zemin -- BETON DOKULU (optik akış için; düz renk zemin akışı öldürüyordu,
+    # bkz. FLOOR_TILE_M). Görsel = tekrarlı-UV dokulu quad (z=0 yüzeyi, hafif
+    # yukarıda ki z-fighting olmasın); collision hâlâ kutu.
+    textures["floor.png"] = floor_texture()
+    parts.append(f"""      <visual name="floor_v">
+        <pose>0 0 0.002 0 0 0</pose>
+        <geometry><mesh><uri>model://{ASSET_MODEL}/meshes/floor_tile.obj</uri></mesh></geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0.04 0.04 0.04 1</specular>
+          <pbr><metal>
+            <albedo_map>model://{ASSET_MODEL}/materials/textures/floor.png</albedo_map>
+            <metalness>0.0</metalness>
+            <roughness>0.95</roughness>
+          </metal></pbr>
+        </material>
+      </visual>
+""")
     parts.append(box_collision("floor_c", (L, W, t), (0, 0, -t / 2), "      "))
     # tavan
     parts.append(box_visual("ceiling_v", (L, W, t), (0, 0, H + t / 2), (0.80, 0.80, 0.82), "      "))
@@ -539,7 +598,7 @@ def build(cfg) -> tuple[str, list]:
     br, bg, bb, ba = lg["background"]
 
     body = [
-        building(cfg),
+        building(cfg, textures),
         racking(cfg),
         inventory(cfg, rng, textures, manifest),
         floor_markers(cfg, textures, manifest),
@@ -618,6 +677,8 @@ def main() -> int:
     (assets / "model.config").write_text(MODEL_CONFIG)
     (assets / "model.sdf").write_text(ASSET_STUB_SDF)
     (mesh_dir / "label_quad.obj").write_text(LABEL_QUAD_OBJ)
+    (mesh_dir / "floor_tile.obj").write_text(floor_mesh_obj(
+        cfg["building"]["length"], cfg["building"]["width"], FLOOR_TILE_M))
     for name, img in textures.items():
         img.save(tex_dir / name, optimize=True)
 

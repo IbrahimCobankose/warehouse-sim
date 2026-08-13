@@ -48,9 +48,16 @@ param set-default SYS_HAS_GPS 0
 param set-default SIM_GPS_USED 0
 param set-default EKF2_GPS_CTRL 0
 
-# Akış füzyonu (EKF2_OF_CTRL) PX4'te zaten varsayılan olarak açık; burada
-# yalnızca sensörün gövdedeki yeri veriliyor. Gövde ekseni FRD: z AŞAĞI
-# pozitif, SDF'deki -0.10 burada +0.10 olur.
+# Akış füzyonu (EKF2_OF_CTRL) PX4'te zaten varsayılan açık; burada yalnızca
+# sensörün gövdedeki yeri veriliyor. Gövde ekseni FRD: z AŞAĞI pozitif, SDF'deki
+# -0.10 burada +0.10 olur.
+#
+# NOT (2026-08-13, L1 runaway kök nedeni): asıl sorun EKF ayarı DEĞİL, dokusuz
+# zemindi -- optik akış sensörü düz renk zeminde özellik bulamayıp "2/20 eşleşme"
+# veriyordu -> L1'de bozuk hız -> runaway. Denenen EKF çareleri (OF_CTRL 0;
+# akış zayıflatma; görüş hızı) ya arm'ı kırdı (mag+GPS yokken yaw gözlenebilirliği
+# akıştan geliyor) ya yetmedi. GERÇEK ÇÖZÜM: gen_world.py zemine beton dokusu
+# verdi (FLOOR_TILE_M) -> akış düzgün çalışıyor, EKF varsayılanları yeterli.
 param set-default EKF2_OF_POS_X 0.03
 param set-default EKF2_OF_POS_Y 0.0
 param set-default EKF2_OF_POS_Z 0.10
@@ -73,10 +80,12 @@ param set-default EKF2_RNG_CTRL 2
 # VISION_POSITION_ESTIMATE olarak yolluyor.
 #
 # EKF2_EV_CTRL bit maskesi: 1=yatay konum, 2=dikey konum, 4=hız, 8=yaw.
-# 9 = yatay konum + yaw. Dikey KASITLI olarak dışarıda: yükseklik referansı
-# mesafe ölçer (EKF2_HGT_REF 2) ve iki kaynağı aynı anda karıştırmak,
-# markör görünürken/kaybolurken origin zıplatıyor. Dikey kestirimdeki
-# 0.375 m'lik sapma bu yüzden 3. aşamada kapanmıyor -- ayrı iş.
+# 9 = yatay konum + yaw. Dikey KASITLI dışarıda: yükseklik referansı mesafe
+# ölçer (EKF2_HGT_REF 2), iki kaynağı karıştırmak markör görünürken/kaybolurken
+# origin zıplatıyor (dikey 0.375 m sapma ayrı iş).
+# NOT: apriltag_localize.py görüş HIZINI da beslemeye hazır (VISION_SPEED_ESTIMATE,
+# --no-ev-vel ile kapatılır); akış tekrar sorun olursa bit 4 eklenip (13) devreye
+# alınabilir. Dokulu zeminle akış çalıştığından şimdilik gerekmiyor.
 param set-default EKF2_EV_CTRL 9
 
 # Kamera 20 Hz + ROS köprüsü + tespit: kabaca 50 ms gecikme. Ölçülmedi,
