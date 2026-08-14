@@ -30,6 +30,23 @@ Bu sınır rota hızını da bağlıyor: ön kamera 1.5 m'de 1.73 m genişlik g�
 kodun kenarda değil ortada olması gerektiği düşünülürse kutu başına ~1 m
 kullanılabilir pencere var. Kutu başına 3 deneme istiyorsak seyir hızı
 5 Hz x 1 m / 3 ~= 1.5 m/s'yi aşmamalı (4. ve 5. aşama için not).
+
+ÇIKTILAR (out/scans/):
+    scans.json    kutu başına ÖZET kayıt + en iyi kare  (eskiden beri; kapsama
+                  raporunun girdisi)
+    readings.jsonl  HER okuma ayrı satır (poligon, alan, iki saat) -- envanter
+                  konumu tek okumadan değil, bir geçişteki okumaların
+                  tamamından kestirileceği için özet yetmiyor
+    frames.csv    kare düzeyinde teşhis (çözme süresi, kod sayısı, kare
+                  aralığı, tahmini düşen kare) -- "QR kaçtı" derken kadraja mı
+                  girmedi yoksa kare mi işlenmedi sorusunu ayıran veri
+    frames_miss/  hiçbir şey çözülemeyen karelerden örnekler (negatif örnek);
+                  decoder iyileştirmesi bunlar üstünde --replay ile ölçülür
+
+İKİ SAAT: her kayıtta hem görüntünün sim zamanı damgası (`t`) hem kareyi
+aldığımız andaki duvar saati (`wall_ms`) var. Poz eşlemesi wall_ms üzerinden
+yapılır çünkü apriltag_localize'ın ev_feed.csv'si duvar saatiyle yazıyor;
+ikisini karıştırmak sessiz bir kayma üretir (bkz. tools/ev_align.py).
 """
 
 from __future__ import annotations
@@ -71,13 +88,33 @@ def polygon_area(points) -> float:
     return abs(a) / 2.0
 
 
+def result_polygon(r) -> list:
+    """pyzbar sonucundan köşe listesi. Poligon boşsa (bazı barkodlarda oluyor)
+    sınırlayıcı dikdörtgene düşer. Konum kestirimi bu köşelerden yapılacağı
+    için kaynağın hangisi olduğu önemli: dikdörtgen perspektifi taşımaz."""
+    poly = [[float(p.x), float(p.y)] for p in r.polygon]
+    if poly:
+        return poly
+    return [
+        [float(r.rect.left), float(r.rect.top)],
+        [float(r.rect.left + r.rect.width), float(r.rect.top)],
+        [float(r.rect.left + r.rect.width), float(r.rect.top + r.rect.height)],
+        [float(r.rect.left), float(r.rect.top + r.rect.height)],
+    ]
+
+
 def safe_name(payload: str) -> str:
     return re.sub(r"[^A-Za-z0-9._-]+", "_", payload).strip("_")[:80]
 
 
 @dataclass
 class Scan:
-    """Bir kutu için tutulan kayıt. Dosyaya yazılan biçim budur."""
+    """Bir kutu için tutulan ÖZET kayıt. scans.json'a yazılan biçim budur.
+
+    Okumaların tamamı burada değil readings.jsonl'da: envanter konumu bir
+    geçişteki bütün okumalardan kestirilecek, özet kayıt yalnızca "bu kutu
+    görüldü mü" sorusunu (kapsama raporu) cevaplıyor.
+    """
     seq: int
     payload: str
     image: str
@@ -101,7 +138,9 @@ class Scanner:
 
     def __init__(self, out: Path, truth: dict, relock: float,
                  with_barcode: bool, improve_margin: float = 1.05,
-                 verbose: bool = False):
+                 verbose: bool = False, camera: str = "front",
+                 nominal_hz: float = 20.0, miss_every: float = 3.0,
+                 miss_max: int = 40):
         from pyzbar import pyzbar
         from pyzbar.pyzbar import ZBarSymbol
 
@@ -119,19 +158,70 @@ class Scanner:
         self.relock = relock
         self.improve_margin = improve_margin
         self.verbose = verbose
+        self.camera = camera
 
         self.frames_processed = 0
         self.decode_time = 0.0
         self.unknown: set[str] = set()
 
+        # ---- teşhis katmanı -------------------------------------------------
+        # Satır tamponlu açılıyor: uçuş Ctrl-C ile kesilse de (bu projede sık
+        # oluyor) o ana kadarki kayıt diskte kalsın.
+        self.readings_path = out / "readings.jsonl"
+        self._readings = self.readings_path.open("w", buffering=1)
+        self.n_readings = 0
+
+        self.frames_csv_path = out / "frames.csv"
+        self._frames_csv = self.frames_csv_path.open("w", buffering=1)
+        self._frames_csv.write("wall_ms,t_sim,decode_ms,n_qr,n_bar,gap_s,"
+                               "est_drops,miss_image\n")
+
+        # Kamera nominal_hz yayınlıyor ama çözme ondan yavaş; ROS (derinlik 1)
+        # aradaki kareleri sessizce atıyor. Kaç kare atlandığını doğrudan
+        # sayamayız -- ama ardışık kareler arası SİM ZAMANI boşluğundan
+        # kestirebiliriz. "QR kadraja girdi ama o an kare işlenmedi" arıza
+        # modunu ancak bu sayı görünür kılıyor.
+        self.nominal_dt = 1.0 / nominal_hz if nominal_hz > 0 else 0.0
+        self.est_drops = 0
+        self.last_t: float | None = None
+        self.max_gap_s = 0.0
+
+        # Hiçbir şey çözülemeyen karelerden örnek: decoder iyileştirmesinin
+        # (crop/threshold/warp) ölçülebilmesi için NEGATİF örnek şart, yoksa
+        # sadece zaten okunan kareler üstünde ayar yapmış oluruz.
+        self.miss_dir = out / "frames_miss"
+        self.miss_every = miss_every
+        self.miss_max = miss_max
+        self.misses_saved = 0
+        self._last_miss_t = -1e9
+
     # ------------------------------------------------------------------ çekirdek
-    def process(self, rgb: np.ndarray, t: float) -> list[str]:
-        """Bir kareyi işler, YENİ bulunan kutuların yüklerini döndürür."""
+    def process(self, rgb: np.ndarray, t: float,
+                wall_ms: int | None = None) -> list[str]:
+        """Bir kareyi işler, YENİ bulunan kutuların yüklerini döndürür.
+
+        `t` görüntünün sim zamanı damgası, `wall_ms` kareyi aldığımız andaki
+        duvar saati (poz eşlemesinin anahtarı; bkz. modül başlığı).
+        """
+        if wall_ms is None:
+            wall_ms = int(time.time() * 1000)
         gray = to_gray(rgb)
         t0 = time.perf_counter()
         results = self._pyzbar.decode(gray, symbols=self.symbols)
-        self.decode_time += time.perf_counter() - t0
+        decode_s = time.perf_counter() - t0
+        self.decode_time += decode_s
         self.frames_processed += 1
+
+        # Kare aralığı: nominal periyodun üstündeki her boşluk düşen kare.
+        gap = 0.0
+        if self.last_t is not None and self.nominal_dt > 0:
+            gap = t - self.last_t
+            if gap > 0:
+                self.max_gap_s = max(self.max_gap_s, gap)
+                # 1.5 payı: 20 Hz yayında damgalar tam periyotta gelmiyor,
+                # yuvarlama gürültüsünü düşen kare saymamak için.
+                self.est_drops += max(0, int(gap / self.nominal_dt - 1.5))
+        self.last_t = t
 
         qrs, barcodes = [], []
         for r in results:
@@ -143,16 +233,23 @@ class Scanner:
                 # konum kodunu taşıyor), o yüzden asla dedup anahtarı olamaz --
                 # sadece karede ne görüldüğünün notu olarak taşınıyor.
                 barcodes.append(payload)
+                # Ham okuma akışına yine de giriyor: barkodun benzersiz
+                # olmaması KONUM kestirimini engellemiyor (köşeler karede
+                # nerede olduğunu söylüyor), sadece kimlik anahtarı olamıyor.
+                bpoly = result_polygon(r)
+                self._log_reading(payload, r.type, bpoly, polygon_area(bpoly),
+                                  t, wall_ms)
+
+        miss_image = self._maybe_save_miss(rgb, t, wall_ms, results)
+        self._frames_csv.write(
+            f"{wall_ms},{t:.3f},{1000*decode_s:.1f},{len(qrs)},{len(barcodes)},"
+            f"{gap:.3f},{self.est_drops},{miss_image}\n")
 
         fresh = []
         for payload, r in qrs:
-            poly = [[float(p.x), float(p.y)] for p in r.polygon] or [
-                [float(r.rect.left), float(r.rect.top)],
-                [float(r.rect.left + r.rect.width), float(r.rect.top)],
-                [float(r.rect.left + r.rect.width), float(r.rect.top + r.rect.height)],
-                [float(r.rect.left), float(r.rect.top + r.rect.height)],
-            ]
+            poly = result_polygon(r)
             area = polygon_area(poly)
+            self._log_reading(payload, "QRCODE", poly, area, t, wall_ms)
             rec = self.records.get(payload)
 
             if rec is None:
@@ -183,6 +280,51 @@ class Scanner:
             self._write()
         return fresh
 
+    # -------------------------------------------------------------- teşhis
+    def _log_reading(self, payload: str, symbology: str, poly: list,
+                     area: float, t: float, wall_ms: int) -> None:
+        """Bir okumayı readings.jsonl'a yazar. HER okuma yazılır -- aynı kutu
+        aynı geçişte on kez okunduysa on satır olur. Envanter konumu bu
+        satırların tamamından kestirilecek (tek okumanın konum hatası çok
+        daha büyük); benzersizleştirme rapor katmanında yapılıyor."""
+        self.n_readings += 1
+        self._readings.write(json.dumps({
+            "wall_ms": wall_ms,
+            "t": round(t, 3),
+            "camera": self.camera,
+            "symbology": symbology,
+            "payload": payload,
+            "area_px": round(area, 1),
+            "polygon": [[round(x, 1), round(y, 1)] for x, y in poly],
+        }, ensure_ascii=False) + "\n")
+
+    def _maybe_save_miss(self, rgb, t: float, wall_ms: int, results) -> str:
+        """Hiçbir kod çözülemeyen kareden örnek saklar (hız sınırlı).
+
+        Boş kare çok -- araç kadrajda kod olmayan yerlerden de geçiyor -- bu
+        yüzden hepsini yazmak diski doldurur; amaç temsilî bir negatif küme.
+        Dosya adında wall_ms var: sonradan poz eşlemesiyle "bu kare nereye
+        bakıyordu, orada bir kutu var mıydı" sorusu cevaplanabilsin diye.
+        """
+        if results or self.misses_saved >= self.miss_max:
+            return ""
+        if t - self._last_miss_t < self.miss_every:
+            return ""
+        self._last_miss_t = t
+        self.misses_saved += 1
+        self.miss_dir.mkdir(parents=True, exist_ok=True)
+        name = f"miss_{wall_ms}.png"
+        PILImage.fromarray(rgb).save(self.miss_dir / name)
+        return name
+
+    def close(self) -> None:
+        for f in (self._readings, self._frames_csv):
+            try:
+                f.close()
+            except Exception:
+                pass
+
+    # --------------------------------------------------------------- kayıtlar
     def _new_record(self, payload, rgb, t, area, poly, barcodes) -> Scan:
         seq = len(self.records) + 1
         name = f"{seq:04d}_{safe_name(payload)}.png"
@@ -236,7 +378,12 @@ class Scanner:
         print(f"işlenen kare      : {n}")
         print(f"çözme süresi      : {ms:.0f} ms/kare "
               f"(üst sınır ~{1000/ms:.1f} Hz)" if n else "")
+        print(f"tahmini düşen kare: {self.est_drops} "
+              f"(en büyük boşluk {self.max_gap_s:.2f} s)")
+        print(f"ham okuma         : {self.n_readings}")
         print(f"taranan kutu      : {len(self.records)}")
+        if self.misses_saved:
+            print(f"boş kare örneği   : {self.misses_saved} -> {self.miss_dir}")
         if self.truth:
             total = sum(1 for c in self.truth.values() if c["type"] == "box_qr")
             print(f"ground truth'ta   : {sum(1 for r in self.records.values() if r.known)}"
@@ -271,6 +418,10 @@ def run_ros(args, scanner: Scanner) -> int:
             self.last_status = 0.0
 
         def on_image(self, msg: Image) -> None:
+            # Duvar saati kareyi ALDIĞIMIZ anda okunuyor, çözmeden önce:
+            # çözme 70-215 ms sürüyor ve sonda okunsaydı poz eşlemesine o
+            # kadar sistematik gecikme girerdi (1.5 m/s'de ~30 cm).
+            wall_ms = int(time.time() * 1000)
             if self.first:
                 self.first = False
                 print(f"ilk kare: {msg.width}x{msg.height} {msg.encoding}")
@@ -284,7 +435,7 @@ def run_ros(args, scanner: Scanner) -> int:
                     print("UYARI: kare damgası boş, duvar saati kullanılıyor")
                 stamp = time.time()
             rgb = to_array(msg)
-            for payload in scanner.process(rgb, stamp):
+            for payload in scanner.process(rgb, stamp, wall_ms):
                 rec = scanner.records[payload]
                 where = ("bilinmiyor" if rec.truth is None else
                          f"{rec.truth['row']}-{rec.truth['bay']:02d}-{rec.truth['level']}")
@@ -349,7 +500,9 @@ def run_replay(args, scanner: Scanner) -> int:
     dt = 1.0 / args.replay_hz
     for i, f in enumerate(files):
         rgb = np.asarray(PILImage.open(f).convert("RGB"))
-        for payload in scanner.process(rgb, i * dt):
+        # Replay'de duvar saati anlamsız (kareler eski); yine de sütun boş
+        # kalmasın diye sanal saat sim zamanıyla aynı ilerletiliyor.
+        for payload in scanner.process(rgb, i * dt, int(i * dt * 1000)):
             rec = scanner.records[payload]
             print(f"[{rec.seq:3d}] {f.name:<12} {payload:<26} "
                   f"{rec.best_area_px:6.0f} px²")
@@ -376,6 +529,15 @@ def main() -> int:
                     help="ROS yerine bu dizindeki PNG'leri işle (offline test)")
     ap.add_argument("--replay-hz", type=float, default=20.0,
                     help="replay'de karelere atanan sanal kare hızı")
+    ap.add_argument("--camera", default="",
+                    help="okuma kayıtlarına yazılacak kamera adı "
+                         "(boşsa konu adından türetilir)")
+    ap.add_argument("--nominal-hz", type=float, default=20.0,
+                    help="kameranın yayın hızı; düşen kare kestirimi bundan")
+    ap.add_argument("--miss-every", type=float, default=3.0,
+                    help="boş kare örneği saklama aralığı (s), 0 = kapalı")
+    ap.add_argument("--miss-max", type=int, default=40,
+                    help="en fazla kaç boş kare örneği saklansın")
     args = ap.parse_args()
 
     truth = {}
@@ -389,10 +551,20 @@ def main() -> int:
         print(f"UYARI: ground truth yok ({args.ground_truth}), doğrulama atlanıyor")
 
     args.out.mkdir(parents=True, exist_ok=True)
-    scanner = Scanner(args.out, truth, args.relock, args.with_barcode)
+    # "/warehouse_scout/camera_front/image" -> "front"
+    parts = args.topic.strip("/").split("/")
+    camera = args.camera or (parts[-2].replace("camera_", "")
+                             if len(parts) >= 2 else parts[-1])
+    scanner = Scanner(args.out, truth, args.relock, args.with_barcode,
+                      camera=camera, nominal_hz=args.nominal_hz,
+                      miss_every=args.miss_every if args.miss_every > 0 else 1e9,
+                      miss_max=args.miss_max)
 
-    rc = run_replay(args, scanner) if args.replay else run_ros(args, scanner)
-    scanner.summary()
+    try:
+        rc = run_replay(args, scanner) if args.replay else run_ros(args, scanner)
+        scanner.summary()
+    finally:
+        scanner.close()
     return rc
 
 
