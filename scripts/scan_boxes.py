@@ -54,10 +54,12 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import queue
 import re
 import signal
 import subprocess
 import sys
+import threading
 import time
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
@@ -86,6 +88,65 @@ def polygon_area(points) -> float:
         x2, y2 = points[(i + 1) % n]
         a += x1 * y2 - x2 * y1
     return abs(a) / 2.0
+
+
+class FrameWriter:
+    """1080p PNG kaydını ROS callback'inden ayıran yazıcı thread'i.
+
+    ÖLÇÜM: bir 1920x1080 karenin PNG'ye yazılması 145 ms; çözme 53 ms. Kayıt
+    callback içinde yapılınca düğüm o süre boyunca yeni kare alamıyordu --
+    tam turda etkin hız 6.8 Hz'de kalıyor, kare boşlukları 1.05 s'ye çıkıyordu
+    (çözme tek başına 18.7 Hz'e izin verdiği hâlde). view_front.py'de aynı
+    desen aynı şekilde çözülmüştü: ağır iş callback'i bloklar.
+
+    Kuyruk SINIRLI ve taşınca kare DÜŞÜRÜLÜR: bir kare 6 MB, sınırsız kuyruk
+    belleği yer. Düşen kare kayıp değil -- aynı kutu geçiş boyunca defalarca
+    görülüyor (medyan 14 okuma), kaydedilen "en iyi kare" biraz daha kötü
+    olabilir sadece. Kilitlenen bir düğümün maliyeti bundan çok daha yüksek.
+    """
+
+    def __init__(self, max_pending: int = 6):
+        self.q: queue.Queue = queue.Queue(maxsize=max_pending)
+        self.dropped = 0
+        self.written = 0
+        self._stop = threading.Event()
+        self._th = threading.Thread(target=self._run, name="frame_writer",
+                                    daemon=True)
+        self._th.start()
+
+    def save(self, path: Path, rgb: np.ndarray) -> bool:
+        """Kareyi kuyruğa koyar. Dizi KOPYALANIR: çağıran taraftaki `rgb`
+        ROS mesajının tamponuna bakan bir görünüm, mesaj serbest bırakılınca
+        altından çekilir. Kopyalama (~6 MB memcpy) birkaç ms, kaydın 145 ms'i
+        yanında ihmal edilebilir."""
+        try:
+            self.q.put_nowait((path, np.ascontiguousarray(rgb)))
+            return True
+        except queue.Full:
+            self.dropped += 1
+            return False
+
+    def _run(self) -> None:
+        while not self._stop.is_set():
+            try:
+                path, arr = self.q.get(timeout=0.2)
+            except queue.Empty:
+                continue
+            try:
+                PILImage.fromarray(arr).save(path)
+                self.written += 1
+            except Exception as e:                     # disk dolu, izin, vb.
+                print(f"UYARI: kare yazılamadı ({path.name}): {e}",
+                      file=sys.stderr)
+
+    def close(self, timeout: float = 30.0) -> None:
+        """Kuyruktaki kareleri bitirir. Uçuş sonunda birikmiş olabilir; en iyi
+        kareler raporun parçası olduğu için beklemeye değer."""
+        deadline = time.time() + timeout
+        while not self.q.empty() and time.time() < deadline:
+            time.sleep(0.05)
+        self._stop.set()
+        self._th.join(timeout=2.0)
 
 
 def result_polygon(r) -> list:
@@ -127,6 +188,10 @@ class Scan:
     sightings: int = 1
     barcodes: list = field(default_factory=list)
     truth: dict | None = None
+    # Kare yazıcı kuyruğu doluyken kayıt düşebilir. Düştüyse `image` var
+    # olmayan bir dosyayı gösterirdi; bayrak sayesinde sonraki görüşte
+    # yeniden denenir ve rapor tutarlı kalır.
+    image_saved: bool = True
 
 
 class Scanner:
@@ -183,6 +248,7 @@ class Scanner:
         # modunu ancak bu sayı görünür kılıyor.
         self.nominal_dt = 1.0 / nominal_hz if nominal_hz > 0 else 0.0
         self.est_drops = 0
+        self.first_t: float | None = None
         self.last_t: float | None = None
         self.max_gap_s = 0.0
 
@@ -194,6 +260,9 @@ class Scanner:
         self.miss_max = miss_max
         self.misses_saved = 0
         self._last_miss_t = -1e9
+
+        # Kare yazımı ayrı thread'te: 145 ms/kare, callback'i bloklamamalı.
+        self.writer = FrameWriter()
 
     # ------------------------------------------------------------------ çekirdek
     def process(self, rgb: np.ndarray, t: float,
@@ -214,6 +283,8 @@ class Scanner:
 
         # Kare aralığı: nominal periyodun üstündeki her boşluk düşen kare.
         gap = 0.0
+        if self.first_t is None:
+            self.first_t = t
         if self.last_t is not None and self.nominal_dt > 0:
             gap = t - self.last_t
             if gap > 0:
@@ -259,7 +330,14 @@ class Scanner:
                 rec.sightings += 1
                 still_visible = (t - self.last_seen.get(payload, t)) <= self.relock
                 better = area > rec.best_area_px * self.improve_margin
-                if still_visible and better:
+                if not rec.image_saved:
+                    # İlk kayıt kuyruk doluyken düşmüştü; kadraj kalitesine
+                    # bakmadan yeniden dene -- kaydın karesiz kalmasındansa
+                    # biraz daha kötü bir kare yeğdir.
+                    rec.image_saved = self._save_frame(rgb, Path(rec.image).name)
+                    if rec.image_saved:
+                        rec.best_area_px, rec.best_polygon, rec.best_t = area, poly, t
+                elif still_visible and better:
                     # Aynı geçişte daha iyi bir açı yakalandı: kareyi güncelle.
                     # Geçiş bittikten (relock penceresi kapandıktan) sonra
                     # gelen tekrar görüşler yok sayılır -- README'nin "aynı
@@ -311,13 +389,15 @@ class Scanner:
         if t - self._last_miss_t < self.miss_every:
             return ""
         self._last_miss_t = t
-        self.misses_saved += 1
         self.miss_dir.mkdir(parents=True, exist_ok=True)
         name = f"miss_{wall_ms}.png"
-        PILImage.fromarray(rgb).save(self.miss_dir / name)
+        if not self.writer.save(self.miss_dir / name, rgb):
+            return ""                      # kuyruk dolu -- örnek atlandı
+        self.misses_saved += 1
         return name
 
     def close(self) -> None:
+        self.writer.close()
         for f in (self._readings, self._frames_csv):
             try:
                 f.close()
@@ -328,7 +408,7 @@ class Scanner:
     def _new_record(self, payload, rgb, t, area, poly, barcodes) -> Scan:
         seq = len(self.records) + 1
         name = f"{seq:04d}_{safe_name(payload)}.png"
-        self._save_frame(rgb, name)
+        saved = self._save_frame(rgb, name)
 
         info = self.truth.get(payload)
         if info is None:
@@ -343,6 +423,7 @@ class Scanner:
             best_t=round(t, 3),
             best_area_px=round(area, 1),
             best_polygon=poly,
+            image_saved=saved,
             barcodes=list(dict.fromkeys(barcodes)),
             truth=None if info is None else {
                 "entity": info["entity"], "row": info["row"],
@@ -353,8 +434,9 @@ class Scanner:
         self.records[payload] = rec
         return rec
 
-    def _save_frame(self, rgb: np.ndarray, name: str) -> None:
-        PILImage.fromarray(rgb).save(self.frames_dir / name)
+    def _save_frame(self, rgb: np.ndarray, name: str) -> bool:
+        """Kareyi yazıcı kuyruğuna koyar. Kuyruk doluysa False."""
+        return self.writer.save(self.frames_dir / name, rgb)
 
     def _write(self) -> None:
         """Kayıtları her değişiklikte diske yazar. Uçuş yarıda kesilse de
@@ -378,8 +460,15 @@ class Scanner:
         print(f"işlenen kare      : {n}")
         print(f"çözme süresi      : {ms:.0f} ms/kare "
               f"(üst sınır ~{1000/ms:.1f} Hz)" if n else "")
+        span = (self.last_t - self.first_t) if self.first_t is not None else 0.0
+        if span > 0:
+            print(f"etkin hız         : {n/span:.1f} Hz "
+                  f"({span:.1f} s boyunca)")
         print(f"tahmini düşen kare: {self.est_drops} "
               f"(en büyük boşluk {self.max_gap_s:.2f} s)")
+        print(f"kare yazımı       : {self.writer.written} yazıldı"
+              + (f", {self.writer.dropped} DÜŞTÜ (kuyruk doldu)"
+                 if self.writer.dropped else ""))
         print(f"ham okuma         : {self.n_readings}")
         print(f"taranan kutu      : {len(self.records)}")
         if self.misses_saved:
@@ -562,9 +651,11 @@ def main() -> int:
 
     try:
         rc = run_replay(args, scanner) if args.replay else run_ros(args, scanner)
+        # Özetten ÖNCE kapat: yazıcı kuyruğu boşalsın ki sayılar kesin olsun.
+        scanner.close()
         scanner.summary()
     finally:
-        scanner.close()
+        scanner.close()                    # idempotent (hata yolunda da kapat)
     return rc
 
 
