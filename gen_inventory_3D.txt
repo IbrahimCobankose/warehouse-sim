@@ -1,0 +1,24 @@
+Uçuş sonrası iki komut gerekiyor:
+
+.venv/bin/python tools/build_inventory.py --truth
+
+.venv/bin/python tools/view_inventory.py --truth
+
+
+
+
+Uçuş sırasında da iki şeyin koşuyor olması şart (ikisi de zaten normal akışta var):
+
+scan_boxes.py --no-bridge → out/scans/readings.jsonl
+apriltag_localize.py → out/logs/ev_feed.csv (EV kaydı varsayılan olarak açık)
+
+İkisinden biri eksikse build_inventory ya boş çıkar ya da "poz yok" diye okumaların hepsini düşürür.
+
+
+
+
+Çıktı yerleri (hepsi out/, gitignore'da):
+
+Dosya	                          Üreten
+out/inventory.json + .csv	build_inventory.py
+out/inventory_3d.html	        view_inventory.py

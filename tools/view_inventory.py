@@ -219,6 +219,7 @@ window.addEventListener('mousemove',e=>{
   }
   if(!best){ t.style.display='none'; return; }
   let h=`<b>${best.id||'(çözülemedi)'}</b><br>${best.qr}<br>`
+      + (best.bc ? `barkod ${best.bc}<br>` : '')
       + `${best.shelf}-${String(best.bay).padStart(2,'0')}-L${best.level}<br>`
       + `x ${best.x.toFixed(2)}  y ${best.y.toFixed(2)}  z ${best.z.toFixed(2)}`;
   if(best.missed) h+=`<br><span style="color:#ff4d6d">TARANMADI</span>`;
@@ -268,7 +269,7 @@ def main() -> int:
 
     items, errs = [], []
     for it in doc["items"]:
-        rec = {"id": it["product_id"], "qr": it["qr"],
+        rec = {"id": it["product_id"], "qr": it["qr"], "bc": it.get("barcode"),
                "x": it["estimated_x"], "y": it["estimated_y"],
                "z": it["estimated_z"], "shelf": it["shelf"],
                "level": it["level"], "bay": it.get("bay", 0),

@@ -58,44 +58,15 @@ sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 import gen_labels as gl                                          # noqa: E402
 from apriltag_localize import FRONT_BODY_FROM_CAM, intrinsics    # noqa: E402
 
-# zbar poligonunun gerçek QR modül sınırına oranı. Dokular üzerinden ölçüldü
-# (20 kutu etiketi, hepsinde 0.9880 -- rasterleme deterministik). Rendera
-# giren görüntüde köşe yerelleştirmesi biraz farklı olabilir; bu sabit
-# doğruluk raporunda sistematik sapma görülürse burada güncellenir.
-ZBAR_CORNER_RATIO = 0.9880
-
-
 def qr_geometry(cfg: dict) -> tuple[float, float]:
     """Kutu QR'ının `(etkin_kenar_m, merkez_yükseklik_ofseti_m)`.
 
-    Kenar: config'teki `code` değeri DEĞİL -- dokuya çizilirken modül boyutu
-    tam sayı piksele yuvarlanıyor (9.6 -> 10 px), gerçek kenar farklı.
-    Ofset: QR etiketin tam ortasında değil, altındaki caption şeridinin
-    üstünde kalan alana ortalanıyor; yani QR merkezi ETİKET merkezinin
-    biraz ÜSTÜNDE. Ground truth etiket merkezini verdiği için bu fark
-    düzeltilmezse konum kestiriminde sabit bir +z sapması kalır.
-
-    gen_labels.make_box_label ile aynı hesap; floor_marker_geometry'nin
-    floor tag için yaptığının kutu QR'ı karşılığı. İki yerde ayrı tutmak
-    sessiz bir ölçek/konum hatası kaynağı olurdu.
+    Hesap gen_labels'ta: etiketi ÇİZEN kodla aynı yerde durması gerekiyor,
+    yoksa doku üretimi değişince burası sessizce yanlış kalır.
     """
     codes = cfg["codes"]
-    spec = codes["box_label"]
-    w_m, h_m = spec["label"]
-    scale = codes["texture_px_per_m"]
-    if max(w_m, h_m) * scale > codes["max_texture_px"]:
-        scale = codes["max_texture_px"] / max(w_m, h_m)
-    n = gl.qr_module_count(spec["qr_version"])
-    module_px = max(1, int(round(spec["code"] * scale / n)))
-    qr_px = module_px * n
-
-    h_px = max(8, int(round(h_m * scale)))
-    caption_px = int(round(spec.get("caption_height", 0.0) * scale))
-    qr_area_h = h_px - caption_px
-    top = (qr_area_h - qr_px) // 2
-    # Dokuda y aşağı büyür, dünyada +Z yukarı: işaret ters (bkz. gen_labels).
-    rise = ((h_px / 2.0) - (top + qr_px / 2.0)) / scale
-    return (qr_px / scale) * ZBAR_CORNER_RATIO, rise
+    return gl.box_label_geometry(codes["box_label"], codes["texture_px_per_m"],
+                                 codes["max_texture_px"])
 
 
 class PoseTrack:
@@ -280,15 +251,23 @@ def main() -> int:
     per_item: dict[str, list] = defaultdict(list)
     n_total = n_nopose = n_reproj = n_range = n_bad = 0
     barcodes: dict[str, set] = defaultdict(set)
+    barcode_of: dict[str, tuple[str, int]] = {}      # qr -> (barkod, kalite)
 
     with args.readings.open() as f:
         for line in f:
             r = json.loads(line)
             n_total += 1
             if r["symbology"] != "QRCODE":
-                # Barkod yükü benzersiz değil -> kimlik anahtarı olamaz; şimdilik
-                # yalnız "hangi konum kodu görüldü" notu (B2 ayrı hat kuracak).
+                # Barkod yükü benzersiz değil (aynı gözdeki üç kutu aynı konum
+                # kodunu taşıyor), o yüzden ancak scan_boxes'ın geometrik olarak
+                # bağladığı QR üzerinden bir kutuya iliştirilebilir. Bağsız
+                # okuma yalnız "bu konum kodu görüldü" notu olarak kalıyor.
                 barcodes[r["payload"]].add(r["wall_ms"])
+                qr = r.get("linked_qr")
+                if qr:
+                    q = int(r.get("quality", 0) or 0)
+                    if qr not in barcode_of or q > barcode_of[qr][1]:
+                        barcode_of[qr] = (r["payload"], q)
                 continue
             pose = poses.at(r["wall_ms"] / 1000.0)
             if pose is None:
@@ -348,10 +327,12 @@ def main() -> int:
                 * (1.0 / (1.0 + spread / 0.10))
                 * (1.0 / (1.0 + float(np.mean([o[2] for o in obs])) / 3.0)))
         ts = sorted(o[3] for o in obs)[n // 2]
+        bc = barcode_of.get(payload)
         items.append({
             "product_id": product_id,
             "qr": payload,
-            "barcode": None,                      # B2 hattı bağlanınca dolacak
+            "barcode": bc[0] if bc else None,
+            "barcode_quality": bc[1] if bc else None,
             "estimated_x": round(float(pos[0]), 3),
             "estimated_y": round(float(pos[1]), 3),
             "estimated_z": round(float(pos[2]), 3),
@@ -374,9 +355,10 @@ def main() -> int:
          "count": len(items),
          "items": items}, indent=2, ensure_ascii=False))
 
-    cols = ["product_id", "qr", "barcode", "estimated_x", "estimated_y",
-            "estimated_z", "shelf", "level", "bay", "camera", "confidence",
-            "timestamp", "n_readings", "spread_m", "range_m", "readable"]
+    cols = ["product_id", "qr", "barcode", "barcode_quality", "estimated_x",
+            "estimated_y", "estimated_z", "shelf", "level", "bay", "camera",
+            "confidence", "timestamp", "n_readings", "spread_m", "range_m",
+            "readable"]
     with args.csv.open("w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=cols)
         w.writeheader()
@@ -392,8 +374,9 @@ def main() -> int:
     print(f"  {args.out}")
     print(f"  {args.csv}")
     if barcodes:
-        print(f"  (ayrıca {len(barcodes)} farklı barkod yükü görüldü, "
-              f"henüz eşleştirilmiyor)")
+        n_bc = sum(1 for it in items if it["barcode"])
+        print(f"  barkod: {n_bc}/{len(items)} kayda bağlandı "
+              f"({len(barcodes)} farklı konum kodu görüldü)")
 
     if args.truth:
         report_accuracy(items, args.ground_truth)

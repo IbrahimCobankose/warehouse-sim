@@ -18,13 +18,17 @@ Simülasyon olmadan, kaydedilmiş karelerle mantığı denemek için:
     .venv/bin/python scripts/scan_boxes.py --replay out/frames/probe_box_qr
 
 HIZ SINIRI (ölçüm, 1920x1080, bu makine):
-    sadece QR      70-215 ms/kare   ->  5-14 Hz
-    QR + Code128   ~750 ms/kare     ->  ~1.3 Hz
-Kamera 20 Hz yayınlıyor, yani kareler zaten atlanacak; QoS derinliği 1
-olduğu için hep EN YENİ kare işlenir, kuyrukta bayatlamış kare birikmez.
-Barkod bu yüzden varsayılan olarak kapalı (--with-barcode ile açılır).
-Kareyi küçültmek bir seçenek değil: okunabilirlik bütçesi 1080p'de zaten
-4.42 px/modül, yarıya indirince 3'lük eşiğin altına düşer.
+    sadece QR      24-53 ms/kare    ->  19-40 Hz
+    QR + Code128   +0.4 ms          ->  pratikte aynı
+Kamera 20 Hz yayınlıyor; QoS derinliği 1 olduğu için hep EN YENİ kare işlenir,
+kuyrukta bayatlamış kare birikmez. Kareyi küçültmek bir seçenek değil:
+okunabilirlik bütçesi 1080p'de zaten 4.42 px/modül, yarıya indirince 3'lük
+eşiğin altına düşer.
+
+ESKİ NOT DÜZELTİLDİ (2026-08-14): burada uzun süre "QR + Code128 ~750 ms/kare
+-> 1.3 Hz" yazıyordu ve barkod bu yüzden kapalı tutuluyordu. Yeniden ölçüldü:
+Code128'i eklemek 24.4 -> 24.8 ms, yani bedava. Asıl darboğaz çözme değil,
+callback içinde yapılan 1080p PNG kaydıydı (145 ms) -- bkz. FrameWriter.
 
 Bu sınır rota hızını da bağlıyor: ön kamera 1.5 m'de 1.73 m genişlik görüyor,
 kodun kenarda değil ortada olması gerektiği düşünülürse kutu başına ~1 m
@@ -53,6 +57,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import os
 import queue
 import re
@@ -70,6 +75,8 @@ from PIL import Image as PILImage
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "tools"))
 from ros_image import to_array, to_gray          # noqa: E402
+from gen_world import LABEL_GAP                  # noqa: E402
+import gen_labels as gl                          # noqa: E402
 
 DEFAULT_TOPIC = "/warehouse_scout/camera_front/image"
 
@@ -164,6 +171,74 @@ def result_polygon(r) -> list:
     ]
 
 
+class BarcodeLinker:
+    """Çözülmüş bir barkodu, ait olduğu kutunun QR'ına bağlar.
+
+    NEDEN GEREKLİ: barkod yükü benzersiz DEĞİL -- aynı gözdeki üç kutu aynı
+    konum kodunu (örn. "A0101") taşıyor. Tek başına bir barkod okuması "bu
+    hangi kutu" sorusunu cevaplamıyor. Oysa dünya üreticisi barkodu QR
+    etiketinin TAM ALTINA, aynı x/y'ye koyuyor (gen_world.inventory:
+    pc_z = qr_z - lh/2 - LABEL_GAP - ph/2). QR'ın karedeki köşelerinden piksel
+    ölçeği bilindiği için barkodun NEREDE OLMASI GEREKTİĞİ hesaplanabilir;
+    gerçekte çözülen barkod bu tahmine en yakın QR'a bağlanır.
+
+    ÜÇ CAPTION DÜZELTMESİ: QR kodu kendi etiketinin merkezinin `qr_rise`
+    kadar üstünde, barkod çubukları kendi etiketinin merkezinin `bar_rise`
+    kadar üstünde. İkisi de ihmal edilirse tahmin 13-15 mm kayar. (Aynı
+    tuzak floor tag'de ve envanter konum kestiriminde de çıkmıştı.)
+
+    ROI DENENDİ VE BIRAKILDI: barkodu yalnız bu tahmini bölgede aramak
+    (tam kare yerine) mantıklı görünüyordu ama ölçüm iki gerekçeyi de çürüttü.
+    (1) Hız: tam karede Code128 aramak +0.4 ms -- eski nottaki "~750 ms"
+    bayat. (2) İsabet: dar kırpma barkodun sessiz alanını yok ediyor (etikette
+    yanlarda yalnız 20 mm var, bkz. gen_labels.make_bay_placard yorumu) ve
+    ROI 80 karede 15 yük bulurken tam kare 25 buluyor. Geometri bu yüzden
+    ARAMAYA değil BAĞLAMAYA hizmet ediyor.
+
+    VARSAYIM: etiketler dik, araç seviye uçuyor -> karede "aşağı" ~ +y.
+    """
+
+    def __init__(self, cfg: dict, qr_side_m: float, qr_rise_m: float,
+                 tol_m: float = 0.12):
+        codes = cfg["codes"]
+        lh = codes["box_label"]["label"][1]
+        ph = codes["box_placard"]["label"][1]
+        _, _, bar_rise = gl.placard_geometry(codes["box_placard"],
+                                             codes["texture_px_per_m"],
+                                             codes["max_texture_px"])
+        self.drop_m = qr_rise_m + lh / 2.0 + LABEL_GAP + ph / 2.0 - bar_rise
+        self.qr_side_m = qr_side_m
+        # Eşleşme toleransı metre cinsinden: kutular ~0.4 m aralıklı, 0.12 m
+        # komşu kutunun barkodunu yanlışlıkla bağlamayacak kadar dar.
+        self.tol_m = tol_m
+
+    def predict(self, qr_poly: list):
+        """QR'dan barkodun beklenen merkezi. `(x, y, px_per_m)` ya da None."""
+        p = np.asarray(qr_poly, dtype=np.float64)
+        n = len(p)
+        side_px = float(np.mean([np.linalg.norm(p[i] - p[(i + 1) % n])
+                                 for i in range(n)]))
+        if side_px < 12:                   # çok uzak: ölçek güvenilmez
+            return None
+        ppm = side_px / self.qr_side_m
+        return p[:, 0].mean(), p[:, 1].mean() + self.drop_m * ppm, ppm
+
+    def link(self, qrs: list, bar_poly: list) -> str | None:
+        """Barkodun merkezine en yakın tahmini üreten QR yükü."""
+        b = np.asarray(bar_poly, dtype=np.float64)
+        bx, by = b[:, 0].mean(), b[:, 1].mean()
+        best, best_d = None, 1e18
+        for payload, poly in qrs:
+            pred = self.predict(poly)
+            if pred is None:
+                continue
+            px, py, ppm = pred
+            d = math.hypot(bx - px, by - py) / ppm      # metre cinsinden
+            if d < best_d:
+                best, best_d = payload, d
+        return best if best_d <= self.tol_m else None
+
+
 def safe_name(payload: str) -> str:
     return re.sub(r"[^A-Za-z0-9._-]+", "_", payload).strip("_")[:80]
 
@@ -205,14 +280,20 @@ class Scanner:
                  with_barcode: bool, improve_margin: float = 1.05,
                  verbose: bool = False, camera: str = "front",
                  nominal_hz: float = 20.0, miss_every: float = 3.0,
-                 miss_max: int = 40):
+                 miss_max: int = 40, linker: "BarcodeLinker | None" = None):
         from pyzbar import pyzbar
         from pyzbar.pyzbar import ZBarSymbol
 
         self._pyzbar = pyzbar
         self.symbols = [ZBarSymbol.QRCODE]
+        # ÖLÇÜM: Code128'i tam kareye eklemek +0.4 ms (24.4 -> 24.8 ms/kare).
+        # Modül başlığındaki eski "~750 ms" notu bu ortamda geçerli değil.
         if with_barcode:
             self.symbols.append(ZBarSymbol.CODE128)
+        self.linker = linker if with_barcode else None
+        self.barcode_of: dict[str, tuple[str, int]] = {}   # qr -> (barkod, kalite)
+        self.bar_seen = 0
+        self.bar_linked = 0
 
         self.out = out
         self.frames_dir = out / "frames"
@@ -294,22 +375,11 @@ class Scanner:
                 self.est_drops += max(0, int(gap / self.nominal_dt - 1.5))
         self.last_t = t
 
-        qrs, barcodes = [], []
+        qrs, bars = [], []
         for r in results:
             payload = r.data.decode("utf-8", "replace")
-            if r.type == "QRCODE":
-                qrs.append((payload, r))
-            else:
-                # Barkod yükü benzersiz DEĞİL (aynı gözdeki bütün kutular aynı
-                # konum kodunu taşıyor), o yüzden asla dedup anahtarı olamaz --
-                # sadece karede ne görüldüğünün notu olarak taşınıyor.
-                barcodes.append(payload)
-                # Ham okuma akışına yine de giriyor: barkodun benzersiz
-                # olmaması KONUM kestirimini engellemiyor (köşeler karede
-                # nerede olduğunu söylüyor), sadece kimlik anahtarı olamıyor.
-                bpoly = result_polygon(r)
-                self._log_reading(payload, r.type, bpoly, polygon_area(bpoly),
-                                  t, wall_ms)
+            (qrs if r.type == "QRCODE" else bars).append((payload, r))
+        barcodes = self._handle_barcodes(qrs, bars, t, wall_ms)
 
         miss_image = self._maybe_save_miss(rgb, t, wall_ms, results)
         self._frames_csv.write(
@@ -358,15 +428,44 @@ class Scanner:
             self._write()
         return fresh
 
+    # -------------------------------------------------------------- barkod
+    def _handle_barcodes(self, qrs: list, bars: list, t: float,
+                         wall_ms: int) -> list[str]:
+        """Karedeki barkodları kutulara bağlar, ham okuma olarak yazar.
+
+        AYNI BARKODUN TEKRAR OKUNMASINI FİLTRELE: bir kutunun barkodu bir kez
+        çözülünce, sonraki okumalar ancak DAHA İYİ kalitede ise kaydı günceller
+        (`barcode_of`). Ham okuma akışı yine hepsini tutuyor -- benzersizleştirme
+        rapor katmanının işi, çözüm katmanının değil.
+        """
+        seen_payloads = []
+        qr_polys = [(p, result_polygon(r)) for p, r in qrs]
+        for payload, r in bars:
+            self.bar_seen += 1
+            poly = result_polygon(r)
+            quality = int(getattr(r, "quality", 0) or 0)
+            linked = self.linker.link(qr_polys, poly) if self.linker else None
+            if linked:
+                self.bar_linked += 1
+                best = self.barcode_of.get(linked)
+                if best is None or quality > best[1]:
+                    self.barcode_of[linked] = (payload, quality)
+            self._log_reading(payload, "CODE128", poly, polygon_area(poly),
+                              t, wall_ms, quality=quality, linked_qr=linked)
+            seen_payloads.append(payload)
+        return seen_payloads
+
     # -------------------------------------------------------------- teşhis
     def _log_reading(self, payload: str, symbology: str, poly: list,
-                     area: float, t: float, wall_ms: int) -> None:
+                     area: float, t: float, wall_ms: int,
+                     quality: int | None = None,
+                     linked_qr: str | None = None) -> None:
         """Bir okumayı readings.jsonl'a yazar. HER okuma yazılır -- aynı kutu
         aynı geçişte on kez okunduysa on satır olur. Envanter konumu bu
         satırların tamamından kestirilecek (tek okumanın konum hatası çok
         daha büyük); benzersizleştirme rapor katmanında yapılıyor."""
         self.n_readings += 1
-        self._readings.write(json.dumps({
+        rec = {
             "wall_ms": wall_ms,
             "t": round(t, 3),
             "camera": self.camera,
@@ -374,7 +473,14 @@ class Scanner:
             "payload": payload,
             "area_px": round(area, 1),
             "polygon": [[round(x, 1), round(y, 1)] for x, y in poly],
-        }, ensure_ascii=False) + "\n")
+        }
+        if quality is not None:
+            rec["quality"] = quality
+        if linked_qr is not None:
+            # Barkod yükü benzersiz değil (aynı gözdeki üç kutu aynı konum
+            # kodunu taşıyor); hangi kutuya ait olduğu ancak QR ile bilinir.
+            rec["linked_qr"] = linked_qr
+        self._readings.write(json.dumps(rec, ensure_ascii=False) + "\n")
 
     def _maybe_save_miss(self, rgb, t: float, wall_ms: int, results) -> str:
         """Hiçbir kod çözülemeyen kareden örnek saklar (hız sınırlı).
@@ -471,6 +577,10 @@ class Scanner:
                  if self.writer.dropped else ""))
         print(f"ham okuma         : {self.n_readings}")
         print(f"taranan kutu      : {len(self.records)}")
+        if self.linker is not None:
+            pct = 100 * self.bar_linked / self.bar_seen if self.bar_seen else 0
+            print(f"barkod            : {len(self.barcode_of)} kutuya bağlandı "
+                  f"({self.bar_seen} okuma, %{pct:.0f}'i bir QR'a bağlandı)")
         if self.misses_saved:
             print(f"boş kare örneği   : {self.misses_saved} -> {self.miss_dir}")
         if self.truth:
@@ -606,7 +716,7 @@ def main() -> int:
     ap.add_argument("--ground-truth", type=Path,
                     default=PROJECT_ROOT / "out" / "ground_truth.json")
     ap.add_argument("--with-barcode", action="store_true",
-                    help="Code128'i de çöz (çözme süresini ~3x artırır)")
+                    help="Code128'i de çöz ve kutulara bağla (+0.4 ms/kare)")
     ap.add_argument("--relock", type=float, default=3.0,
                     help="bir kutu bu kadar saniye görünmezse geçiş bitti sayılır; "
                          "sonraki görüşler yeniden kaydedilmez")
@@ -627,6 +737,9 @@ def main() -> int:
                     help="boş kare örneği saklama aralığı (s), 0 = kapalı")
     ap.add_argument("--miss-max", type=int, default=40,
                     help="en fazla kaç boş kare örneği saklansın")
+    ap.add_argument("--config", type=Path,
+                    default=PROJECT_ROOT / "config" / "warehouse.yaml",
+                    help="barkod ROI geometrisi buradan türetilir")
     args = ap.parse_args()
 
     truth = {}
@@ -644,10 +757,22 @@ def main() -> int:
     parts = args.topic.strip("/").split("/")
     camera = args.camera or (parts[-2].replace("camera_", "")
                              if len(parts) >= 2 else parts[-1])
+    linker = None
+    if args.with_barcode:
+        import yaml
+        cfg = yaml.safe_load(args.config.read_text())
+        codes = cfg["codes"]
+        side, rise = gl.box_label_geometry(codes["box_label"],
+                                           codes["texture_px_per_m"],
+                                           codes["max_texture_px"])
+        linker = BarcodeLinker(cfg, side, rise)
+        print(f"barkod açık: kutuya bağlama, QR'ın {linker.drop_m*1000:.0f} mm "
+              f"altındaki beklenen konumdan")
+
     scanner = Scanner(args.out, truth, args.relock, args.with_barcode,
                       camera=camera, nominal_hz=args.nominal_hz,
                       miss_every=args.miss_every if args.miss_every > 0 else 1e9,
-                      miss_max=args.miss_max)
+                      miss_max=args.miss_max, linker=linker)
 
     try:
         rc = run_replay(args, scanner) if args.replay else run_ros(args, scanner)

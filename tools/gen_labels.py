@@ -289,6 +289,68 @@ def make_bay_placard(payload: str, caption: str, spec: dict,
     return img, module_m
 
 
+# zbar'ın çözülmüş bir QR için döndürdüğü poligonun, dokuya çizilen GERÇEK
+# modül sınırına oranı. 20 kutu etiketi üzerinde ölçüldü, hepsinde birebir
+# 0.9880 (rasterleme deterministik). Konum kestirimi bu poligona dayandığı
+# için etkin kenar hesabına giriyor; ihmal edilirse mesafe %1.2 hatalı çıkar.
+ZBAR_QR_CORNER_RATIO = 0.9880
+
+
+def box_label_geometry(spec: dict, px_per_m_tex: float,
+                       max_px: int) -> tuple[float, float]:
+    """Kutu QR'ının `(etkin_kenar_m, merkez_yükseklik_ofseti_m)`.
+
+    Kenar: config'teki `code` değeri DEĞİL. Modül boyutu dokuya çizilirken tam
+    sayı piksele yuvarlanıyor (örn. 9.6 -> 10 px), o yüzden gerçek kenar daha
+    büyük; üstüne zbar'ın poligon oranı uygulanıyor.
+    Ofset: QR etiketin ortasında değil, altındaki caption şeridinin üstünde
+    kalan alana ortalanıyor -- yani QR merkezi ETİKET merkezinin biraz
+    ÜSTÜNDE. Ground truth etiket merkezini verdiği için bu düzeltilmezse
+    konum kestiriminde sabit bir +z sapması kalır.
+
+    make_box_label ile aynı hesap. floor_marker_geometry'nin floor tag için
+    yaptığının kutu QR'ı karşılığı: geometriyi iki yerde ayrı tutmak sessiz
+    bir ölçek/konum hatası kaynağı olur.
+    """
+    w_m, h_m = spec["label"]
+    _, scale = _canvas(spec["label"], px_per_m_tex, max_px)
+    n = qr_module_count(spec["qr_version"])
+    module_px = max(1, int(round(spec["code"] * scale / n)))
+    qr_px = module_px * n
+
+    h_px = max(8, int(round(h_m * scale)))
+    caption_px = int(round(spec.get("caption_height", 0.0) * scale))
+    qr_area_h = h_px - caption_px
+    top = (qr_area_h - qr_px) // 2
+    # Dokuda y aşağı büyür, dünyada +Z yukarı: işaret ters.
+    rise = ((h_px / 2.0) - (top + qr_px / 2.0)) / scale
+    return (qr_px / scale) * ZBAR_QR_CORNER_RATIO, rise
+
+
+def placard_geometry(spec: dict, px_per_m_tex: float,
+                     max_px: int) -> tuple[float, float, float]:
+    """Barkod ÇUBUKLARININ `(genişlik_m, yükseklik_m, merkez_ofseti_m)`.
+
+    Çubuklar etiketin ortasında değil: altta caption şeridi var, çubuklar
+    onun üstünde kalan alana ortalanıyor -- yani çubukların merkezi ETİKET
+    merkezinin ÜSTÜNDE (make_bay_placard ile aynı hesap). Ölçüldü: bu 13 mm
+    ihmal edilince barkod ROI'si etiketin altına kayıyor.
+
+    Genişlik de `bar_width` değil: modül boyutu tam sayı piksele yuvarlanıyor
+    (box_label_geometry'deki aynı yuvarlama).
+    """
+    _, scale = _canvas(spec["label"], px_per_m_tex, max_px)
+    h_px = max(8, int(round(spec["label"][1] * scale)))
+    n = len(code128_modules("A0101"))          # yük uzunluğu sabit (sıra+göz+seviye)
+    module_px = max(1, int(round(spec["bar_width"] * scale / n)))
+    bars_px = module_px * n
+    bar_h = int(round(spec["bar_height"] * scale))
+    caption_px = int(round(spec.get("caption_height", 0.0) * scale))
+    y0 = max(0, (h_px - caption_px - bar_h) // 2)
+    rise = ((h_px / 2.0) - (y0 + bar_h / 2.0)) / scale
+    return bars_px / scale, bar_h / scale, rise
+
+
 def floor_marker_geometry(spec: dict, px_per_m_tex: float,
                           max_px: int) -> tuple[float, float, float]:
     """Zemin markörünün etiket içindeki GERÇEK yerleşimi.

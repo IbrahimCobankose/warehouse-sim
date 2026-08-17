@@ -121,6 +121,13 @@ ASSET_STUB_SDF = """<?xml version="1.0" ?>
 # olur, çok büyük olursa etiket havada durur.
 LABEL_STANDOFF = 0.004
 
+# QR ile barkod arasındaki dikey boşluk. İkisi tek dikey blok olarak kutunun
+# ön yüzü içine ortalanıyor (bkz. inventory() içindeki `margin` hesabı) -- en
+# küçük kutuda (S, dz=0.30) bile taşmasın diye.
+# MODÜL DÜZEYİNDE: scan_boxes barkodu QR'a göre konumlandırırken bu değere
+# ihtiyaç duyuyor; iki yerde ayrı tutmak sessiz bir ROI kayması üretirdi.
+LABEL_GAP = 0.010
+
 
 # --------------------------------------------------------------------------
 # SDF yardımcıları
@@ -295,10 +302,7 @@ def inventory(cfg, rng, textures, manifest) -> str:
     lw, lh = spec["label"]
     pc_spec = codes["box_placard"]
     pw, ph = pc_spec["label"]
-    #: QR ile barkod arasındaki dikey boşluk. İkisi tek dikey blok olarak,
-    #: kutunun ön yüzü içine dinamik olarak ortalanıyor (bkz. aşağıdaki
-    #: `margin` hesabı) -- en küçük kutuda (S, dz=0.30) bile taşmasın diye.
-    label_gap = 0.010
+    label_gap = LABEL_GAP
 
     out = ['  <model name="inventory">\n    <static>true</static>\n']
     n_box = 0
