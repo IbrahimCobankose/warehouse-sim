@@ -31,8 +31,19 @@ def to_array(msg) -> np.ndarray:
 
 def to_gray(rgb: np.ndarray) -> np.ndarray:
     """HxWx3 RGB -> HxW uint8. zbar zaten griye çeviriyor; burada bir kez
-    yapıp vermek 1080p'de birkaç ms kazandırıyor."""
+    yapıp vermek 1080p'de birkaç ms kazandırıyor.
+
+    ÖLÇÜM (1080p): numpy'da float aritmetiği 20.1 ms, cv2.cvtColor 0.3 ms.
+    Aradaki 20 ms scan_boxes'ın kare bütçesinin dörtte biriydi ve `decode_ms`
+    sayacına girmediği için teşhiste uzun süre görünmedi. Katsayılar aynı
+    (ITU-R BT.601), sonuç yuvarlama farkı dışında birebir.
+    """
     if rgb.ndim == 2:
         return rgb
-    return (rgb[:, :, 0] * 0.299 + rgb[:, :, 1] * 0.587
-            + rgb[:, :, 2] * 0.114).astype(np.uint8)
+    try:
+        import cv2
+        return cv2.cvtColor(rgb, cv2.COLOR_RGB2GRAY)
+    except ImportError:
+        # cv2 yoksa (ör. minimal ortam) doğru ama yavaş yola düş.
+        return (rgb[:, :, 0] * 0.299 + rgb[:, :, 1] * 0.587
+                + rgb[:, :, 2] * 0.114).astype(np.uint8)
