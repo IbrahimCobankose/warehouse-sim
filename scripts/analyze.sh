@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Uçuş sonrası dört adım, doğru sırayla (envanter -> doğrulama -> kapsama -> 3B).
+# 3/3 -- ÇÖZÜMLER: uçuş sonrası dört adım, doğru sırayla (envanter -> doğrulama -> kapsama -> 3B).
 #
 #   ./scripts/analyze.sh                # varsayılan out/scans
 #   ./scripts/analyze.sh --run run2     # start.sh --run run2 ile alınan koşu
