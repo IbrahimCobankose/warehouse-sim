@@ -7,6 +7,17 @@ Uçuş sırasında ön kameranın gördüğünü ve kodun o kare üzerinde yapt�
     dedektörünün aynısı) -> yeşil çerçeve + tag id.
   * KUTU QR tespiti (pyzbar, scan_boxes.py'daki tarayıcının aynısı) -> sarı
     poligon + yük metni.
+  * KUTU BARKODU (Code128, scan_boxes --with-barcode ile aynı sembol) ->
+    macenta çerçeve + yük metni. Kapatmak: --no-barcode.
+
+BARKOD ÇERÇEVESİ ÖLÇÜLDÜ, ÇİZİLMEDİ: zbar linear semboller için KUTU
+DÖNDÜRMÜYOR -- rect'in genişliği 0, poligon yalnız çubukların BAŞ KENARI
+(iki nokta). Çizilecek bir kutu yok, üretmek gerekiyor. Üretim scan_boxes'ın
+zaten doğrulanmış geometrisiyle yapılıyor (BarcodeLinker: barkod QR'ın tam
+altında, gen_labels.placard_geometry çubuk ölçüsünü verir) -- yani çerçeve
+"bağlandığı QR'a göre çubukların olması gereken yer". Bağlanamayan barkod
+için uydurma kutu çizilmiyor: zbar'ın gerçekten gördüğü baş kenarı çizilip
+yük "?" ile işaretleniyor.
 
     source /opt/ros/jazzy/setup.bash
     .venv/bin/python scripts/view_front.py --no-bridge
@@ -34,7 +45,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from ros_image import to_array, to_gray                       # noqa: E402
 
 FRONT_TOPIC = "/warehouse_scout/camera_front/image"
-WIN = "on kamera (canli) -- yesil: raf AprilTag  sari: kutu QR"
+WIN = ("on kamera (canli) -- yesil: raf AprilTag  sari: kutu QR  "
+       "macenta: kutu barkodu")
 
 
 FONT = cv2.FONT_HERSHEY_SIMPLEX
@@ -79,6 +91,20 @@ def draw_tags(bgr, corners, ids, fs, thick, min_px) -> tuple[int, int]:
     return near, far
 
 
+def zbar_poly(r) -> np.ndarray:
+    """zbar sonucunun köşeleri; poligon hiç yoksa rect'e düş.
+
+    DİKKAT: eşik 2, 3 değil. Code128'de poligon çoğu zaman İKİ nokta (baş
+    kenar) ve bu iki nokta gerçek bilgidir -- dikdörtgene çevrilirse hem
+    sıfır genişlikli bir kutu çıkar hem de BarcodeLinker okumayı "tam
+    poligon" sanıp dejenere okumaya tanıdığı serbestliği uygulamaz."""
+    if r.polygon and len(r.polygon) >= 2:
+        return np.array([[p.x, p.y] for p in r.polygon], dtype=np.int32)
+    x, y, w, h = r.rect.left, r.rect.top, r.rect.width, r.rect.height
+    return np.array([[x, y], [x + w, y], [x + w, y + h], [x, y + h]],
+                    dtype=np.int32)
+
+
 def draw_qrs(bgr, results, fs, thick) -> int:
     """pyzbar QR sonuçlarını çiz (scan_boxes'ın gördüğü aynı tespit)."""
     n = 0
@@ -86,18 +112,77 @@ def draw_qrs(bgr, results, fs, thick) -> int:
         if r.type != "QRCODE":
             continue
         n += 1
-        if r.polygon:
-            pts = np.array([[p.x, p.y] for p in r.polygon], dtype=np.int32)
-        else:
-            x, y, w, h = r.rect.left, r.rect.top, r.rect.width, r.rect.height
-            pts = np.array([[x, y], [x + w, y], [x + w, y + h], [x, y + h]],
-                           dtype=np.int32)
+        pts = zbar_poly(r)
         cv2.polylines(bgr, [pts], True, (0, 220, 255), thick, cv2.LINE_AA)
         payload = r.data.decode("utf-8", "replace")
         top = pts[pts[:, 1].argmin()]
         label(bgr, payload, (int(top[0]), int(top[1]) - 6),
               (0, 220, 255), fs, thick)
     return n
+
+
+def draw_barcodes(bgr, results, qrs, linker, bar_wh, fs, thick) -> tuple[int, int]:
+    """Code128 sonuçlarını çiz. `(bağlı, bağsız)` döndürür.
+
+    Yük ETİKETİN ALTINA yazılıyor: barkod QR'ın hemen altındaki şeritte
+    duruyor, üste yazılsa QR'ın kendi etiketiyle çakışırdı. Renk QR'dan (sarı)
+    ve tag'den (yeşil) ayrı olsun diye macenta -- hangi sembolün çözüldüğü tek
+    bakışta belli olmalı.
+    """
+    linked = loose = 0
+    bar_w, bar_h = bar_wh
+    for r in results:
+        if r.type != "CODE128":
+            continue
+        pts = zbar_poly(r)
+        payload = r.data.decode("utf-8", "replace")
+        pred = None
+        if linker is not None:
+            qr_payload = linker.link(qrs, pts.tolist())
+            if qr_payload is not None:
+                pred = linker.predict(dict(qrs)[qr_payload])
+        if pred is not None:                    # QR'a bağlandı -> gerçek çerçeve
+            linked += 1
+            cx, cy, ppm = pred
+            hw, hh = bar_w * ppm / 2.0, bar_h * ppm / 2.0
+            p0 = (int(cx - hw), int(cy - hh))
+            p1 = (int(cx + hw), int(cy + hh))
+            cv2.rectangle(bgr, p0, p1, (255, 0, 255), thick, cv2.LINE_AA)
+            label(bgr, payload, (p0[0], p1[1] + int(fs * 26)),
+                  (255, 0, 255), fs, thick)
+        else:                                   # bağlanamadı -> yalnız ham okuma
+            loose += 1
+            cv2.polylines(bgr, [pts], False, (255, 0, 255),
+                          max(1, thick // 2), cv2.LINE_AA)
+            bot = pts[pts[:, 1].argmax()]
+            label(bgr, f"{payload} ?", (int(pts[:, 0].min()),
+                                        int(bot[1]) + int(fs * 26)),
+                  (255, 0, 255), fs, thick)
+    return linked, loose
+
+
+def make_linker(config_path: Path):
+    """`(BarcodeLinker, (çubuk_genişliği_m, çubuk_yüksekliği_m))` ya da
+    `(None, ...)`. Geometri scan_boxes/gen_labels'tan ALINIYOR, burada
+    yeniden türetilmiyor: bu projede etiket geometrisini iki yerde ayrı
+    tutmak üç ayrı sessiz kayma hatasına yol açtı."""
+    try:
+        import yaml
+        import gen_labels as gl
+        from scan_boxes import BarcodeLinker
+        cfg = yaml.safe_load(config_path.read_text())
+        codes = cfg["codes"]
+        side, rise = gl.box_label_geometry(codes["box_label"],
+                                           codes["texture_px_per_m"],
+                                           codes["max_texture_px"])
+        bar_w, bar_h, _ = gl.placard_geometry(codes["box_placard"],
+                                              codes["texture_px_per_m"],
+                                              codes["max_texture_px"])
+        return BarcodeLinker(cfg, side, rise), (bar_w, bar_h)
+    except Exception as e:                                 # noqa: BLE001
+        print(f"barkod geometrisi yüklenemedi, çerçeve yerine ham okuma "
+              f"çizilecek: {e}", file=sys.stderr)
+        return None, (0.0, 0.0)
 
 
 def main() -> int:
@@ -108,6 +193,12 @@ def main() -> int:
                     help="ros_gz_image köprüsü açma (apriltag/scan_boxes açtıysa)")
     ap.add_argument("--no-tags", action="store_true", help="raf AprilTag overlay kapat")
     ap.add_argument("--no-qr", action="store_true", help="kutu QR overlay kapat")
+    ap.add_argument("--no-barcode", action="store_true",
+                    help="kutu barkodu (Code128) overlay kapat. Açık olması "
+                         "ÖLÇÜLDÜ: tam karede Code128 aramak +0.4 ms/kare.")
+    ap.add_argument("--config", type=Path,
+                    default=PROJECT_ROOT / "config" / "warehouse.yaml",
+                    help="barkod çerçevesinin geometrisi buradan okunur")
     ap.add_argument("--scale", type=float, default=0.5,
                     help="başlangıç pencere ölçeği (pencere ayrıca fareyle "
                          "yeniden boyutlandırılabilir)")
@@ -121,14 +212,28 @@ def main() -> int:
         cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_APRILTAG_36h11),
         cv2.aruco.DetectorParameters())
 
-    pyzbar = zbar_qr = None
-    if not args.no_qr:
+    pyzbar, zbar_syms = None, []
+    if not (args.no_qr and args.no_barcode):
         try:
             from pyzbar import pyzbar as _pyzbar
             from pyzbar.pyzbar import ZBarSymbol
-            pyzbar, zbar_qr = _pyzbar, [ZBarSymbol.QRCODE]
+            pyzbar = _pyzbar
+            if not args.no_qr:
+                zbar_syms.append(ZBarSymbol.QRCODE)
+            if not args.no_barcode:
+                zbar_syms.append(ZBarSymbol.CODE128)
         except Exception as e:                             # noqa: BLE001
-            print(f"pyzbar yok, QR overlay kapalı: {e}", file=sys.stderr)
+            print(f"pyzbar yok, QR/barkod overlay kapalı: {e}", file=sys.stderr)
+
+    # Barkod çerçevesi QR'a bağlanarak çiziliyor -> QR overlay kapalıysa
+    # bağlama da yapılamaz (tespit yine görünür, "?" ile).
+    linker, bar_wh = (None, (0.0, 0.0))
+    if pyzbar is not None and not args.no_barcode:
+        if args.no_qr:
+            print("--no-qr ile barkod QR'a bağlanamaz: ham okuma çizilecek.",
+                  file=sys.stderr)
+        else:
+            linker, bar_wh = make_linker(args.config)
 
     import rclpy
     from rclpy.node import Node
@@ -181,7 +286,7 @@ def main() -> int:
                 corners, ids, _ = det.detectMarkers(gray)
                 tags = (corners, ids)
             if pyzbar is not None:
-                qr = pyzbar.decode(gray, symbols=zbar_qr)
+                qr = pyzbar.decode(gray, symbols=zbar_syms)
             with lock:
                 shared["tags"], shared["qr"] = tags, qr
                 shared["det_n"] += 1
@@ -219,13 +324,25 @@ def main() -> int:
                 nt = nfar = 0
                 if det is not None:
                     nt, nfar = draw_tags(bgr, *tags, fs, thick, min_px)
-                nq = draw_qrs(bgr, qr, fs, thick) if pyzbar is not None else 0
+                nq = nb = nloose = 0
+                if pyzbar is not None:
+                    if not args.no_qr:
+                        nq = draw_qrs(bgr, qr, fs, thick)
+                    if not args.no_barcode:
+                        qrs = [(r.data.decode("utf-8", "replace"),
+                                zbar_poly(r).tolist())
+                               for r in qr if r.type == "QRCODE"]
+                        nb, nloose = draw_barcodes(bgr, qr, qrs, linker,
+                                                   bar_wh, fs, thick)
                 now = time.time()
                 disp["fps"] = 0.9 * disp["fps"] + 0.1 / max(now - disp["t"], 1e-3)
                 disp["t"] = now
                 far_txt = f" (+{nfar} uzak)" if nfar else ""
-                hud = (f"kare {cap_n}  raf tag: {nt}{far_txt}  kutu QR: {nq}  "
-                       f"{disp['fps']:4.1f} FPS  (tespit {det_n})")
+                bc_txt = ("" if args.no_barcode else
+                          f"  barkod: {nb}" +
+                          (f" (+{nloose} bagsiz)" if nloose else ""))
+                hud = (f"kare {cap_n}  raf tag: {nt}{far_txt}  kutu QR: {nq}"
+                       f"{bc_txt}  {disp['fps']:4.1f} FPS  (tespit {det_n})")
                 bar_h = int(fs * 34) + 12
                 cv2.rectangle(bgr, (0, 0), (bgr.shape[1], bar_h), (0, 0, 0), -1)
                 cv2.putText(bgr, hud, (10, bar_h - 12), FONT, fs,
