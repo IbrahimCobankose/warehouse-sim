@@ -195,6 +195,17 @@ class BarcodeLinker:
     ROI 80 karede 15 yük bulurken tam kare 25 buluyor. Geometri bu yüzden
     ARAMAYA değil BAĞLAMAYA hizmet ediyor.
 
+    DEJENERE POLİGON (ÖLÇÜLDÜ): zbar linear sembol için kutu döndürmüyor --
+    okumaların ~1/4'ünde poligon İKİ NOKTA (çubukların yalnız baş kenarı),
+    rect genişliği 0. Böyle bir okumanın "merkezi" gerçek merkezin yarım
+    çubuk genişliği kadar yanında kalıyor: 120 karede ölçülen sapma dx
+    medyan +0.135 m, çubuk yarısı 0.148 m ile birebir. Tolerans 0.12 m
+    olduğu için bu okumalar DOĞRU QR ile bile HER ZAMAN reddediliyordu.
+    Çözüm konumu uydurmak DEĞİL (yön bilinmiyor: baş kenar soldaysa +x,
+    sağdaysa -x): eşleşme testi okumanın taşıdığı bilgiye indirgeniyor --
+    çubuk ekseni boyunca serbestlik, dikeyde tam tolerans. Tam poligonlu
+    okumalarda eski dairesel test aynen kalıyor (orada sapma zaten -2.5 mm).
+
     VARSAYIM: etiketler dik, araç seviye uçuyor -> karede "aşağı" ~ +y.
     """
 
@@ -203,9 +214,9 @@ class BarcodeLinker:
         codes = cfg["codes"]
         lh = codes["box_label"]["label"][1]
         ph = codes["box_placard"]["label"][1]
-        _, _, bar_rise = gl.placard_geometry(codes["box_placard"],
-                                             codes["texture_px_per_m"],
-                                             codes["max_texture_px"])
+        self.bar_w, _, bar_rise = gl.placard_geometry(
+            codes["box_placard"], codes["texture_px_per_m"],
+            codes["max_texture_px"])
         self.drop_m = qr_rise_m + lh / 2.0 + LABEL_GAP + ph / 2.0 - bar_rise
         self.qr_side_m = qr_side_m
         # Eşleşme toleransı metre cinsinden: kutular ~0.4 m aralıklı, 0.12 m
@@ -224,16 +235,25 @@ class BarcodeLinker:
         return p[:, 0].mean(), p[:, 1].mean() + self.drop_m * ppm, ppm
 
     def link(self, qrs: list, bar_poly: list) -> str | None:
-        """Barkodun merkezine en yakın tahmini üreten QR yükü."""
+        """Barkodun okunan yerine en iyi uyan QR yükü.
+
+        Poligon tamsa merkez-merkez mesafesi; dejenere (<=2 nokta) okumada
+        yalnız baş kenar bilindiği için çubuk ekseni boyunca yarım çubuk
+        kadar serbestlik tanınıyor (bkz. sınıf docstring'i).
+        """
         b = np.asarray(bar_poly, dtype=np.float64)
         bx, by = b[:, 0].mean(), b[:, 1].mean()
+        edge_only = len(b) <= 2
+        slack_x = self.bar_w / 2.0 if edge_only else 0.0
         best, best_d = None, 1e18
         for payload, poly in qrs:
             pred = self.predict(poly)
             if pred is None:
                 continue
             px, py, ppm = pred
-            d = math.hypot(bx - px, by - py) / ppm      # metre cinsinden
+            dx = abs(bx - px) / ppm                     # metre cinsinden
+            dy = abs(by - py) / ppm
+            d = math.hypot(max(dx - slack_x, 0.0), dy)
             if d < best_d:
                 best, best_d = payload, d
         return best if best_d <= self.tol_m else None
