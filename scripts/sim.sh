@@ -6,9 +6,10 @@
 #   ./scripts/sim.sh --view          # canlı ön kamera sekmesini de aç
 #   ./scripts/sim.sh --run run4      # tarama çıktısı out/scans_run4 (KPI tekrarı)
 #   ./scripts/sim.sh --no-barcode    # barkod hattını kapat
+#   ./scripts/sim.sh --attach        # SİM ZATEN AÇIK: ona bağlan, yeniden başlatma
 #
 # Sekmeler kendi ön koşullarını BEKLER: lokalizasyon sim ayağa kalkmadan,
-# tarama da EV beslemesi akmadan başlamaz. Sekmeler açık kalır; hata olursa
+# tarama da kamera köprüsü açılmadan başlamaz. Sekmeler açık kalır; hata olursa
 # ilgili sekmede durur, kaybolmaz.
 
 set -uo pipefail
@@ -17,7 +18,6 @@ PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$PROJECT_DIR"
 PY="$PROJECT_DIR/.venv/bin/python"
 ROS_SETUP="/opt/ros/jazzy/setup.bash"
-EV_CSV="$PROJECT_DIR/out/logs/ev_feed.csv"
 # ROS'un gz_tools_vendor'ı sistem gz'sini gölgeliyor; shim PATH'in başına.
 export PATH="$PROJECT_DIR/scripts/bin:$PATH"
 
@@ -31,20 +31,21 @@ case "${_STAGE:-}" in
         # shellcheck disable=SC1090
         source "$ROS_SETUP"
         exec "$PY" scripts/apriltag_localize.py ;;
-  scan) wait_for_ev || { echo "Enter ile kapat"; read -r; exit 1; }
+  scan) wait_for_localize && wait_for_camera_topic || { echo "Enter ile kapat"; read -r; exit 1; }
         source "$ROS_SETUP"
         exec "$PY" scripts/scan_boxes.py --no-bridge ${SCAN_ARGS:-} ;;
-  view) wait_for_ev || { echo "Enter ile kapat"; read -r; exit 1; }
+  view) wait_for_localize && wait_for_camera_topic || { echo "Enter ile kapat"; read -r; exit 1; }
         source "$ROS_SETUP"
         exec "$PY" scripts/view_front.py --no-bridge ;;
 esac
 
 # --------------------------------------------------------------------- argümanlar
-RUN=""; WANT_VIEW=0; BARCODE="--with-barcode"
+RUN=""; WANT_VIEW=0; BARCODE="--with-barcode"; ATTACH=0
 while [ $# -gt 0 ]; do
     case "$1" in
         --view)       WANT_VIEW=1 ;;
         --no-barcode) BARCODE="" ;;
+        --attach)     ATTACH=1 ;;
         --run)        RUN="$2"; shift ;;
         -h|--help)    sed -n '2,15p' "$0"; exit 0 ;;
         *) echo "Bilinmeyen argüman: $1 (--help)" >&2; exit 2 ;;
@@ -68,7 +69,8 @@ PX4_DIR="${PX4_DIR:-$HOME/PX4-Autopilot}"
        ./scripts/setup_px4_integration.sh"
 
 # BAYAT gz sim SUNUCUSU: PX4 kapansa da ayakta kalıp sonraki PX4'ü bozuyor.
-if pgrep -f "gz[ ]sim|bin/px4" >/dev/null 2>&1; then
+# --attach ile bilerek çalışan sim'e bağlanılıyor, o zaman sorma.
+if [ "$ATTACH" = 0 ] && pgrep -f "gz[ ]sim|bin/px4" >/dev/null 2>&1; then
     echo "Çalışan sim süreçleri bulundu:"
     pgrep -af "gz[ ]sim|bin/px4" | sed 's/^/  /'
     read -r -p "Kapatılsın mı? [E/h] " a
@@ -87,15 +89,25 @@ stage_tab() {   # stage_tab <başlık> <_STAGE>
          echo; echo '[$1 bitti -- sekme açık kaldı]'; exec bash"
 }
 
-ARGS=( --window --title=sim -- bash -c \
-       "cd '$PROJECT_DIR' && _STAGE=sim ./scripts/sim.sh; echo; echo '[sim bitti]'; exec bash" )
-while IFS= read -r -d '' a; do ARGS+=( "$a" ); done < <(stage_tab lokalizasyon loc)
+if [ "$ATTACH" = 1 ]; then          # sim zaten açık -> yalnız lokalizasyon sekmesiyle başla
+    ARGS=( --window --title=lokalizasyon -- bash -c \
+           "cd '$PROJECT_DIR' && _STAGE=loc ./scripts/sim.sh; echo; echo '[lokalizasyon bitti]'; exec bash" )
+else
+    ARGS=( --window --title=sim -- bash -c \
+           "cd '$PROJECT_DIR' && _STAGE=sim ./scripts/sim.sh; echo; echo '[sim bitti]'; exec bash" )
+fi
+[ "$ATTACH" = 0 ] && \
+    while IFS= read -r -d '' a; do ARGS+=( "$a" ); done < <(stage_tab lokalizasyon loc)
 while IFS= read -r -d '' a; do ARGS+=( "$a" ); done < <(stage_tab tarama scan)
 if [ "$WANT_VIEW" = 1 ]; then
     while IFS= read -r -d '' a; do ARGS+=( "$a" ); done < <(stage_tab kamera view)
 fi
 
-echo "== sekmeler: sim | lokalizasyon | tarama${WANT_VIEW:+ | kamera} =="
+if [ "$ATTACH" = 1 ]; then
+    echo "== çalışan sim'e bağlanılıyor -- sekmeler: lokalizasyon | tarama${WANT_VIEW:+ | kamera} =="
+else
+    echo "== sekmeler: sim | lokalizasyon | tarama${WANT_VIEW:+ | kamera} =="
+fi
 echo "   tarama çıktısı: out/scans${RUN:+_$RUN}"
 gnome-terminal "${ARGS[@]}" || fail "gnome-terminal sekmeleri açılamadı."
 
@@ -104,6 +116,8 @@ cat <<NOTE
   >> 1. SEKME: "Number of good matches" ~15-20 olmalı. 2 civarındaysa zemin
      dokusu yüklenmemiştir -- UÇMA.
   >> 2. SEKME: "EV besleme kaydı" satırını görünce lokalizasyon ayakta.
+     Yerde "EV BOŞLUK ... tag YOK" uyarıları NORMAL: araç kalkmadan tag
+     görünmüyor, pozlar kalkıştan sonra akmaya başlar.
 
 Hazır olunca uçuş (AYRI terminal):
   ./scripts/fly.sh${RUN:+ --run $RUN}

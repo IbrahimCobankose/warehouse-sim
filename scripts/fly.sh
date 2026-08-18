@@ -13,7 +13,6 @@
 set -uo pipefail
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$PROJECT_DIR"
-EV_CSV="$PROJECT_DIR/out/logs/ev_feed.csv"
 export PATH="$PROJECT_DIR/scripts/bin:$PATH"
 # shellcheck source=scripts/lib_wait.sh
 source "$PROJECT_DIR/scripts/lib_wait.sh"
@@ -36,7 +35,7 @@ done
 # başlatmak sessiz bir başarısızlık olurdu.
 if [ "$CHECK" = 1 ]; then
     wait_for_sim 20 || { echo "Önce: ./scripts/sim.sh" >&2; exit 1; }
-    wait_for_ev 20  || { echo "Önce: ./scripts/sim.sh (lokalizasyon sekmesi)" >&2; exit 1; }
+    wait_for_localize 20 || { echo "Önce: ./scripts/sim.sh (lokalizasyon sekmesi)" >&2; exit 1; }
 fi
 
 echo
