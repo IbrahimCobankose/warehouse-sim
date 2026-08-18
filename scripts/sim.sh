@@ -24,18 +24,28 @@ export PATH="$PROJECT_DIR/scripts/bin:$PATH"
 # shellcheck source=scripts/lib_wait.sh
 source "$PROJECT_DIR/scripts/lib_wait.sh"
 
+# ROS ortamı. `set -u` ALTINDA SOURCE EDİLEMEZ: ROS'un setup.bash'i
+# AMENT_TRACE_SETUP_FILES gibi tanımsız değişkenleri okuyor ve betik
+# "bağlanmamış değişken" ile ölüyor (sekme açılır açılmaz kapanıyordu).
+# Elle çalışmasının sebebi interaktif kabukta set -u olmaması.
+ros_env() {
+    set +u
+    # shellcheck disable=SC1090
+    source "$ROS_SETUP"
+    set -u
+}
+
 # ----------------------------------------------------- sekme içi aşamalar (dahilî)
 case "${_STAGE:-}" in
   sim)  exec ./scripts/run_sim.sh ;;
   loc)  wait_for_sim || { echo "Enter ile kapat"; read -r; exit 1; }
-        # shellcheck disable=SC1090
-        source "$ROS_SETUP"
+        ros_env                           # set -u ile source EDİLEMEZ, bkz. ros_env
         exec "$PY" scripts/apriltag_localize.py ;;
   scan) wait_for_localize && wait_for_camera_topic || { echo "Enter ile kapat"; read -r; exit 1; }
-        source "$ROS_SETUP"
+        ros_env
         exec "$PY" scripts/scan_boxes.py --no-bridge ${SCAN_ARGS:-} ;;
   view) wait_for_localize && wait_for_camera_topic || { echo "Enter ile kapat"; read -r; exit 1; }
-        source "$ROS_SETUP"
+        ros_env
         exec "$PY" scripts/view_front.py --no-bridge ;;
 esac
 
@@ -113,8 +123,8 @@ gnome-terminal "${ARGS[@]}" || fail "gnome-terminal sekmeleri açılamadı."
 
 cat <<NOTE
 
-  >> 1. SEKME: "Number of good matches" ~15-20 olmalı. 2 civarındaysa zemin
-     dokusu yüklenmemiştir -- UÇMA.
+  >> 1. SEKME: "Number of good matches: 2" YERDEYKEN NORMALDİR (üç tam tur bu
+     değerle uçtu). Optik akış sayısı asıl uçuşta anlam taşır.
   >> 2. SEKME: "EV besleme kaydı" satırını görünce lokalizasyon ayakta.
      Yerde "EV BOŞLUK ... tag YOK" uyarıları NORMAL: araç kalkmadan tag
      görünmüyor, pozlar kalkıştan sonra akmaya başlar.
